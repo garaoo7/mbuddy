@@ -4,7 +4,7 @@ class Pop extends MX_Controller {
 
 	public function index()
 	{
-		echo "n";
+		echo "nasd";
 	}
 }
 
