@@ -48,11 +48,11 @@ class Login extends MX_Controller{
 			$password = md5($_POST['password']);
 			$password = md5($password.$salt);
 			if($this->userModel->userSignup($password, $salt)){
-				$this->load->view("homePage");
+				redirect("userModule/home/welcomePage");
 			}
 			else{
 				$this->signup();
-				echo "Invalid Username or Email";
+				echo "Existing Username or Email";
 			}
 
 		}
