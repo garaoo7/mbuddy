@@ -20,6 +20,7 @@ class Login extends MX_Controller{
 				'username' => $_POST["username"],
 				'isLoggedIn' => true
 				);
+			
 			$this->session->set_userdata($data);
 			redirect("userModule/home/welcomePage");
 		}
