@@ -2,71 +2,99 @@
 	
 class UserModel extends CI_Model{
 
-	public function userVerification($username, $password){
+	public function userExist($username){
+		$this->db->from('user');
+		if(strlen(strstr($username, "@")) > 0){
+			$this->db->where('Email', $username);
+		}
+		else{
+			$this->db->where('Username', $username);
+		}
+		$user = $this->db->get();
+		$user = $user->row();
+		return $user;		
+	}
 
-		$sql1 = "SELECT Salt FROM user WHERE Username = ? ";
-		$query1 = $this->db->query($sql1, array($username));
-		$salt = $query1->row();
 
-		if(isset($salt)){
 
-			$salt = $salt->Salt;
-			$password = md5($password.$salt);
-			$sql2 = "SELECT * FROM `user` WHERE Username = ? AND Password = ? ";
-			$query2 = $this->db->query($sql2, array($username, $password));
-			$row = $query2->row();
+	public function userLogin($username, $password){
+		$user = $this->userExist($username);
 
-			if(isset($row)){
-
+		if(isset($user)){
+			$salt = $user->Salt;
+			$password = $this->hashPassword($password, $salt);
+			if($password == $user->Password){
 				return true;
 			}
 		}
-
 		else{
-
 			return false;
 		}
 	}
 
-	public function userSignup($password, $salt){
-//verifying existing user
-		$sql1 = "SELECT * FROM user WHERE Email = ? OR Username = ? ";
-		$query1 = $this->db->query($sql1, array($_POST["emailAddress"], $_POST["username"]));
-		$query1 = $query1->row();
+	public function userActived($username){
+			$user = $this->userExist($username);
 
-		if(isset($query1)){
-
-			return false;
+		if(isset($user)){
+			$status = $user->Status;
+			if($status == 'live'){
+				return true;
+			}
 		}
-//inserting new user credentials into database
-		$this->db->trans_start();
-		$sql2 = "INSERT INTO user (UserID, FirstName, LastName, Email, Username, Password, Gender, Salt) Value (?, ?, ?, ?, ?, ?, ?, ?) ";
-		$query2 = $this->db->query($sql2, array('2', $_POST["firstname"], $_POST["lastname"], $_POST["emailAddress"], $_POST["username"], $password, 'Male', $salt));
-		
-		$this->db->trans_complete();
-
-		if(isset($query2)){
-/*			$to = $_POST["emailAddress"];
-			$subject = "Account Vwrification";
-			$message = '
-			Thanks for signing up!
-Your account has been created, you can login with the following credentials after you have activated your account by pressing the url below.
- 
-------------------------
-Username: '.$_POST["username"].'
-------------------------
-			Please click this link to activate your account:
-			';
-			$headers = 'From:noreply@mbuddy.com';
-			mail($to, $subject, $message, $headers);
-*/
-			return true;
+		else{
+			return false;
 		}
 	}
 
 
 
+	public function userSignup($data){	
+		return $this->db->insert('user', $data);
+	}
+
+
+
+	public function hashPassword($password, $salt){
+		$password = utf8_encode($password);
+		$salt =  utf8_encode($salt);
+		$password = md5($password);
+		$password = md5($password.$salt);
+		$password = base64_encode($password);
+		return $password;
+	}
+
+
+	public function sendVerificationMail(){
+		$config = array(
+			'protocol' => 'smtp',
+			'mailtype' => 'html',
+			'smtp_host' => 'ssl://smtp.gmail.com',
+			'smtp_port' => 465,
+			'smtp_user' => 'shivamrocksgarg@gmail.com',
+			'smtp_pass' =>'faker123#'
+			);
+	
+
+	$this->load->library('email', $config);
+	$this->email->set_newline("\r\n");
+
+	$this->email->from('shivamrocksgarg@gmail.com', 'noname');
+    $this->email->to($_POST["emailAddress"]); 
+
+    $this->email->subject('Email Test');
+    $this->email->message('Testing the email class.<br><br>http://www.localhost/mbuddy/index.php/userModule/home/verifyEmail/'.md5($_POST["emailAddress"]));  
+
+    $this->email->send();
+
+   	echo $this->email->print_debugger();
+
+	}
+
+	public function accountVerified($key){
+		$this->db->where('md5(Email)', $key);
+		$data = array(
+        	'Status' => 'live'
+		);
+		return $this->db->update('user', $data);
+	}
 }
-
-
-?>
