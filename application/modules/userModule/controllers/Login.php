@@ -7,17 +7,22 @@ class Login extends MX_Controller{
 	}
 
 	public function index(){
-		$this->load->view("loginForm");
+		if($this->session->userdata('isLoggedIn')){
+			$this->load->view("loggedInUser");
+		}
+		else{
+			$this->load->view("loginForm");
+		}
 	}
 
 	public function login(){
-		$username = $_POST["username"];
-		$password = $_POST["password"];
+		$username = $this->input->post('username');
+		$password = $this->input->post('password');
 		$userVerified = $this->userModel->userLogin($username, $password);
 		$userActived = $this->userModel->userActived($username);
 		if($userVerified && $userActived){
 			$data = array(
-				'username' => $_POST["username"],
+				'username' => $this->input->post('username'),
 				'isLoggedIn' => true
 				);
 			

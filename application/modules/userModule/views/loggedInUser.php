@@ -10,7 +10,6 @@
 	  echo "<br>"; 
 	  echo "<br>"; 
 	  echo "<br>"; 
-
 ?>
 <a href="<?php echo base_url("index.php/userModule/home/logout") ?>"><button type="button">Logout</button></a>
 

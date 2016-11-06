@@ -27,14 +27,14 @@ class Signup extends MX_Controller{
 			$this->index();
 		}
 		else{
-			$checkUser = $this->userModel->userExist($_POST["username"]);
+			$checkUser = $this->userModel->userExist($this->input->post('username'), 'username');
 
 			if(isset($checkUser)){
 				$this->index();
 				echo "Username Already Exist";
 			}
 			else{
-				$checkUser = $this->userModel->userExist($_POST["emailAddress"]);
+				$checkUser = $this->userModel->userExist($this->input->post('emailAddress'), 'email');
 
 				if(isset($checkUser)){
 					$this->index();
@@ -42,25 +42,24 @@ class Signup extends MX_Controller{
 				}
 				else{
 					$salt = uniqid(mt_rand(), TRUE);
-					$password = $this->userModel->hashPassword($_POST["password"], $salt);
+					$password = $this->userModel->hashPassword($this->input->post('password'), $salt);
+					$lastUserId = $this->userModel->lastInsertUserId();
+					$UserId = $lastUserId + 1;
 					$data = array(
-						'UserID' => "1",
-						'FirstName' => $_POST["firstname"],
-						'LastName' => $_POST["lastname"],
-						'Email' => $_POST["emailAddress"],
-						'Username' => $_POST["username"],
+						'UserID' => $UserId,
+						'FirstName' => $this->input->post('firstname'),
+						'LastName' => $this->input->post('lastname'),
+						'Email' => $this->input->post('emailAddress'),
+						'Username' => $this->input->post('username'),
 						'Password' => $password,
 						'Salt' => $salt
-						);
+					);
 
+//use below query for insertion
+//insert into user (userid,email) values(select max userid from user)+1;
 					if($this->userModel->userSignup($data)){
-						$data = array(
-							'username' => $_POST["username"],
-							'isLoggedIn' => true
-							);
-						$this->session->set_userdata($data);
-						$this->userModel->sendVerificationMail();
-						redirect("userModule/home/welcomePage");
+						$this->userModel->sendVerificationMail($data['Email'], $data['Username'], $data['Salt']);
+						redirect("userModule/home/index");
 					}
 					else{
 						$this->index();
