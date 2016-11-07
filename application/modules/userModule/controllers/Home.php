@@ -15,14 +15,6 @@ class Home extends MX_Controller{
 		}
 	}
 
-	public function welcomePage(){
-		if($this->session->userdata('isLoggedIn')){
-			$this->load->view("loggedInUser");
-		}
-		else{
-			redirect("userModule/home/index");
-		}
-	}
 
 	public function logout(){
 		$this->session->sess_destroy();
