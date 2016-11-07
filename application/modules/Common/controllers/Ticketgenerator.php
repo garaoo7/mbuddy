@@ -1,11 +1,10 @@
 <?php
 
-class Nofunsss extends MX_Controller{
-
-	public function sayhello(){
+class Ticketgenerator extends MX_Controller{
+	
+	public function generateTicket(){
 		$this->load->model('TicketGeneratorModel');
 		$this->TicketGeneratorModel->getUserID();
-		echo "sad";
 	}
 }
 

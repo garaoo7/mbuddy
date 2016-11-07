@@ -6,7 +6,7 @@ class Signup extends MX_Controller{
 		$this->load->model("userModel");
 		$this->load->library('form_validation');
 		$this->load->library('email_lib');
-		$this->load->module('CommonModule/ticketgenerator');
+		$this->load->module('Common/Ticketgenerator');
 		$this->load->helper('security');
 	}
 
@@ -17,7 +17,8 @@ class Signup extends MX_Controller{
 
 
 	public function createUser(){
-
+		
+		
 //Basic Validation Checks for the provided user credentials	
 		$regxEmail = "/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/";
 		$regxUsername = "/^[A-Za-z0-9]+$/";
@@ -65,9 +66,9 @@ class Signup extends MX_Controller{
 				}
 			
 			else{
-					$salt = uniqid(mt_rand(), TRUE);
+					$salt 	  = uniqid(mt_rand(), TRUE);
 					$password = $this->userModel->hashPassword($password, $salt);
-					$userID = $this->ticketgenerator->generateTicket();
+					$userId   = $this->ticketgenerator->generateTicket();
 
 					if(4){
 						if($this->email_lib->sendVerificationMail($email, $username, $salt))
