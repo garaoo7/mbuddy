@@ -5,14 +5,17 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>css/style.css">
 </head>
 <body style="background-color: white">
-<form action="<?php echo base_url("index.php/userModule/login/login") ?>" method="post">	
+<form name=loginForm id=loginForm>	
+<!-- showing saved root username and password-->
 		<label>Username or Email:</label>
-  		<input type="text" name="username" value="Username or email">
+  		<input type="text" name="username" placeholder="Username or email">
+  		<div id="usernameError" hidden="true"></div>
   		
   		<label>Password:</label>
-  		<input type="password" name="password" value="Password">
+  		<input type="password" name="password" placeholder="Password">
+  		<div id="passwordError" hidden="true"></div>
 
-  		<input type="submit" name="submit" value="login">
+  		<button id=loginFormSubmit name="submit" type="button">Signup</button>
 
 </form>
 
@@ -21,4 +24,6 @@
 <a href="<?php echo base_url("index.php/userModule/home/index") ?>"><button type="button">Home</button></a>
 
 </body>
+<script src="<?php echo base_url("jquery/jquery-3.1.1.min.js");?>"></script>
+<script src="<?php echo base_url("js/javascript.js");?>"></script>
 </html>

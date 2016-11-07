@@ -54,27 +54,11 @@ class UserModel extends CI_Model{
 
 
 
-	public function userSignup($data){
-
-		return $this->db->insert('user', $data);
+	public function userSignup($userID, $email, $username, $password, $salt){ 
+	$sql = "INSERT INTO user (UserID, Email, Username, Password, Salt) VALUES ('$userID', '$email', '$username', '$password', '$salt')";
+	return $this->db->query($sql);
 	}
 
-//use below query for insertion
-//insert into user (userid,email) values(select max userid from user)+1;
-	//issues - trans_incompl**
-
-
-//	INSERT INTO 
-//customers( customer_id, firstname, surname )
-//SELECT MAX( customer_id ) + 1, 'jim', 'sock' FROM customers;
-
-	public function lastInsertUserId(){
-		$query = "SELECT * FROM user ORDER BY UserID DESC LIMIT 1";
-		$user = $this->db->query($query);
-		$user = $user->row();
-		$UserId = $user->UserID;
-		return $UserId;
-		}
 
 
 
@@ -88,35 +72,14 @@ class UserModel extends CI_Model{
 		return $password;
 	}
 
-//this should be in a diff module, in its library
-	public function sendVerificationMail($email, $username, $salt){
-		$config = array(
-			'protocol'  => 'smtp',
-			'mailtype'  => 'html',
-			'smtp_host' => 'ssl://smtp.gmail.com',
-			'smtp_port' =>  465,
-			'smtp_user' => 'shivamrocksgarg@gmail.com',
-			'smtp_pass' =>'faker123#'
+	public function emailSent($username){
+		$this->db->where('Username', $username);
+			$data = array(
+	        	'EmailSent' => 'YES'
 			);
-	
-
-	$this->load->library('email', $config);
-	$this->email->set_newline("\r\n");
-
-	$this->email->from('shivamrocksgarg@gmail.com', 'noname');
-    $this->email->to($email); 
-
-    $this->email->subject('Email Test');
-//**don't use post for emailAddress
-//**send username and salt (ref. forgot password controller in ansquick)
-    $this->email->message('Testing the email class.<br><br>http://www.localhost/mbuddy/index.php/userModule/home/verifyEmail/'.$username.'/'.md5($salt));  
-
-    $this->email->send();
-
-   	echo $this->email->print_debugger();
-
+			return $this->db->update('user', $data);
 	}
-//mbuddy.com/user/signup/varifiaction/gara/12312983120983120938120983jkhgjfgjfjghc
+
 	public function accountVerified($username){
 		$this->db->where('Username', $username);
 		$data = array(

@@ -6,12 +6,12 @@
 </head>
 <body style="background-color: white">
 
-<div id=loginForm>
+<div id=loginFormHome hidden="true">
 <?php 
  $this->load->view('loginForm'); 
 ?></div>
 
-<div id=signupForm>
+<div id=signupFormHome hidden="true">
 <?php 
  $this->load->view('signupForm'); 
 ?></div>
@@ -21,8 +21,14 @@
 <button id=login type="button">Login</button>
 <button id=signup type="button">Signup</button>
 </div>
+<?php
+	echo '<hr>';
+	$this->load->module('Nofun/nofunsss');
+	$this->nofunsss->sayhello();
+?>
+
 
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url("js/javascript.js");?>"></script>
+<script src="<?php echo base_url("jquery/jquery-3.1.1.min.js");?>"></script>
+<script src="<?php echo base_url("js/javascript.js");?>"></script>
 </html>
