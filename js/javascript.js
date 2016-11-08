@@ -51,8 +51,8 @@ $(document).ready(function(){
     	}
 
     	else if(username == null || username == ""){
-	      	$('#userError').html('Username field can not be empty');
-      		$('#userError').show(500);
+	      	$('#usernameError').html('Username field can not be empty');
+      		$('#usernameError').show(500);
       		return false;
     	}
     	else if (!regxUsername.test(username)) {

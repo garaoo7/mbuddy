@@ -14,7 +14,7 @@
 
 		  <label>Username:</label>
   		<input type="text" name="username" placeholder="Username" value="sss">
-      <div id="userError">asdasd</div>
+      <div id="usernameError">asdasd</div>
   		
   		<label>Password:</label>
   		<input type="password" name="password" placeholder="Password" value="sss">
