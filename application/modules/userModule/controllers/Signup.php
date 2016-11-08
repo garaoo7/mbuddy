@@ -29,40 +29,40 @@ class Signup extends MX_Controller{
 
 
 		if($email == null || $email == ""){
-      		echo "Email Address field can not be empty";
+      		echo json_encode("Email Address field can not be empty");
      	 	return false;
     	}
 
     	else if (!preg_match($regxEmail, $email)) {
-        	echo 'Email Address is invalid';
+        	echo json_encode('Email Address is invalid');
         	return false;
     	}
 
     	else if($username == null || $username == ""){
-	      	echo 'Username field can not be empty';
+	      	echo json_encode('Username field can not be empty');
       		return false;
     	}
     	else if (!preg_match($regxUsername, $username)) {
-	    	echo 'Username field can only have aplha-numeric characters';
+	    	echo json_encode('Username field can only have aplha-numeric characters');
         	return false;
     	}
     
     	else if ($password == null || $password == "") {
-	      	echo 'Password field can not be empty';
+	      	echo json_encode('Password field can not be empty');
       		return false;
     	}
     	else if($password != $repassword){
-      		echo  "Passwords don't match";
+      		echo  json_encode("Passwords don't match");
       		return false;
     	}
 
 			
 			else if($checkUser = $this->userModel->userExist($username, 'username')){
-				echo "usernameExist";
+				echo json_encode("usernameExist");
 			}
 
 			else if($checkUser = $this->userModel->userExist($email, 'email')){
-					echo "Email Address Already Exist";
+					echo json_encode("emailExist");
 				}
 			
 			else{
@@ -72,10 +72,10 @@ class Signup extends MX_Controller{
 
 					if(4){
 						if($this->email_lib->sendVerificationMail($email, $username, $salt))
-						echo "true";
+						echo json_encode("true");
 					}
 					else{
-						echo "false";
+						echo json_encode("false");
 					}
 				}
 			}

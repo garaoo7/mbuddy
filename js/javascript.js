@@ -23,7 +23,7 @@ $(document).ready(function(){
 		$('#signupFormHome').hide();
 		$('#homePage').hide();
 		$('#loginFormHome').show();
-	
+
 	});
 
 	$('#signup, #signup1').click(function(){
@@ -50,25 +50,25 @@ $(document).ready(function(){
         	return false;
     	}
 
-    	if(username == null || username == ""){
-	      	$('#usernameError').html('Username field can not be empty');
-      		$('#usernameError').show(500);
+    	else if(username == null || username == ""){
+	      	$('#userError').html('Username field can not be empty');
+      		$('#userError').show(500);
       		return false;
     	}
     	else if (!regxUsername.test(username)) {
-	    	$('#usernameError').html('Username field can only have aplha-numeric characters');
-      		$('#usernameError').show(500);
+	    	$('#userError').html('Username field can only have aplha-numeric characters');
+      		$('#userError').show(500);
         	return false;
     	}
     
     	if (password == null || password == "") {
-	      	$('#passwordError').html('Password field can not be empty');
-      		$('#passwordError').show(500);
+	      	$('#passError').html('Password field can not be empty');
+      		$('#passError').show(500);
       		return false;
     	}
     	if(password!=repassword){
-      		$('#repasswordError').html("Passwords don't match");
-      		$('#repasswordError').show(500);
+      		$('#repassError').html("Passwords don't match");
+      		$('#repassError').show(500);
       		return false;
     	}
 
@@ -85,26 +85,24 @@ $(document).ready(function(){
     		success: function(result){
     			
 	    			if(result == "usernameExist"){
-	    				alert(result); 
-	    				$('#usernameError').html('Username already exist');
-	      				$('#usernameError').show(500);
+	    				$('#userError').html('Username already exist');
+	      				$('#userError').show(500);
 		    		}
-		    		else if(result == 'emailExist'){
+		    		else if(result == "emailExist"){
 		    			$('#emailError').html('Email Address already exist');
 		      			$('#emailError').show(500);
 		    		}
-		    		else if(result== "true"){
-		    			alert(result); 
+		    		else if(result== "true"){ 
 		    			//window.location.reload();
-		    			$('#repasswordError').html('Verification mail sent, please verify your email address and login through login page');
-		      			$('#repasswordError').show(500);
+		    			$('#repassError').html('Verification mail sent, please verify your email address and login through login page');
+		      			$('#repassError').show(500);
 		    		}
-		    		else if (result == 'false'){
-		    			$('#repasswordError').html('Could not register, please try again');
-		      			$('#repasswordError').show(500);
+		    		else if (result == "false"){
+		    			$('#repassError').html('Could not register, please try again');
+		      			$('#repassError').show(500);
 		    		}
 		    		else {
-		    			$('#repasswordError').html(result);
+		    			$('#repassError').html(result);
 		    		}
 	   			},
 	   		type: "GET"

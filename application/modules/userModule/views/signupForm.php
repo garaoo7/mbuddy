@@ -14,15 +14,15 @@
 
 		  <label>Username:</label>
   		<input type="text" name="username" placeholder="Username" value="sss">
-      <div id="usernameError" hidden="true"></div>
+      <div id="userError">asdasd</div>
   		
   		<label>Password:</label>
   		<input type="password" name="password" placeholder="Password" value="sss">
-      <div id="passwordError" hidden="true"></div>
+      <div id="passError" hidden="true"></div>
 
   		<label>Retype Password:</label>
   		<input type="password" name="repassword" placeholder="Re-password" value="sss">
-      <div id="repasswordError" hidden="true"></div>
+      <div id="repassError" hidden="true"></div>
 
       <button id=signupFormSubmit name="submit" type="button">Signup</button>
 

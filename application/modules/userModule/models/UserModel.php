@@ -18,6 +18,7 @@ class UserModel extends CI_Model{
 //status check for live and disabled
 		$user = $this->db->get();
 		$user = $user->row();
+		//echo $this->db->last_query();
 		return $user;		
 	}
 

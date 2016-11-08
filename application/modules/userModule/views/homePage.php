@@ -21,11 +21,6 @@
 <button id=login type="button">Login</button>
 <button id=signup type="button">Signup</button>
 </div>
-<?php
-	echo '<hr>';
-	$this->load->module('Nofun/nofunsss');
-	$this->nofunsss->sayhello();
-?>
 
 
 </body>
