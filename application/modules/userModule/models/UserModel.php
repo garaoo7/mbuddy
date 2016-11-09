@@ -1,24 +1,37 @@
 <?php
 	
-class UserModel extends CI_Model{
+class UserModel extends MY_Model{
 //change name or explain it in a comment
-	public function userExist($value, $type = NULL){
-		$this->db->from('user');
-		if($type = 'email'){
-			$this->db->where('Email', $value);
+	private $dbHandle;
+
+	private function _init($A = 'read'){
+		if($A=='read'){
+			$this->dbHandle = $this->getReadHandle();
 		}
-		else if($type = 'username'){
-			$this->db->where('Username', $value);
+		else if($A=='write'){
+			$this->dbHandle = $this->getWriteHandle();
+		}
+	}
+
+	public function userExist($value, $type = NULL){
+		$this->_init('read');
+		
+		$this->dbHandle->from('user');
+		if($type == 'email'){
+			$this->dbHandle->where('Email', $value);
+		}
+		else if($type == 'username'){
+			$this->dbHandle->where('Username', $value);
 		}
 		else{
-			$this->db->where('Email', $value);
-			$this->db->or_where('Username', $value);
+			$this->dbHandle->where('Email', $value);
+			$this->dbHandle->or_where('Username', $value);
 		}
 //select coloumn that are needed
 //status check for live and disabled
-		$user = $this->db->get();
+		$user = $this->dbHandle->get();
 		$user = $user->row();
-		//echo $this->db->last_query();
+		//echo $this->dbHandle->last_query();
 		return $user;		
 	}
 
@@ -39,7 +52,7 @@ class UserModel extends CI_Model{
 		}
 	}
 
-	public function userActived($username){
+	public function userActivated($username){
 			$user = $this->userExist($username, 'username');
 
 		if(isset($user)){
@@ -55,9 +68,9 @@ class UserModel extends CI_Model{
 
 
 
-	public function userSignup($userID, $email, $username, $password, $salt){ 
-	$sql = "INSERT INTO user (UserID, Email, Username, Password, Salt) VALUES ('$userID', '$email', '$username', '$password', '$salt')";
-	return $this->db->query($sql);
+	public function userSignup($data){ 
+		$this->_init('write');
+		return $this->dbHandle->insert('user', $data);
 	}
 
 
@@ -74,18 +87,20 @@ class UserModel extends CI_Model{
 	}
 
 	public function emailSent($username){
-		$this->db->where('Username', $username);
+		$this->_init('write');
+		$this->dbHandle->where('Username', $username);
 			$data = array(
 	        	'EmailSent' => 'YES'
 			);
-			return $this->db->update('user', $data);
+			return $this->dbHandle->update('user', $data);
 	}
 
 	public function accountVerified($username){
-		$this->db->where('Username', $username);
+		$this->_init('write');
+		$this->dbHandle->where('Username', $username);
 		$data = array(
         	'Status' => 'live'
 		);
-		return $this->db->update('user', $data);
+		return $this->dbHandle->update('user', $data);
 	}
 }

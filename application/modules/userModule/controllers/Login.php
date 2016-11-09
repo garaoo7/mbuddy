@@ -16,22 +16,26 @@ class Login extends MX_Controller{
 	}
 
 	public function login(){
-		$username = $this->input->post('username');
-		$password = $this->input->post('password');
-		$userVerified = $this->userModel->userLogin($username, $password);
-		$userActived = $this->userModel->userActived($username);
-		if($userVerified && $userActived){
-			$data = array(
-				'username' => $this->input->post('username'),
+		$username = $this->input->get('username', TRUE);
+		$password = $this->input->get('password', TRUE);
+		if($this->userModel->userLogin($username, $password)){
+			if($this->userModel->userActivated($username)){
+				$data = array(
+				'username' => $username,
 				'isLoggedIn' => true
 				);
 			
 			$this->session->set_userdata($data);
-			redirect("userModule/home/welcomePage");
+			echo json_encode("true");
+			}
+			else{
+				echo json_encode("accountNotActivated");
+			}
 		}
 		else{
-			$this->index();
+			echo json_encode("incorrectCredentials");
 		}
+
 	}
 	
 }

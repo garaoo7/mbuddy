@@ -4,10 +4,12 @@
 	<title>untitled</title>
 </head>
 <body>
-<?php echo "WELCOME ".$_SESSION['username'];
-	  echo "<br>"; 
-	  echo "<br>"; 
-	  echo "<br>"; 
+<?php 
+	$username = $this->session->userdata('username');
+	echo "WELCOME ".$username;
+	echo "<br>"; 
+	echo "<br>"; 
+	echo "<br>"; 
 ?>
 <a href="<?php echo base_url("index.php/userModule/home/logout") ?>"><button type="button">Logout</button></a>
 
