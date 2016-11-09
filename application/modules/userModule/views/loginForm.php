@@ -9,13 +9,13 @@
 <!-- showing saved root username and password-->
 		<label>Username or Email:</label>
   		<input type="text" name="username" placeholder="Username or email">
-  		<div id="usernameError" hidden="true"></div>
+  		<div id="usernameErrorL" hidden="true"></div>
   		
   		<label>Password:</label>
   		<input type="password" name="password" placeholder="Password">
-  		<div id="passwordError" hidden="true"></div>
+  		<div id="passwordErrorL" hidden="true"></div>
 
-  		<button id=loginFormSubmit name="submit" type="button">Signup</button>
+  		<button id=loginFormSubmit name="submit" type="button">Login</button>
 
 </form>
 

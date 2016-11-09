@@ -11,8 +11,13 @@ class Signup extends MX_Controller{
 	}
 
 
-	public function index(){	
-		$this->load->view("signupForm");
+	public function index(){
+		if($this->session->userdata('isLoggedIn')){
+			$this->load->view("loggedInUser");
+		}
+		else{
+			$this->load->view("signupForm");
+		}		
 	}
 
 
@@ -56,23 +61,32 @@ class Signup extends MX_Controller{
       		return false;
     	}
 
-			
+
+			else if($checkUser = $this->userModel->userExist($email, 'email')){
+					echo json_encode("emailExist");
+			}
+
 			else if($checkUser = $this->userModel->userExist($username, 'username')){
 				echo json_encode("usernameExist");
 			}
 
-			else if($checkUser = $this->userModel->userExist($email, 'email')){
-					echo json_encode("emailExist");
-				}
 			
 			else{
 					$salt 	  = uniqid(mt_rand(), TRUE);
 					$password = $this->userModel->hashPassword($password, $salt);
-					$userId   = $this->ticketgenerator->generateTicket();
+					$userID   = $this->ticketgenerator->generateTicket();
+					$data = array(
+						'UserID' => $userID,
+						'Email' => $email,
+						'Username' => $username,
+						'Password' =>$password,
+						'Salt' => $salt
+						);
 
-					if(4){
-						if($this->email_lib->sendVerificationMail($email, $username, $salt))
-						echo json_encode("true");
+					if($this->userModel->userSignup($data)){
+						if($this->email_lib->sendVerificationMail($email, $username, $salt)){
+							echo json_encode("true");							
+						}
 					}
 					else{
 						echo json_encode("false");
