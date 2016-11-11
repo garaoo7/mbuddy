@@ -1,29 +1,28 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>untitled</title>
-		
-</head>
-<body style="background-color: white">
 
 <div id=loginFormHome hidden="true">
 <?php 
- $this->load->view('loginForm'); 
+ 	$data['mainContent'] = 'loginForm';
+	$this->load->view('includes/template', $data);
 ?></div>
 
 <div id=signupFormHome hidden="true">
 <?php 
- $this->load->view('signupForm'); 
+ 	$data['mainContent'] = 'signupForm';
+	$this->load->view('includes/template', $data);
 ?></div>
 
 <div id=homePage>
-<h1 style="color: green">!!MBUDDY!!</h1>
-<button id=login type="button">Login</button>
-<button id=signup type="button">Signup</button>
+	<h1 style="color: green">!!MBUDDY!!</h1>
+	<button id=login type="button">Login</button>
+	<button id=signup type="button">Signup</button>
 </div>
 
+<div  id=homePageL style="display: none;">
+<?php 
+	$username = $this->session->userdata('username');
+	echo "WELCOME ".$username;
+	echo "<br>"; 
+?>
+<button id=logoutButton type="button">Logout</button>
+</div>
 
-</body>
-<script src="<?php echo base_url("jquery/jquery-3.1.1.min.js");?>"></script>
-<script src="<?php echo base_url("js/javascript.js");?>"></script>
-</html>
