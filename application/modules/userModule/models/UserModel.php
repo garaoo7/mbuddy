@@ -1,27 +1,40 @@
 <?php
 	
 class UserModel extends MY_Model{
-//change name or explain it in a comment
-	private $dbHandle;
 
-	private function _init($A = 'read'){
-		if($A=='read'){
+	private $dbHandle;
+	private function _init($handle = 'read'){
+//directs the database requests to specific servers(hostnames), different for read and write.
+		if($handle=='read'){
 			$this->dbHandle = $this->getReadHandle();
 		}
-		else if($A=='write'){
+		else if($handle=='write'){
 			$this->dbHandle = $this->getWriteHandle();
 		}
 	}
 
-	public function userExist($value, $type = NULL){
+	public function userExist($value, $type = NULL/*, $statusCheck = NULL*/){
+//check if a user entry exists in the database and returns the row entry if he exists
 		$this->_init('read');
 		
 		$this->dbHandle->from('user');
 		if($type == 'email'){
-			$this->dbHandle->where('Email', $value);
+			//if($statusCheck = true){
+			// 	$this->dbHandle->where('Email', $value);
+			// 	$this->dbHandle->where_not_in('Status', 'deleted');
+			// }
+			// else{
+				$this->dbHandle->where('Email', $value);
+			//}
 		}
 		else if($type == 'username'){
-			$this->dbHandle->where('Username', $value);
+			// if($statusCheck = true){
+				
+			// 	$this->dbHandle->where_not_in('Status', 'deleted');
+			// }
+			// else{
+				$this->dbHandle->where('Username', $value);
+			//}
 		}
 		else{
 			$this->dbHandle->where('Email', $value);
@@ -30,36 +43,46 @@ class UserModel extends MY_Model{
 //select coloumn that are needed
 //status check for live and disabled
 		$user = $this->dbHandle->get();
-		$user = $user->row();
+		if($user->num_rows() > 0){
+			$user = $user->row();
+			return $user;
+		}
 		//echo $this->dbHandle->last_query();
-		return $user;		
+		return false;
 	}
 
-
-//**comments
 	public function userLogin($username, $password){
-		$user = $this->userExist($username, 'username');
-
-		if(isset($user)){
-			$salt = $user->Salt;
-			$password = $this->hashPassword($password, $salt);
-			if($password == $user->Password){
-				return true;
+//verifies the user credentials when he attempts to login
+		$user = $this->userExist($username);
+		$status = $user->Status;
+		if($user && ($status!='deleted')){
+			if($status == 'live'){
+				$salt = $user->Salt;
+				$password = $this->hashPassword($password, $salt);
+				if($password == $user->Password){
+					return 'true';
+				}
+				else{
+					return 'false';
+				}
+			}
+			else{
+				return 'notVerified';
 			}
 		}
 		else{
-			return false;
+//not existing account also returns false (same as incorrect password), so that no one could take advantage of knowing which username exists in our database and which does not.
+			return 'false';
 		}
 	}
 
-	public function userActivated($username){
-			$user = $this->userExist($username, 'username');
+//**deleted userActivated
 
-		if(isset($user)){
-			$status = $user->Status;
-			if($status == 'live'){
-				return true;
-			}
+	public function checkLoggedInUser(){
+//checks if the user is logged in via accessing session data.
+		$username = $this->session->userdata('username');
+		if(isset($username)){
+			return true;
 		}
 		else{
 			return false;
@@ -69,15 +92,15 @@ class UserModel extends MY_Model{
 
 
 	public function userSignup($data){ 
+//inserts the new user data into database
 		$this->_init('write');
 		return $this->dbHandle->insert('user', $data);
 	}
 
 
 
-
-
 	public function hashPassword($password, $salt){
+//hashes the password with the salt and returns secured password
 		$password = utf8_encode($password);
 		$salt     = utf8_encode($salt);
 		$password = md5($password);
@@ -87,6 +110,7 @@ class UserModel extends MY_Model{
 	}
 
 	public function emailSent($username){
+//updates the entry of EmailSent to YES when verification mail is successfully sent
 		$this->_init('write');
 		$this->dbHandle->where('Username', $username);
 			$data = array(
@@ -96,6 +120,7 @@ class UserModel extends MY_Model{
 	}
 
 	public function accountVerified($username){
+//set user status to live when the user verifies his mail address
 		$this->_init('write');
 		$this->dbHandle->where('Username', $username);
 		$data = array(
