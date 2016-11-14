@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>untitled</title>
-	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>css/style.css">
-</head>
-<body style="background-color: white">
 
 <form name=signupForm id=signupForm>	
 
@@ -28,9 +21,5 @@
 
 
 </form>
+<a href="<?php echo base_url("index.php/userModule/login/index") ?>"><button id=signup1 type="button">Login</button></a>
 <a href="<?php echo base_url("index.php/userModule/home/index") ?>"><button type="button">Home</button></a>
-
-</body>
-<script src="<?php echo base_url("jquery/jquery-3.1.1.min.js");?>"></script>
-<script src="<?php echo base_url("js/javascript.js");?>"></script>
-</html>
