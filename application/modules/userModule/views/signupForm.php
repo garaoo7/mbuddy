@@ -21,5 +21,5 @@
 
 
 </form>
-<a href="<?php echo base_url("index.php/userModule/login/index") ?>"><button id=signup1 type="button">Login</button></a>
-<a href="<?php echo base_url("index.php/userModule/home/index") ?>"><button type="button">Home</button></a>
+
+<a href="<?php echo base_url("index.php/Common/home/index") ?>"><button type="button">Home</button></a>

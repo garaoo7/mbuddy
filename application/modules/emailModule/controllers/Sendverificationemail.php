@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Email_lib {
+class SendVerificationEmail extends MX_Controller {
 
     public function sendVerificationMail($email, $username, $salt){
   //   	$CI =& get_instance();
