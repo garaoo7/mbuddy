@@ -6,16 +6,6 @@ class Login extends MX_Controller{
 		$this->load->model("userModel");
 	}
 
-	public function index(){
-		if($this->userModel->checkLoggedInUser()){
-			$data['mainContent'] = 'loggedInUser';
-			$this->load->view('includes/template', $data);
-		}
-		else{
-			$data['mainContent'] = 'loginForm';
-			$this->load->view('includes/template', $data);
-		}
-	}
 
 	public function login(){
 //backend validations and checks for user login
@@ -24,7 +14,6 @@ class Login extends MX_Controller{
 		if (!$this->input->is_ajax_request()) {
    				exit('No direct script access allowed');
 		}
-//**post is also showing the credentials in the console, whats the security
 		$username = $this->input->post('username', TRUE);
 		$password = $this->input->post('password', TRUE);
 		if($username ==null || $username == ""){

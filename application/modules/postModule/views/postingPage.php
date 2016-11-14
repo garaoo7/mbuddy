@@ -48,7 +48,7 @@
 
 
 </form>
-<a href="<?php echo base_url("index.php/userModule/home/index") ?>"><button type="button">Home</button></a>
+<a href="<?php echo base_url("index.php/Common/home/index") ?>"><button type="button">Home</button></a>
 
 </body>
 <script src="<?php echo base_url("jquery/jquery-3.1.1.min.js");?>"></script>

@@ -3,7 +3,9 @@ $(document).ready(function(){
 	var regxEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	var regxUsername = /^[A-Za-z0-9\-\_]+$/;
 
-	
+
+	$('#loginFormHome').hide();
+	$('#signupFormHome').hide();	
 
 	$('#login').click(function(){
 		$('#signupFormHome').hide();

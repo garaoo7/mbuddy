@@ -16,7 +16,7 @@ class UserModel extends MY_Model{
 	public function userExist($value, $type = NULL/*, $statusCheck = NULL*/){
 //check if a user entry exists in the database and returns the row entry if he exists
 		$this->_init('read');
-		
+		$this->dbHandle->select('UserID, Username, Email, Status, Salt');
 		$this->dbHandle->from('user');
 		if($type == 'email'){
 			//if($statusCheck = true){
@@ -40,8 +40,7 @@ class UserModel extends MY_Model{
 			$this->dbHandle->where('Email', $value);
 			$this->dbHandle->or_where('Username', $value);
 		}
-//select coloumn that are needed
-//status check for live and disabled
+
 		$user = $this->dbHandle->get();
 		if($user->num_rows() > 0){
 			$user = $user->row();
@@ -127,5 +126,23 @@ class UserModel extends MY_Model{
         	'Status' => 'live'
 		);
 		return $this->dbHandle->update('user', $data);
+	}
+
+	public function cronjobVerificationEmail(){
+//updates the entry of EmailSent to YES when verification mail is successfully sent
+		$this->_init('write');
+		$this->dbHandle->select('Username, Email, Salt');
+		$this->dbHandle->from('user');
+		$this->dbHandle->where('EmailSent', 'NO');
+		$user = $this->dbHandle->get();
+		$user = $user->row();
+		$username = $user->Username;
+		$email = $user->Email;
+		$salt = $user->Salt;
+		$this->load->module('emailModule/sendverificationemail');
+		if($this->sendverificationemail->sendVerificationMail($email, $username, $salt)){
+			$this->emailSent($username);
+		}
+		return;
 	}
 }
