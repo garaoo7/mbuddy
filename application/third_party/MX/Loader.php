@@ -40,6 +40,17 @@ class MX_Loader extends CI_Loader
 	public $_ci_plugins = array();
 	public $_ci_cached_vars = array();
 
+
+
+	public $_ci_reositories 		= array();
+	public $_ci_entities 			= array();
+	//public $_ci_services 			= array();
+	public $_ci_builders 			= array();
+	//public $_ci_domainClasses 		= array();
+	//public $_ci_spamcontrol 		= array();
+	//public $_ci_aggregatorClasses 	= array();
+	//public $_ci_aggregator 			= array();
+
 	/** Initialize the loader variables **/
 	public function initialize($controller = NULL)
 	{
@@ -86,6 +97,80 @@ class MX_Loader extends CI_Loader
 			}
 		}
 	}
+
+
+	public function builder($builder,$moduleName = '')
+	{
+		if(!$this->_ci_builders[$builder]) {
+			if(!$moduleName) {
+				$moduleName = $this->_module;
+			}
+
+			list($path, $_builder) = Modules::find($builder, $moduleName, 'domain/builders/');
+			if(!file_exists($path.$_builder.'.php')){
+				list($path, $_builder) = Modules::find($builder, $moduleName, 'builders/');
+			}
+			require_once $path.$_builder.'.php';
+			$this->_ci_builders[$builder] = TRUE;
+		}
+	}
+
+
+	public function repository($repository,$moduleName = '')
+	{
+		if(is_array($repository)) {
+			$this->repositories($repository);
+			return;
+		}
+
+		if(!$this->_ci_reositories[$repository]) {
+
+			if(!$moduleName) {
+				$moduleName = $this->_module;
+			}
+
+			list($path, $_repository) = Modules::find($repository, $moduleName, 'domain/repositories/');
+			require_once $path.$_repository.'.php';
+			$this->_ci_reositories[$repository] = TRUE;
+		}
+	}
+
+
+	public function entity($entity,$moduleName = '')
+	{
+		if(is_array($entity)) {
+			$this->entities($entity);
+			return;
+		}
+
+		if(!$this->_ci_entities[$entity]) {
+
+			if(!$moduleName) {
+				$moduleName = $this->_module;
+			}
+
+			list($path, $_entity) = Modules::find($entity, $moduleName, 'domain/entities/');
+			require_once $path.$_entity.'.php';
+			$this->_ci_entities[$entity] = TRUE;
+		}
+	}
+
+
+
+	public function entities($entities,$moduleName = '')
+	{
+		foreach($entities as $entity) {
+			$this->entity($entity,$moduleName);
+		}
+	}
+
+	public function repositories($repositories)
+	{
+		foreach($repositories as $repository) {
+			$this->repository($repository);
+		}
+	}
+
 
 	/** Load a module config file **/
 	public function config($file, $use_sections = FALSE, $fail_gracefully = FALSE)
