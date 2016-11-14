@@ -18,7 +18,7 @@
 	<a href="<?php echo base_url("index.php/postModule/posting/index") ?>"><button type="button">Post</button></a>
 </div>
 
-<div  id=homePageL style="display: none;">
+<div  id=homePageL hidden="true">
 <?php 
 	$username = $this->session->userdata('username');
 	echo "WELCOME ".$username;
