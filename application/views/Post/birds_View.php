@@ -2,15 +2,33 @@
 
 
 <html>
-    <head>
-        <title>My Page</title>
-  <!-- <link href="<?php echo base_url("jquery-ui/jquery-ui.css");?>" rel="stylesheet" type="text/css" /> -->
-  <!-- <script src="<?php echo base_url("jquery/jquery-3.1.1.min.js");?>"> </script> -->
-  <script src="<?php echo base_url("js/javascript.js");?>"> </script>
-
-    </head>
+    <title>My Page</title>
     <body>
     	<input type="text" id="birds">
 
     </body>
-    </html>
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+<!--Jquery for Autocomplete -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+<script type="text/javascript">
+
+jQuery(document).ready(function(){
+
+$(function(){
+  $("#birds").autocomplete({
+    source: "Birds/get_birds" // path to the get_birds method
+        });
+    });
+     });
+</script>
+</html>
