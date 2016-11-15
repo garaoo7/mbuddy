@@ -12,10 +12,10 @@ class Birds extends CI_Controller{
   }
  
   function get_birds(){
-    $this->load->model('birds_model');
+    $this->load->model('Birds_model');
     if (isset($_GET['term'])){
       $q = strtolower($_GET['term']);
-      $this->birds_model->get_bird($q);
+      echo json_encode($this->Birds_model->get_bird($q));
     }
   }
 }
