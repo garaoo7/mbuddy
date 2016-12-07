@@ -11,11 +11,17 @@
 	$this->load->view('template', $data);
 ?></div>
 
+<div id=postFormHome hidden="true">
+<?php 
+ 	$data['mainContent'] = 'postModule/postingPage';
+	$this->load->view('template', $data);
+?></div>
+
 <div id=homePage>
 	<h1 style="color: green">!!MBUDDY!!</h1>
 	<button id=login type="button">Login</button>
 	<button id=signup type="button">Signup</button>
-	<a href="<?php echo base_url("index.php/postModule/posting/index") ?>"><button type="button">Post</button></a>
+	<button id=post type="button">Post</button>
 </div>
 
 <div  id=homePageL hidden="true">

@@ -146,3 +146,4 @@ class UserModel extends MY_Model{
 		return;
 	}
 }
+?>

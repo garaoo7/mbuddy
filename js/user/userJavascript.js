@@ -8,14 +8,11 @@ $(document).ready(function(){
 	$('#signupFormHome').hide();	
 
 	$('#login').click(function(){
-		$('#signupFormHome').hide();
 		$('#homePage').hide();
 		$('#loginFormHome').show();
-
 	});
 
-	$('#signup, #signup1').click(function(){
-		$('#loginFormHome').hide();
+	$('#signup').click(function(){
 		$('#homePage').hide();
 		$('#signupFormHome').show();
 	});
@@ -169,6 +166,24 @@ $(document).ready(function(){
 	    			window.location.assign("http://localhost/mbuddy/index.php/userModule/home/index/");
 		    	}
 	   		}
+    	});
+ 
+	});
+
+	$("#post").unbind('click').click(function(){
+//xss clean
+  		$.ajax({
+    		url: "http://localhost/mbuddy/index.php/postModule/posting/checkUserLogin/",
+    		dataType: "json",
+    		success: function(result){
+    			
+	    			if(result == "true"){
+						$('#homePage').hide();
+						$('#postFormHome').show();
+		    		}
+	   			},
+	   		type: "POST"
+
     	});
  
 	});

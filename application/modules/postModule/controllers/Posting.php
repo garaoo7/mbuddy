@@ -2,6 +2,10 @@
 
 class Posting extends MX_Controller{
 
+	public function __construct(){
+		$this->load->model("postModel");
+	}
+
 	public function index(){
 		$this->load->view("postingPage");
 	}
@@ -58,6 +62,20 @@ class Posting extends MX_Controller{
 	     	return false;
 	    }
 
+	}
+
+	public function checkUserLogin(){
+		if (!$this->input->is_ajax_request()) {
+   			exit('No direct script access allowed');
+		}
+
+		$temp = $this->postModel->checkLoggedInUser();
+		if($temp){
+			echo json_encode("true");
+		}
+		else{
+			echo json_encode("false");
+		}
 	}
 }
 ?>
