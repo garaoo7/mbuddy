@@ -6,10 +6,6 @@ class Posting extends MX_Controller{
 		$this->load->model("postModel");
 	}
 
-	public function index(){
-		$this->load->view("postingPage");
-	}
-
 	public function postListing(){
 		if (!$this->input->is_ajax_request()) {
    			exit('No direct script access allowed');

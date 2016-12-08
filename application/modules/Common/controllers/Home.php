@@ -10,13 +10,15 @@ class Home extends MX_Controller{
 		if($this->userModel->checkLoggedInUser()){
 //**$data to displayData
 			$displayData = array(
-				'mainContent' => 'loggedInUser'
+				'session' => true
 				);
-			$this->load->view('../modules/userModule/views/template', $displayData);
+			$this->load->view('homepage', $displayData);
 		}
 		else{
-			$displayData['mainContent'] = 'homePage';
-			$this->load->view('../modules/userModule/views/template', $displayData);
+			$displayData = array(
+				'session' => false
+				);
+			$this->load->view('homepage', $displayData);
 		}
 	}
 }

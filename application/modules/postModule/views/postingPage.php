@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>untitled</title>
-	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>css/style.css">
-</head>
-<body style="background-color: white">
 
 <form name=listingForm id=listingForm>	
 
@@ -50,7 +43,3 @@
 </form>
 <a href="<?php echo base_url("index.php/Common/home/index") ?>"><button type="button">Home</button></a>
 
-</body>
-<script src="<?php echo base_url("jquery/jquery-3.1.1.min.js");?>"></script>
-<script src="<?php echo base_url("js/postJavascript.js");?>"></script>
-</html>

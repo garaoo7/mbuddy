@@ -16,7 +16,7 @@ class UserModel extends MY_Model{
 	public function userExist($value, $type = NULL/*, $statusCheck = NULL*/){
 //check if a user entry exists in the database and returns the row entry if he exists
 		$this->_init('read');
-		$this->dbHandle->select('UserID, Username, Email, Status, Salt');
+		$this->dbHandle->select('UserID, Username, Password, Email, Status, Salt');
 		$this->dbHandle->from('user');
 		if($type == 'email'){
 			//if($statusCheck = true){
@@ -53,20 +53,22 @@ class UserModel extends MY_Model{
 	public function userLogin($username, $password){
 //verifies the user credentials when he attempts to login
 		$user = $this->userExist($username);
-		$status = $user->Status;
-		if($user && ($status!='deleted')){
-			if($status == 'live'){
-				$salt = $user->Salt;
-				$password = $this->hashPassword($password, $salt);
-				if($password == $user->Password){
-					return 'true';
+		if($user){
+			$status = $user->Status;
+			if($status!='deleted'){
+				if($status == 'live'){
+					$salt = $user->Salt;
+					$password = $this->hashPassword($password, $salt);
+					if($password == $user->Password){
+						return 'true';
+					}
+					else{
+						return 'false';
+					}
 				}
 				else{
-					return 'false';
+					return 'notVerified';
 				}
-			}
-			else{
-				return 'notVerified';
 			}
 		}
 		else{

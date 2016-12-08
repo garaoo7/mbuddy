@@ -2,18 +2,19 @@ $(document).ready(function(){
 //add
 	var regxEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	var regxUsername = /^[A-Za-z0-9\-\_]+$/;
-
-
-	$('#loginFormHome').hide();
-	$('#signupFormHome').hide();	
+	
 
 	$('#login').click(function(){
-		$('#homePage').hide();
+		$('#errorHomepage').hide();
+		$('#homePageHome').hide();
+		$('#signupFormHome').hide();
 		$('#loginFormHome').show();
 	});
 
 	$('#signup').click(function(){
-		$('#homePage').hide();
+		$('#errorHomepage').hide();
+		$('#homePageHome').hide();
+		$('#loginFormHome').hide();
 		$('#signupFormHome').show();
 	});
 
@@ -163,7 +164,7 @@ $(document).ready(function(){
     		dataType: "json",
     		success: function(result){
 	    		if(result == "true"){
-	    			window.location.assign("http://localhost/mbuddy/index.php/userModule/home/index/");
+	    			window.location.reload();
 		    	}
 	   		}
     	});
@@ -178,8 +179,15 @@ $(document).ready(function(){
     		success: function(result){
     			
 	    			if(result == "true"){
-						$('#homePage').hide();
+						$('#homePageHome').hide();
 						$('#postFormHome').show();
+		    		}
+		    		else if(result =='false'){
+		    			$('#homePageHome').hide();
+		    			$('#signupFormHome').hide();
+		    			$('#errorHomepage').html("YOU NEED TO LOGGGED IN TO POST");
+		    			$('#errorHomepage').show();
+						$('#loginFormHome').show();
 		    		}
 	   			},
 	   		type: "POST"
