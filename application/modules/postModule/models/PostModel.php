@@ -13,18 +13,18 @@ class PostModel extends MY_Model{
 		}
 	}
 
-	public function dropdown(){
-		$this->_init('read');
-		$this->dbHandle->select('UserID, Username');
-		$this->dbHandle->from('user');
-		$this->dbHandle->order_by('Username');
+// 	public function dropdown(){
+// 		$this->_init('read');
+// 		$this->dbHandle->select('UserID, Username');
+// 		$this->dbHandle->from('user');
+// 		$this->dbHandle->order_by('Username');
 
-		$user = $this->dbHandle->get();
-		if($user->num_rows() > 0){
-			$user = $user->row();
-			return $user;
-	}
-}
+// 		$user = $this->dbHandle->get();
+// 		if($user->num_rows() > 0){
+// 			$user = $user->row();
+// 			return $user;
+// 	}
+// }
 	public function checkLoggedInUser(){
 //checks if the user is logged in via accessing session data.
 		$username = $this->session->userdata('username');
@@ -35,6 +35,12 @@ class PostModel extends MY_Model{
 			return false;
 		}
 	}
-}
 
-?>
+		public function postListing($data){ 
+//inserts the new user data into database
+		$this->_init('write');
+		return $this->dbHandle->insert('listing', $data);
+	}
+
+
+}?>

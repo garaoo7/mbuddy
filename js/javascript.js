@@ -25,10 +25,10 @@ $(document).ready(function(){
 		$('#usernameError').hide(100);
 		$('#passwordError').hide(100);
 		$('#repasswordError').hide(100);
-		var email = document.signupForm.emailAddress.value.trim();
-		var username = document.signupForm.username.value.trim();
-		var password = document.signupForm.password.value.trim();
-		var repassword = document.signupForm.repassword.value.trim();
+		var email       = document.signupForm.emailAddress.value.trim();
+		var username    = document.signupForm.username.value.trim();
+		var password    = document.signupForm.password.value.trim();
+		var repassword  = document.signupForm.repassword.value.trim();
 
 		if(email == null || email == ""){
       		$('#emailError').html('Email Address field can not be empty');
@@ -174,15 +174,15 @@ $(document).ready(function(){
 
 	$('#listingFormSubmit').unbind('click').click(function(){
   //xss clea
-    var title = document.listingForm.title.value.trim();
+    var title       = document.listingForm.title.value.trim();
     var description = document.listingForm.description.value.trim();
-    var sourceLink = document.listingForm.sourceLink.value.trim();
-    var lyrics = document.listingForm.lyrics.value.trim();
-    var language = document.listingForm.language.value.trim();
-    var artist = document.listingForm.artist.value.trim();
-    var composer = document.listingForm.composer.value.trim();
-    var writer = document.listingForm.writer.value.trim();
-    var producer = document.listingForm.producer.value.trim();
+    var sourceLink  = document.listingForm.sourceLink.value.trim();
+    var lyrics      = document.listingForm.lyrics.value.trim();
+    var language    = document.listingForm.language.value.trim();
+    var artist      = document.listingForm.artist.value.trim();
+    var composer    = document.listingForm.composer.value.trim();
+    var writer      = document.listingForm.writer.value.trim();
+    var producer    = document.listingForm.producer.value.trim();
 
     if(title == null || title == ""){
       $('#titleError, #descriptionError, #sourceLinkError, #lyricsError, #languageError, #artistError, #composerError, #writerError, #producerError').hide(100);
@@ -259,22 +259,18 @@ $(document).ready(function(){
       dataType: "json",
       success: function(result){
 
-       if(result == "usernameExist"){
-          $('#usernameError').html('Username already exist');
-          $('#usernameError').show(500);
+       if(result == "true"){
+          $('#producerError').html('POST SUCCESSFULL, WILL BE UPLOADED AFTER VERIFICATION');
+          $('#producerError').show(500);
         }
 
-        else if(result == "emailExist"){
-          $('#emailError').html('Email Address already exist');
-          $('#emailError').show(500);
+        else if(result == "false"){
+          $('#producerError').html('SOME ERROR OCCURED, PLEASE TRY AGAIN');
+          $('#producerError').show(500);
         }
-        else if(result== "true"){
-          $('#repasswordError').html('Verification mail sent, please verify your email address and login through login page');
-          $('#repasswordError').show(500);
-        }
-        else if (result == "false"){
-          $('#repasswordError').html('Could not register, please try again');
-          $('#repasswordError').show(500);
+        else{
+          $('#producerError').html(result);
+          $('#producerError').show(500);
         }
       },
       type: "POST"

@@ -7,6 +7,7 @@ class Home extends MX_Controller{
 	}
 //home should be in different main controller (out of hmvc)
 	public function index(){
+		
 		if($this->userModel->checkLoggedInUser()){
 //**$data to displayData
 			$displayData = array(

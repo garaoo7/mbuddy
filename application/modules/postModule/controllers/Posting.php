@@ -19,6 +19,7 @@ class Posting extends MX_Controller{
         $artist 		= 	$this->input->post('artist', TRUE);
         $composer 		= 	$this->input->post('composer', TRUE);
         $writer 		= 	$this->input->post('writer', TRUE);
+        $producer 		= 	$this->input->post('producer', TRUE);
        		
     	if($title == null || $title == ""){
      		echo json_encode("Title field can not be empty");
@@ -57,7 +58,25 @@ class Posting extends MX_Controller{
 	  		echo json_encode("Producer field can not be empty");
 	     	return false;
 	    }
+//**conditions not checked - same source url enchant_dict_check(dict, word)
+	    else{
+			$this->load->module('Common/ticketgenerator');
+			$userID 	= $this->session->userdata('userID');
+			$listingID  = $this->ticketgenerator->generateTicketListing();
+			$data 		= array(
+				'UserID'				=> $userID,
+				'ListingID' 			=> $listingID,
+				'ListingDescription' 	=> $description,
+				'ListingSourceLink' 	=> $sourceLink,
+				);
 
+			if($this->postModel->postListing($data)){
+				echo json_encode("true");								
+			}
+			else{
+				echo json_encode("false");
+			}
+		}
 	}
 
 	public function checkUserLogin(){

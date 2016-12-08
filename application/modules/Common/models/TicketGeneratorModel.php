@@ -8,6 +8,12 @@ class TicketGeneratorModel extends CI_Model{
 		return $this->db->insert_id();
 		}
 
+	public function getListingID(){
+		$query = "REPLACE INTO tickets_listing (Temp) VALUES ('a')";
+		$user = $this->db->query($query);
+		return $this->db->insert_id();
+		}
+
 }
 
 

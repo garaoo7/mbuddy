@@ -42,7 +42,7 @@ class Signup extends MX_Controller{
 	    	echo json_encode('Username field can only have aplha-numeric characters, hyphens and underscores');
         	return false;
     	}
-    
+   
     	else if ($password == null || $password == "") {
 	      	echo json_encode('Password field can not be empty');
       		return false;
@@ -68,7 +68,7 @@ class Signup extends MX_Controller{
 					$this->load->module('Common/ticketgenerator');
 					$salt 	  = uniqid(mt_rand(), TRUE);
 					$password = $this->userModel->hashPassword($password, $salt);
-					$userID   = $this->ticketgenerator->generateTicket();
+					$userID   = $this->ticketgenerator->generateTicketUser();
 					$data = array(
 						'UserID' => $userID,
 						'Email' => $email,
