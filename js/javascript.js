@@ -2,9 +2,10 @@ $(document).ready(function(){
 //add
 	var regxEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	var regxUsername = /^[A-Za-z0-9\-\_]+$/;
-	
+  // var temp;
 
 	$('#login').click(function(){
+//for login button at the the home page    
 		$('#errorHomepage').hide();
 		$('#homePageHome').hide();
 		$('#signupFormHome').hide();
@@ -12,11 +13,25 @@ $(document).ready(function(){
 	});
 
 	$('#signup').click(function(){
+//for signup button at the the home page 
 		$('#errorHomepage').hide();
 		$('#homePageHome').hide();
 		$('#loginFormHome').hide();
 		$('#signupFormHome').show();
 	});
+
+  // function ajaxCall(aurl, adata, adataType, atype){
+  //   $.ajax({
+  //       url: aurl,
+  //       data: adata,
+  //       dataType: adataType,
+  //       success: function(result){
+  //         temp = result;
+  //       },
+  //       type: atype
+  //     });
+  // }
+
 
 	$('#signupFormSubmit').unbind('click').click(function(){
 //xss clean
@@ -109,7 +124,7 @@ $(document).ready(function(){
 
 	$("#loginFormSubmit").unbind('click').click(function(){
 //xss clean
-	  	var username = document.loginForm.username.value.trim();
+	  var username = document.loginForm.username.value.trim();
 		var password = document.loginForm.password.value.trim();
 		
 		if(username == null || username == ""){
@@ -123,38 +138,47 @@ $(document).ready(function(){
       		$('#passwordErrorL').show(500);
       		return false;
     	}
-  		$.ajax({
-    		url: "http://localhost/mbuddy/index.php/userModule/login/login/",
-    		data: {
-	  				'username' : username,
-    				'password' : password,
-    			},
-    		dataType: "json",
-    		success: function(result){
-    			
-	    			if(result == "true"){
-	    				window.location.reload();
-		    		}
-		    		else if(result == "accountNotActivated"){
-		    			$('#usernameErrorL, #passwordErrorL').hide(100);
-		    			$('#passwordErrorL').html('Your Email address is not verified, please verify first');
-		      			$('#passwordErrorL').show(500);
-		    		}
-		    		else if(result== "incorrectCredentials"){
-		    			$('#usernameErrorL, #passwordErrorL').hide(100);
-						$('#passwordErrorL').html('Incorrect Username or Password');
-		      			$('#passwordErrorL').show(500);
-		    		}
-		    		else {
-		    			$('#usernameErrorL, #passwordErrorL').hide(100);
-		    			$('#passwordErrorL').html(result);
-		    			$('#passwordErrorL').show(500);
-		    		}
-	   			},
-	   		type: "POST"
 
-    	});
- 
+      // var url = "http://localhost/mbuddy/index.php/userModule/login/login/";
+      // var data = {
+      //       'username' : username,
+      //       'password' : password,
+      //     };
+      // var dataType = "json";
+      // var type = "POST";
+      // var result = ajaxCall(url, data, dataType, type);
+
+      $.ajax({
+        url: "http://localhost/mbuddy/index.php/userModule/login/login/",
+        data: {
+            'username' : username,
+            'password' : password,
+          },
+        dataType: "json",
+        success: function(result){
+          if(result == "true"){
+            window.location.reload();
+          }
+          else if(result == "accountNotActivated"){
+            $('#usernameErrorL, #passwordErrorL').hide(100);
+            $('#passwordErrorL').html('Your Email address is not verified, please verify first');
+            $('#passwordErrorL').show(500);
+          }
+          else if(result == "incorrectCredentials"){
+            $('#usernameErrorL, #passwordErrorL').hide(100);
+            $('#passwordErrorL').html('Incorrect Username or Password');
+            $('#passwordErrorL').show(500);
+          }
+          else {
+            $('#usernameErrorL, #passwordErrorL').hide(100);
+            $('#passwordErrorL').html(result);
+            $('#passwordErrorL').show(500);
+          }
+        
+       },
+        type: "POST"
+
+      });
 	});
 
 	$("#logoutButton").unbind('click').click(function(){
@@ -173,7 +197,7 @@ $(document).ready(function(){
 
 
 	$('#listingFormSubmit').unbind('click').click(function(){
-  //xss clea
+  //xss clean
     var title       = document.listingForm.title.value.trim();
     var description = document.listingForm.description.value.trim();
     var sourceLink  = document.listingForm.sourceLink.value.trim();

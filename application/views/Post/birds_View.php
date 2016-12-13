@@ -1,6 +1,4 @@
 
-
-
 <html>
     <title>My Page</title>
     <body>
