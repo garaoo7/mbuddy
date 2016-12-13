@@ -9,18 +9,16 @@ class Home extends MX_Controller{
 	public function index(){
 		
 		if($this->userModel->checkLoggedInUser()){
-//**$data to displayData
 			$displayData = array(
 				'session' => true
 				);
-			$this->load->view('homepage', $displayData);
 		}
 		else{
 			$displayData = array(
 				'session' => false
 				);
-			$this->load->view('homepage', $displayData);
 		}
+		$this->load->view('homepage', $displayData);
 	}
 }
 
