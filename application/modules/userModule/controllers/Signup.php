@@ -5,7 +5,7 @@ class Signup extends MX_Controller{
 	public function __construct(){
 		$this->load->model("userModel");
 //		$this->load->library('form_validation');
-//		$this->load->helper('security');
+		$this->load->helper('security');
 	}
 
 

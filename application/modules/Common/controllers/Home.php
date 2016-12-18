@@ -3,6 +3,8 @@
 class Home extends MX_Controller{
 	
 	public function __construct(){
+//simple path to usermodel isn't working
+		parent::__construct();
 		$this->load->model("../modules/userModule/models/userModel");
 	}
 //home should be in different main controller (out of hmvc)

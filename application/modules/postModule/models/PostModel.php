@@ -13,6 +13,19 @@ class PostModel extends MY_Model{
 		}
 	}
 
+	public function entryExist($value, $coloumn, $table){
+//check if a entry exists in the particular table in the database and returns the row entry if it exists
+		$this->_init('read');
+		$this->dbHandle->from($table);
+		$this->dbHandle->where($coloumn, $value);
+		$entry = $this->dbHandle->get();
+		if($entry->num_rows() > 0){
+			$entry = $entry->row();
+			return $entry;
+		}
+		//echo $this->dbHandle->last_query();
+		return false;
+	}
 // 	public function dropdown(){
 // 		$this->_init('read');
 // 		$this->dbHandle->select('UserID, Username');
@@ -36,11 +49,25 @@ class PostModel extends MY_Model{
 		}
 	}
 
-		public function postListing($data){ 
+	public function insertData($data, $table){ 
 //inserts the new user data into database
 		$this->_init('write');
-		return $this->dbHandle->insert('listing', $data);
+		return $this->dbHandle->insert($table, $data);
 	}
 
+	function autoSuggestion($q, $coloumn, $table){
+    //print_r($this->db);
+	    $this->db->select($coloumn);
+	    $this->db->from($table);
+	    $this->db->like($coloumn,$q);
+	    $result = $this->db->get()->result_array();
+	    $data = array();
+	    foreach ($result as $key=> $temp) {
+	      $data[$key]['label'] = $temp[$coloumn];
+	      $data[$key]['value'] = $temp[$coloumn];
+	    }
+
+	    return $data;
+  }
 
 }?>

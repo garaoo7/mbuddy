@@ -20,11 +20,6 @@
 	$this->load->view('userModule/signupForm');
 ?></div>
 
-<div id=postFormHome hidden>
-<?php 
-	$this->load->view('postModule/postingPage');
-?></div>
-
 <div id=homePageHome>
 <!-- **hidden not working homePageHome div but working for rest -->
 <?php 

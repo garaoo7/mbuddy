@@ -4,6 +4,7 @@ class Login extends MX_Controller{
 
 	public function __construct(){
 		$this->load->model("userModel");
+		$this->load->helper('security');
 	}
 
 

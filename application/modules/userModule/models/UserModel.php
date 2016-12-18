@@ -3,7 +3,6 @@
 class UserModel extends MY_Model{
 
 	private $dbHandle;
-
 	private function _init($handle = 'read'){
 //directs the database requests to specific servers(hostnames), different for read and write.
 		if($handle=='read'){
