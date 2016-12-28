@@ -1,24 +1,89 @@
 $(document).ready(function(){
-//add
+
 	var regxEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	var regxUsername = /^[A-Za-z0-9\-\_]+$/;
-  // var temp;
 
-  // $.get("https://www.googleapis.com/youtube/v3/videos",{
-  //         part: 'snippet',
-  //         id: 'n1a7o44WxNo',
-  //         key: 'AIzaSyD6bgYF7YzDhtWX4x1zmsKUz9dRcZDwjKk'
-  //         },
-  //         function(data){
-  //           if(data.pageInfo.totalResults>0){
-  //              alert("success");
-  //           }
-  //           else{
-  //             alert("failure");
-  //           }
-           
-  //         }
-  // );
+
+//Tag it and Auto Suggestor
+  $.ajax({
+    url: "http://localhost/mbuddy/index.php/post_module/posting/auto_complete_language/",
+    dataType: "json",
+    success: function(data){
+      $('#language').simplyTag({  
+        forMultiple: true,               
+        dataSource: data,
+        isLocal: true,
+        key: 'key',
+        value: 'value'
+      });
+    }
+  });
+
+  $.ajax({
+    url: "http://localhost/mbuddy/index.php/post_module/posting/auto_complete_section/",
+    dataType: "json",
+    success: function(data){
+      $('#section').simplyTag({     
+        forMultiple: true,               
+        dataSource: data
+      });
+    }
+  });
+
+  $.ajax({
+    url: "http://localhost/mbuddy/index.php/post_module/posting/auto_complete_artist/",
+    dataType: "json",
+    success: function(data){
+      $('#artist').simplyTag({     
+        forMultiple: true,               
+        dataSource: data
+      });
+    }
+  });
+
+  $.ajax({
+    url: "http://localhost/mbuddy/index.php/post_module/posting/auto_complete_singer/",
+    dataType: "json",
+    success: function(data){
+      $('#singer').simplyTag({     
+        forMultiple: true,               
+        dataSource: data
+      });
+    }
+  });
+
+  $.ajax({
+    url: "http://localhost/mbuddy/index.php/post_module/posting/auto_complete_composer/",
+    dataType: "json",
+    success: function(data){
+      $('#composer').simplyTag({     
+        forMultiple: true,               
+        dataSource: data
+      });
+    }
+  });
+
+  $.ajax({
+    url: "http://localhost/mbuddy/index.php/post_module/posting/auto_complete_writer/",
+    dataType: "json",
+    success: function(data){
+      $('#writer').simplyTag({     
+        forMultiple: true,               
+        dataSource: data
+      });
+    }
+  });
+
+  $.ajax({
+    url: "http://localhost/mbuddy/index.php/post_module/posting/auto_complete_producer/",
+    dataType: "json",
+    success: function(data){
+      $('#producer').simplyTag({     
+        forMultiple: true,               
+        dataSource: data
+      });
+    }
+  });
 
 	$('#login').click(function(){
 //for login button at the the home page    
@@ -117,7 +182,7 @@ $(document).ready(function(){
 
 
     	$.ajax({
-    		url: "http://localhost/mbuddy/index.php/userModule/signup/createUser/",
+    		url: "http://localhost/mbuddy/index.php/user_module/signup/create_user/",
     		data: {
    					'emailAddress' : email,
 	  				'username' : username,
@@ -164,18 +229,22 @@ $(document).ready(function(){
 		var password = document.loginForm.password.value.trim();
 		
 		if(username == null || username == ""){
+      $('#usernameErrorL').hide(500);
+      $('#passwordErrorL').hide(500);
 			$('#usernameErrorL').html('Username field can not be empty');
 	 		$('#usernameErrorL').show(500);
-      		return false;
-    	}   	
+      return false;
+    }   	
     
-    	if (password == null || password == "") {
-	      	$('#passwordErrorL').html('Password field can not be empty');
-      		$('#passwordErrorL').show(500);
-      		return false;
-    	}
+    if (password == null || password == "") {
+      $('#usernameErrorL').hide(500);
+      $('#passwordErrorL').hide(500);
+      $('#passwordErrorL').html('Password field can not be empty');
+    	$('#passwordErrorL').show(500);
+    	return false;
+    }
 
-      // var url = "http://localhost/mbuddy/index.php/userModule/login/login/";
+      // var url = "http://localhost/mbuddy/index.php/user_module/login/login/";
       // var data = {
       //       'username' : username,
       //       'password' : password,
@@ -185,7 +254,7 @@ $(document).ready(function(){
       // var result = ajaxCall(url, data, dataType, type);
 
       $.ajax({
-        url: "http://localhost/mbuddy/index.php/userModule/login/login/",
+        url: "http://localhost/mbuddy/index.php/user_module/login/login/",
         data: {
             'username' : username,
             'password' : password,
@@ -220,7 +289,7 @@ $(document).ready(function(){
 	$("#logoutButton").unbind('click').click(function(){
 //xss clean
   		$.ajax({
-    		url: "http://localhost/mbuddy/index.php/userModule/login/logout/",
+    		url: "http://localhost/mbuddy/index.php/user_module/login/logout/",
     		dataType: "json",
     		success: function(result){
 	    		if(result == "true"){
@@ -230,31 +299,8 @@ $(document).ready(function(){
     	});
  
 	});
-//AutoComplete
 
-  // $("#language").autocomplete({
-  //   source: "autoCompleteLanguage" // path to the autoComplete method
-  //       });
-  $("#section").autocomplete({
-    source: "autoCompleteSection" // path to the autoComplete method
-        });
-  $("#artist").autocomplete({
-    source: "autoCompleteArtist" // path to the autoComplete method
-        });
-  $("#singer").autocomplete({
-    source: "autoCompleteSinger" // path to the autoComplete method
-        });
-  $("#composer").autocomplete({
-    source: "autoCompleteComposer" // path to the autoComplete method
-        });
-  $("#writer").autocomplete({
-    source: "autoCompleteWriter" // path to the autoComplete method
-        });
-  $("#producer").autocomplete({
-    source: "autoCompleteProducer" // path to the autoComplete method
-        });
- 
-
+  
 	$('#listingFormSubmit').unbind('click').click(function(){
   //xss clean
     var title       = document.listingForm.title.value.trim();
@@ -341,7 +387,7 @@ $(document).ready(function(){
     }
     var id;
     $.ajax({
-      url: "http://localhost/mbuddy/index.php/postModule/posting/getYoutubeVideoId/",
+      url: "http://localhost/mbuddy/index.php/post_module/posting/get_youtube_video_id/",
       data: {
         'sourceLink'    :   sourceLink
       },
@@ -360,56 +406,72 @@ $(document).ready(function(){
       $('#sourceLinkError').show(500);
       return false;
     }
-
     $.ajax({
-      url: "http://localhost/mbuddy/index.php/postModule/posting/postListing/",
-      data: {
-        'title'       :   title,
-        'description' :   description,
-        'sourceLink'  :   sourceLink,
-        'lyrics'      :   lyrics,
-        'language'    :   language,
-        'section'     :   section,
-        'artist'      :   artist,
-        'singer'      :   singer,
-        'composer'    :   composer,
-        'writer'      :   writer,
-        'producer'    :   producer
-      },
-      dataType: "json",
-      success: function(result){
+        url: "http://localhost/mbuddy/index.php/post_module/posting/check_user_login/",
+        dataType: "json",
+        success: function(result){
+          
+            if(result == "true"){
+              $.ajax({
+                url: "http://localhost/mbuddy/index.php/post_module/posting/post_listing/",
+                data: {
+                  'title'       :   title,
+                  'description' :   description,
+                  'sourceLink'  :   sourceLink,
+                  'lyrics'      :   lyrics,
+                  'language'    :   language,
+                  'section'     :   section,
+                  'artist'      :   artist,
+                  'singer'      :   singer,
+                  'composer'    :   composer,
+                  'writer'      :   writer,
+                  'producer'    :   producer
+                },
+                dataType: "json",
+                success: function(result){
 
-       if(result == "true"){
-          $('#producerError').hide(100);
-          $('#producerError').html('POST SUCCESSFULL, WILL BE UPLOADED AFTER VERIFICATION');
-          $('#producerError').show(500);
-        }
+                 if(result == "true"){
+                    $('#producerError').hide(100);
+                    $('#producerError').html('POST SUCCESSFULL, WILL BE UPLOADED AFTER VERIFICATION');
+                    $('#producerError').show(500);
+                  }
 
-        else if(result == "false"){
-          $('#producerError').hide(100);
-          $('#producerError').html('SOME ERROR OCCURED, PLEASE TRY AGAIN');
-          $('#producerError').show(500);
-        }
-        else{
-          $('#producerError').hide(100);
-          $('#producerError').html(result);
-          $('#producerError').show(500);
-        }
-      },
-      type: "POST"
-    });
+                  else if(result == "false"){
+                    $('#producerError').hide(100);
+                    $('#producerError').html('SOME ERROR OCCURED, PLEASE TRY AGAIN');
+                    $('#producerError').show(500);
+                  }
+                  else{
+                    $('#producerError').hide(100);
+                    $('#producerError').html(result);
+                    $('#producerError').show(500);
+                  }
+                },
+                type: "POST"
+              });
+            }
+            else if(result =='false'){
+              $('#producerError').hide(100);
+              $('#producerError').html("YOU NEED TO LOGGGED IN TO POST");
+              $('#producerError').show(500);            
+            }
+          },
+        type: "POST"
+
+      });
+    
     
   });
 	
 	$("#post").unbind('click').click(function(){
 //xss clean
   		$.ajax({
-    		url: "http://localhost/mbuddy/index.php/postModule/posting/checkUserLogin/",
+    		url: "http://localhost/mbuddy/index.php/post_module/posting/check_user_login/",
     		dataType: "json",
     		success: function(result){
     			
 	    			if(result == "true"){
-						  window.location = "http://localhost/mbuddy/index.php/postModule/posting/index";
+						  window.location = "http://localhost/mbuddy/index.php/post_module/posting/index";
 		    		}
 		    		else if(result =='false'){
 		    			$('#homePageHome').hide();

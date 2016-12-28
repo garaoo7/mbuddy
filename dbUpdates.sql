@@ -20,9 +20,9 @@ query=> "RENAME TABLE `sections` TO `section`"
 
 query=> (Change 'sourceid' coloumn in 'listing' table from 'NULL' to default '1', and insert a entry with sourceID '1' and source as 'youtube' in 'source_of_listing' table)
 
-query=> "(Make default value of 'status' coloumn of table 'listing" equal to 'draft')"
+query=> "(Make default value of 'status' coloumn of table 'listing' equal to 'draft')"
 
-query=> ""
+query=> "ALTER TABLE `listing` ADD `URL` VARCHAR(1000) NOT NULL AFTER `ListingLyrics`, ADD INDEX (`URL`)"
 
 query=> ""
 
