@@ -55,20 +55,28 @@ class Post_model extends MY_Model{
 		return $this->dbHandle->insert($table, $data);
 	}
 
-  function autoSuggestion($coloumn, $table){
+  function autoSuggestion($coloumn2, $table, $coloumn1 = null){
     //print_r($this->db);
-	    $this->db->select($coloumn);
+    if($coloumn1 == null){
+    	$coloumn1 = $coloumn2;
+    }
+	    $this->db->select($coloumn1);
+	    $this->db->select($coloumn2);
 	    $this->db->from($table);
 	    $result = $this->db->get()->result_array();
 	    $data = array();
 	    // $i = 0;	
 	    foreach ($result as $key=> $temp) {
-	      	$data[$key]['key'] = $temp[$coloumn];
-      		$data[$key]['value'] = $temp[$coloumn];
+	      	$data[$key]['key'] = $temp[$coloumn1];
+      		$data[$key]['value'] = $temp[$coloumn2];
       		// $i++;
 	    }
 
 	    return $data;
   }
 
+//array(1,2,3,4,'custom'=>array("cool","nice"));
+
+  
 }?>
+

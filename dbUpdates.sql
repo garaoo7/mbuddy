@@ -24,18 +24,19 @@ query=> "(Make default value of 'status' coloumn of table 'listing' equal to 'dr
 
 query=> "ALTER TABLE `listing` ADD `URL` VARCHAR(1000) NOT NULL AFTER `ListingLyrics`, ADD INDEX (`URL`)"
 
-query=> ""
+CREATE TABLE `mbuddy`.`listing_language_relation` ( `ID` INT(11) NOT NULL AUTO_INCREMENT , `LanguageID` INT(11) NOT NULL , `ListingID` INT(11) NOT NULL , `Status` ENUM('live','disabled','draft','delete') NOT NULL DEFAULT 'live' , PRIMARY KEY (`ID`), INDEX (`LanguageID`), INDEX (`ListingID`));
 
-query=> ""
+ALTER TABLE listing_language_relation ADD FOREIGN KEY (LanguageID) REFERENCES language(LanguageID);
+ALTER TABLE listing_language_relation ADD FOREIGN KEY (ListingID) REFERENCES listing(ListingID);
+ALTER TABLE listing DROP foreign key listing_ibfk_2;
+DROP INDEX LanguageID ON listing;
+ALTER TABLE listing DROP LanguageID;
 
-query=> ""
+ALTER TABLE `temporary_listing_data` change `ArtistName` `ArtistName` varchar(100)  NULL;
+ALTER TABLE `temporary_listing_data` change `ComposerName` `ComposerName` varchar(100)  NULL;
+ALTER TABLE `temporary_listing_data` change `InstrumentsName` `InstrumentsName` varchar(100)  NULL;
+ALTER TABLE `temporary_listing_data` change `ProducerName` `ProducerName` varchar(100)  NULL;
+ALTER TABLE `temporary_listing_data` change `SingerName` `SingerName` varchar(100)  NULL;
+ALTER TABLE `temporary_listing_data` change `WriterName` `WriterName` varchar(100)  NULL;
+ALTER TABLE `temporary_listing_data` change `SectionName` `SectionName` varchar(100)  NULL;
 
-query=> ""
-
-query=> ""
-
-query=> ""
-
-query=> ""
-
-query=> ""
