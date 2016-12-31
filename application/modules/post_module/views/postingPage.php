@@ -3,7 +3,7 @@
     $this->load->view("header");
    ?>
 
-  <div class="row">
+  <div class="row page-header">
         <div class="col-xs-8 col-sm-6 col-md-6 col-xs-offset-2 col-sm-offset-3 col-md-offset-3">
           <h2>Submit Your Post Here</h2>
         </div>

@@ -20,6 +20,8 @@ class Posting extends MX_Controller{
    			exit('No direct script access allowed');
 		}
 
+
+
 		$title 				= 	$this->input->post('title', TRUE);
   		$description 		= 	$this->input->post('description', TRUE);
       $sourceLink 		= 	$this->input->post('sourceLink', TRUE);
@@ -48,35 +50,35 @@ class Posting extends MX_Controller{
 			echo json_encode("Description field can not be empty");
      	 	return false;
     	}
-       	if($sourceLink == null || $sourceLink == ""){
+      if($sourceLink == null || $sourceLink == ""){
       		echo json_encode("SourceLink field can not be empty");
      	 	return false;
     	}
-	    if($lyrics == null || $lyrics == ""){
+	   if($lyrics == null || $lyrics == ""){
 	     	echo json_encode("Lyrics field can not be empty");
 	     	return false;
 	    }
-	   	if(($language == null || $language == "") && ($languageInvalid == null || $languageInvalid == "")){
+	   if(($language == null || $language == "") && ($languageInvalid == null || $languageInvalid == "")){
 	   		echo json_encode("Language field can not be empty");
 	     	return false;
 	    }
-	    if(($section == null || $section == "") && ($sectionInvalid == null || $sectionInvalid == "")){
+	   if(($section == null || $section == "") && ($sectionInvalid == null || $sectionInvalid == "")){
 	   		echo json_encode("Category/Section field can not be empty");
 	     	return false;
 	    }
-	   	if(($artist == null || $artist == "") && ($artistInvalid == null || $artistInvalid == "")){
+	   if(($artist == null || $artist == "") && ($artistInvalid == null || $artistInvalid == "")){
 	  		echo json_encode("Artist field can not be empty");
 	     	return false;
 	    }
-	    if(($singer == null || $singer == "") && ($singerInvalid == null || $singerInvalid == "")){
+	   if(($singer == null || $singer == "") && ($singerInvalid == null || $singerInvalid == "")){
 	  		echo json_encode("Singer field can not be empty");
 	     	return false;
 	    }
-	   	if(($composer == null || $composer == "") && ($composerInvalid == null || $composerInvalid == "")){
+	   if(($composer == null || $composer == "") && ($composerInvalid == null || $composerInvalid == "")){
 	    	echo json_encode("Composer field can not be empty");
 	     	return false;
 	   	}
-	   	if(($writer == null || $writer == "") && ($writerInvalid == null || $writerInvalid == "")){
+	   if(($writer == null || $writer == "") && ($writerInvalid == null || $writerInvalid == "")){
 	     	echo json_encode("Writer field can not be empty");
 	     	return false;
 	    }
@@ -86,7 +88,7 @@ class Posting extends MX_Controller{
 	     	return false;
 	    }
 //**conditions not checked - same source url enchant_dict_check(dict, word)
-	    else{
+	   else{
 			$this->load->module('common/ticket_generator');
 
 			// $artistTemp = $this->post_model->entryExist($artist, 'ArtistName', 'artist');
@@ -190,6 +192,7 @@ class Posting extends MX_Controller{
 			// // 		);
 			// // 	$this->post_model->insertData($singerData, 'singer');
 			// // }
+		$this->db->trans_start(true);
 
 			$listingID  = $this->ticket_generator->generate_ticket_listing();
 			$userID 	= $this->session->userdata('userID');
@@ -203,7 +206,7 @@ class Posting extends MX_Controller{
 			$this->post_model->insertData($data, 'listing');
 			foreach ((array)$language as $value){
 				$data 		= array(
-					'LanguageID'			=> $value,
+					'LanguageIDa'			=> $value,
 					'ListingID' 		=> $listingID
 					);
 				$this->post_model->insertData($data, 'listing_language_relation');
@@ -268,15 +271,33 @@ class Posting extends MX_Controller{
 				'WriterName' 			=> (implode( ", ", (array)$writerInvalid)),
 				'ProducerName' 		=> (implode( ", ", (array)$producerInvalid))
 			);		
+			$this->post_model->insertData($data, 'temporary_listing_data');
+			
+			$this->db->trans_complete();
 //**IS this echoing of true correct or do we need a condition if in case something wrong occurred
-			if($this->post_model->insertData($data, 'temporary_listing_data')){
-				echo json_encode("true");
-				return true;
-			}
-			else{
-				echo json_encode("false");
-				return false;
-			}							
+			$trans_status = $this->db->trans_status();
+
+    if ($trans_status == FALSE) {
+         $this->db->trans_rollback();
+         			echo json_encode("false");
+		return false;
+    }else{
+   $this->db->trans_commit();
+   echo json_encode("true");
+			return true;
+          }
+
+
+
+
+			// if($this->post_model->insertData($data, 'temporary_listing_data')){
+			// 	echo json_encode("true");
+			// 	return true;
+			// }
+			// else{
+			// 	echo json_encode("false");
+			// 	return false;
+			// }							
 			
 		}
 	}
@@ -324,7 +345,6 @@ class Posting extends MX_Controller{
   	}
 
 	public function get_youtube_video_id(){
-
 //**shows snippet error if no valid link is given
 		$url = $this->input->post('sourceLink', TRUE);
 		parse_str( parse_url( $url, PHP_URL_QUERY ), $my_array_of_vars );

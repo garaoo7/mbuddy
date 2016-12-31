@@ -288,35 +288,45 @@ $(document).ready(function(){
       async: false,
       success: function(data){
           result = data.pageInfo.totalResults;
-          document.getElementById("sourceThumbnail").src=data.items[0].snippet.thumbnails.default.url;   
+          if(result>0){
+            document.getElementById("sourceThumbnail").src=data.items[0].snippet.thumbnails.default.url;   
+         }
       }
     });
     if(result>0){
       return true;
     }
     else{
+      $('#sourceLinkError').html('Please provide a valid link');
+      $('#sourceLinkError').show(500);
       return false;
     }
   }
 
- $("#verifySourceUrl").unbind('click').click(function(){
-    var id;
-    var sourceLink  = document.listingForm.sourceLink.value.trim();
-    //**shows snippet error if no valid link is given
-    $.ajax({
-      url: "http://localhost/mbuddy/index.php/post_module/posting/get_youtube_video_id/",
-      data: {
-        'sourceLink'    :   sourceLink
-      },
-      dataType: "json",
-      async: false,
-      success: function(result){
-        id = result;
-      },
-      type: "POST"
-    });
-    var url = "https://www.googleapis.com/youtube/v3/videos?part=snippet&id=" + id + "&key=AIzaSyD6bgYF7YzDhtWX4x1zmsKUz9dRcZDwjKk";
-    var sourceUrl = validateSourceUrl(url);
+   $("#verifySourceUrl").unbind('click').click(function(){
+      var id;
+      var sourceLink  = document.listingForm.sourceLink.value.trim();
+      //**shows snippet error if no valid link is given
+      $.ajax({
+        url: "http://localhost/mbuddy/index.php/post_module/posting/get_youtube_video_id/",
+        data: {
+          'sourceLink'    :   sourceLink
+        },
+        dataType: "json",
+        async: false,
+        success: function(result){
+          id = result;
+        },
+        type: "POST"
+      });
+      if(id != null){
+         var url = "https://www.googleapis.com/youtube/v3/videos?part=snippet&id=" + id + "&key=AIzaSyD6bgYF7YzDhtWX4x1zmsKUz9dRcZDwjKk";
+         var sourceUrl = validateSourceUrl(url);
+      }
+      else{
+         $('#sourceLinkError').html('Please provide a valid link');
+         $('#sourceLinkError').show(500);
+      }
  //console.log("clicked");
   });
   
@@ -334,16 +344,15 @@ $(document).ready(function(){
       language.push($(this).attr('data-key'));
     });
     $('#language').siblings('.simply-tags').children('.invalid').each(function(){
-      languageInvalid.push($(this).attr('data-key'));
+      languageInvalid.push($(this).text().trim());
     });
-
     var section         = [];
     var sectionInvalid  = [];
     $('#section').siblings('.simply-tags').children('.valid').each(function(){
       section.push($(this).attr('data-key'));
     });
     $('#section').siblings('.simply-tags').children('.invalid').each(function(){
-      sectionInvalid.push($(this).attr('data-key'));
+      sectionInvalid.push($(this).text().trim());
     });
 
     var artist          = [];
@@ -352,7 +361,7 @@ $(document).ready(function(){
       artist.push($(this).attr('data-key'));
     });
     $('#artist').siblings('.simply-tags').children('.invalid').each(function(){
-      artistInvalid.push($(this).attr('data-key'));
+      artistInvalid.push($(this).text().trim());
     });
 
     var singer          = [];
@@ -361,7 +370,7 @@ $(document).ready(function(){
       singer.push($(this).attr('data-key'));
     });
     $('#singer').siblings('.simply-tags').children('.invalid').each(function(){
-      singerInvalid.push($(this).attr('data-key'));
+      singerInvalid.push($(this).text().trim());
     });
 
     var composer        = [];
@@ -370,7 +379,7 @@ $(document).ready(function(){
       composer.push($(this).attr('data-key'));
     });
     $('#composer').siblings('.simply-tags').children('.invalid').each(function(){
-      composerInvalid.push($(this).attr('data-key'));
+      composerInvalid.push($(this).text().trim());
     });
 
     var writer          = [];
@@ -379,7 +388,7 @@ $(document).ready(function(){
       writer.push($(this).attr('data-key'));
     });
     $('#writer').siblings('.simply-tags').children('.invalid').each(function(){
-      writerInvalid.push($(this).attr('data-key'));
+      writerInvalid.push($(this).text().trim());
     });
 
     var producer        = [];
@@ -388,7 +397,7 @@ $(document).ready(function(){
       producer.push($(this).attr('data-key'));
     });
     $('#producer').siblings('.simply-tags').children('.invalid').each(function(){
-      producerInvalid.push($(this).attr('data-key'));
+      producerInvalid.push($(this).text().trim());
     });
 
     if(title == null || title == ""){
@@ -515,29 +524,29 @@ $(document).ready(function(){
                 success: function(result){
 
                  if(result == "true"){
-                    $('#producerError').hide(100);
-                    $('#producerError').html('POST SUCCESSFULL, WILL BE UPLOADED AFTER VERIFICATION');
-                    $('#producerError').show(500);
+                     $('#titleError, #descriptionError, #sourceLinkError, #lyricsError, #languageError, #sectionError, #artistError, #singerError, #composerError, #writerError, #producerError').hide(100);
+                     $('#producerError').html('POST SUCCESSFULL, WILL BE UPLOADED AFTER VERIFICATION');
+                     $('#producerError').show(500);
                   }
 
                   else if(result == "false"){
-                    $('#producerError').hide(100);
-                    $('#producerError').html('SOME ERROR OCCURED, PLEASE TRY AGAIN');
-                    $('#producerError').show(500);
+                     $('#titleError, #descriptionError, #sourceLinkError, #lyricsError, #languageError, #sectionError, #artistError, #singerError, #composerError, #writerError, #producerError').hide(100);
+                     $('#producerError').html('SOME ERROR OCCURED, PLEASE TRY AGAIN');
+                     $('#producerError').show(500);
                   }
                   else{
-                    $('#producerError').hide(100);
-                    $('#producerError').html(result);
-                    $('#producerError').show(500);
+                     $('#titleError, #descriptionError, #sourceLinkError, #lyricsError, #languageError, #sectionError, #artistError, #singerError, #composerError, #writerError, #producerError').hide(100);
+                     $('#producerError').html(result);
+                     $('#producerError').show(500);
                   }
                 },
                 type: "POST"
               });
             }
             else if(result =='false'){
-              $('#producerError').hide(100);
-              $('#producerError').html("YOU NEED TO LOGGGED IN TO POST");
-              $('#producerError').show(500);            
+               $('#titleError, #descriptionError, #sourceLinkError, #lyricsError, #languageError, #sectionError, #artistError, #singerError, #composerError, #writerError, #producerError').hide(100);
+               $('#producerError').html("YOU NEED TO LOGGGED IN TO POST");
+               $('#producerError').show(500);            
             }
           },
         type: "POST"
