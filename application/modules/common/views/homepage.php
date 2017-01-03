@@ -1,6 +1,9 @@
 <div class="container-fluid">
 <?php
-  $this->load->view("header");
+  $linkData = array(
+            'link1' => base_url("css/bootstrap.min.css")
+            );
+  $this->load->view("header", $linkData);
  ?>
 
 <div id=errorHomepage hidden>
@@ -29,6 +32,11 @@
 	
 ?></div>
 <?php
-  $this->load->view("footer");
+  $scriptData = array(
+            'script1' => base_url("jquery/jquery-3.1.1.min.js"),
+            'script2' => base_url("js/javascript.js"),
+            'script3' => base_url("js/bootstrap.min.js")
+            );
+  $this->load->view("footer", $scriptData);
  ?>
  </div>

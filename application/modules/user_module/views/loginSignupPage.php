@@ -1,14 +1,46 @@
+<?php
+  $linkData = array(
+            'link1' => base_url("css/bootstrap.min.css")
+            );
+  $this->load->view("common/header", $linkData);
+ ?>
 
-<button type="button" class="btn btn-default" data-toggle="modal" data-target="#signupModal">Signup</button>
-<div id="signupModal" class="modal fade" role="dialog">
-   <div class="modal-dialog">
-      <div class="modal-content">
-         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">SIGNUP</h4>
-         </div>
-         <div class="modal-body">
-            <form role="form" id="signupForm" name="signupForm">  
+
+<div class="container-fluid">
+<h3>Login Form</h3>
+<form role="form" id="loginForm" class="form-inline" name="loginForm">	
+	<div class="form-group">
+		<label>Username or Email:
+			<input type="text" class="form-control" name="username" placeholder="Username or email">
+		</label>
+		<div class="row">
+	  	<div class="col-md-6">
+	  		<div id="usernameErrorL" hidden></div>
+	  	</div>
+  	</div>
+	</div>
+
+  	<div class="form-group">
+  		<label>Password:
+  			<input type="password" class="form-control" name="password" placeholder="Password">
+  		</label>
+  		<div class="row">
+	  	<div class="col-md-6">
+	  		<div id="passwordErrorL" hidden></div>
+	  	</div>
+  	</div>
+  	</div>
+
+  	<button id="loginFormSubmit" class="btn btn-default" name="submit" type="button">Login</button>
+</form>
+
+
+
+
+
+<h3>Signup Form</h3>
+
+<form role="form" id="signupForm" name="signupForm">  
                <div class="form-group">
                   <label>Email Address:
                      <input type="text" class="form-control" name="emailAddress" placeholder="email@example.com" value="asd@asd.com">
@@ -55,16 +87,18 @@
 
                <button id=signupFormSubmit class="btn btn-default" name="submit" type="button">Signup</button>
             </form>
-         </div>
-         <div class="modal-footer">
-           <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
-        </div>
-     </div>
-  </div>
-</div>
-
-
 
 
 <a href="<?php echo base_url("index.php/common/home/index") ?>"><button type="button" class="btn btn-default">Home</button></a>
 
+   </div>
+
+
+<?php
+  $scriptData = array(
+            'script1' => base_url("jquery/jquery-3.1.1.min.js"),
+            'script2' => base_url("js/javascript.js"),
+            'script3' => base_url("js/bootstrap.min.js")
+            );
+  $this->load->view("footer", $scriptData);
+ ?>

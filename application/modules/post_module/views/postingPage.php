@@ -1,7 +1,11 @@
 <div class="container-fluid">
-  <?php
-    $this->load->view("header");
-   ?>
+<?php
+  $linkData = array(
+            'link1' => base_url("css/bootstrap.min.css"),
+            'link2' => base_url("css/simply-tag.css")
+            );
+  $this->load->view("common/header", $linkData);
+ ?>
 
   <div class="row page-header">
         <div class="col-xs-8 col-sm-6 col-md-6 col-xs-offset-2 col-sm-offset-3 col-md-offset-3">
@@ -133,17 +137,18 @@
 
     <div align="center">
       <button id="listingFormSubmit" class="btn btn-default" name="submit" type="button">Submit</button>
-      <a href="<?php echo base_url("index.php/common/home/index") ?>"><button type="button" class="btn btn-default">Home</button></a>
+      <a href="<?php echo base_url("index.php/common/home/index") ?>" id="test3"><button type="button" class="btn btn-default">Home</button></a>
     </div>
   </form>
 
-  <?php
-    $this->load->view("footer");
-   ?>
+<?php
+  $scriptData = array(
+            'script1' => base_url("jquery/jquery-3.1.1.min.js"),
+            'script2' => base_url("js/post/post-javascript.js"),
+            'script3' => base_url("js/bootstrap.min.js"),
+            'script4' => base_url("js/simply-tag.js")
+            );
+  $this->load->view("footer", $scriptData);
+ ?>
 </div>
-<script>
-  // $('#title').simplyTag({                    
-  //   dataSource: JSON.parse('[{ "key": 1, "value": "Value1" }, { "key": 2, "value": "value2" }, { "key": 3, "value": "value3" }]')
-  // });
-</script>
 

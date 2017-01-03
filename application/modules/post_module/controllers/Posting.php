@@ -10,17 +10,26 @@ class Posting extends MX_Controller{
 	}
 
 	public function index(){
-//***user validation before opening the page		
-		$this->load->view('postingPage');
-
+//***user validation before opening the page	
+		$temp = $this->post_model->checkLoggedInUser();
+		if($temp){
+			$this->load->view('postingPage');
+		}
+		else{
+			header('Location: '."http://localhost/mbuddy/index.php/user_module/loginSignupPage?redirect=1");
+			// echo '<script type="text/javascript">
+   //       window.location = "http://localhost/mbuddy/index.php/user_module/loginSignupPage?redirect=1"
+	  //     </script>';
+		}	
 	}
 
 	public function post_listing(){
 		if (!$this->input->is_ajax_request()) {
    			exit('No direct script access allowed');
 		}
-
-
+		echo json_encode("true");
+return true;
+//**user_validation
 
 		$title 				= 	$this->input->post('title', TRUE);
   		$description 		= 	$this->input->post('description', TRUE);
@@ -91,107 +100,6 @@ class Posting extends MX_Controller{
 	   else{
 			$this->load->module('common/ticket_generator');
 
-			// $artistTemp = $this->post_model->entryExist($artist, 'ArtistName', 'artist');
-			// if($artistTemp){
-			// 	$artistID = $artistTemp->ArtistID;
-			// }
-			// else{
-			// 	echo json_encode("false");
-			// 	return false;
-			// }
-			// // else{
-			// // 	$artistID = $this->ticket_generator->generate_ticket_artist();
-			// // 	$artistData = array(
-			// // 		'ArtistID' => $artistID,
-			// // 		'ArtistName' => $artist
-			// // 		);
-			// // 	$this->post_model->insertData($artistData, 'artist');
-			// // }
-
-			// $composerTemp = $this->post_model->entryExist($composer, 'ComposerName', 'composer');
-			// if($composerTemp){
-			// 	$composerID = $composerTemp->ComposerID;
-			// }
-			// else{
-			// 	echo json_encode("false");
-			// 	return false;
-			// }
-			// // else{
-			// // 	$composerID = $this->ticket_generator->generate_ticket_composer();
-			// // 	$composerData = array(
-			// // 		'ComposerID' => $composerID,
-			// // 		'ComposerName' => $composer
-			// // 		);
-			// // 	$this->post_model->insertData($composerData, 'composer');
-			// // }
-
-			// $producerTemp = $this->post_model->entryExist($producer, 'ProducerName', 'producer');
-			// if($producerTemp){
-			// 	$producerID = $producerTemp->ProducerID;
-			// }
-			// else{
-			// 	echo json_encode("false");
-			// 	return false;
-			// }
-			// // else{
-			// // 	$producerID = $this->ticket_generator->generate_ticket_producer();
-			// // 	$producerData = array(
-			// // 		'ProducerID' => $producerID,
-			// // 		'ProducerName' => $producer
-			// // 		);
-			// // 	$this->post_model->insertData($producerData, 'producer');
-			// // }
-
-			// $sectionTemp = $this->post_model->entryExist($section, 'SectionName', 'section');
-			// if($sectionTemp){
-			// 	$sectionID = $sectionTemp->SectionID;
-			// }
-			// else{
-			// 	echo json_encode("false");
-			// 	return false;
-			// }
-			// // else{
-			// // 	$sectionID = $this->ticket_generator->generate_ticket_section();
-			// // 	$sectionData = array(
-			// // 		'SectionID' => $sectionID,
-			// // 		'SectionName' => $section
-			// // 		);
-			// // 	$this->post_model->insertData($sectionData, 'section');
-			// // }
-
-			// $writerTemp = $this->post_model->entryExist($writer, 'WriterName', 'writer');
-			// if($writerTemp){
-			// 	$writerID = $writerTemp->WriterID;
-			// }
-			// else{
-			// 	echo json_encode("false");
-			// 	return false;
-			// }
-			// // else{
-			// // 	$writerID = $this->ticket_generator->generate_ticket_writer();
-			// // 	$writerData = array(
-			// // 		'WriterID' => $writerID,
-			// // 		'WriterName' => $writer
-			// // 		);
-			// // 	$this->post_model->insertData($writerData, 'writer');
-			// // }
-
-			// $singerTemp = $this->post_model->entryExist($singer, 'SingerName', 'singer');
-			// if($singerTemp){
-			// 	$singerID = $singerTemp->SingerID;
-			// }
-			// else{
-			// 	echo json_encode("false");
-			// 	return false;
-			// }
-			// // else{
-			// // 	$singerID = $this->ticket_generator->generate_ticket_singer();
-			// // 	$singerData = array(
-			// // 		'SingerID' => $singerID,
-			// // 		'SingerName' => $singer
-			// // 		);
-			// // 	$this->post_model->insertData($singerData, 'singer');
-			// // }
 		$this->db->trans_start(true);
 
 			$listingID  = $this->ticket_generator->generate_ticket_listing();
@@ -204,6 +112,10 @@ class Posting extends MX_Controller{
 				'ListingSourceLink' 	=> $sourceLink,
 				);
 			$this->post_model->insertData($data, 'listing');
+//queries should not be in a loop....insert multple entries at once in one query
+//this all should be in model so that transaction can be applied
+//remove index function.............controller will be loaded through routes
+// user validation in controller (any one with the url can open the page for now)
 			foreach ((array)$language as $value){
 				$data 		= array(
 					'LanguageIDa'			=> $value,
@@ -344,11 +256,21 @@ class Posting extends MX_Controller{
 	    echo json_encode($this->post_model->autoSuggestion('ProducerName', 'producer', 'ProducerID'));
   	}
 
-	public function get_youtube_video_id(){
-//**shows snippet error if no valid link is given
-		$url = $this->input->post('sourceLink', TRUE);
-		parse_str( parse_url( $url, PHP_URL_QUERY ), $my_array_of_vars );
-		echo json_encode($my_array_of_vars['v']);
+	public function varify_youtube_url(){
+//**filw_get_contents showing error, apache srvr can't resolve dns server
+		echo json_encode("true");
+		return;
+		$sourceUrl = $this->input->post('sourceLink', TRUE);
+		parse_str( parse_url( $sourceUrl, PHP_URL_QUERY ), $my_array_of_vars );
+		$id = $my_array_of_vars['v'];
+      $url = "https://www.googleapis.com/youtube/v3/videos?part=snippet&id=".$id."&key=AIzaSyD6bgYF7YzDhtWX4x1zmsKUz9dRcZDwjKk";
+      $data = json_decode(file_get_contents($url));
+       echo json_encode($url);
+
+      // $result = $data.pageInfo.totalResults;
+      //  if(result>0){
+      //    document.getElementById("sourceThumbnail").src=data.items[0].snippet.thumbnails.default.url;   
+      // }
 	}
 }
 ?>
