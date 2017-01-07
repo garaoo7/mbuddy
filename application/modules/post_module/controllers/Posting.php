@@ -5,18 +5,20 @@ class Posting extends MX_Controller{
 	public function __construct(){
 		parent::__construct();
 		$this->load->model("post_model");
+		$this->load->model("user_module/user_model");
 		$this->load->helper('security');
 
 	}
 
 	public function index(){
 //***user validation before opening the page	
-		$temp = $this->post_model->checkLoggedInUser();
+		$temp = $this->user_model->checkLoggedInUser();
 		if($temp){
 			$this->load->view('postingPage');
 		}
 		else{
-			header('Location: '."http://localhost/mbuddy/index.php/user_module/loginSignupPage?redirect=1");
+			// header('Location: '."http://localhost/mbuddy/index.php/user_module/login_signup_page");
+			header('Location: '."http://localhost/mbuddy/index.php/home_module/home/index");
 			// echo '<script type="text/javascript">
    //       window.location = "http://localhost/mbuddy/index.php/user_module/loginSignupPage?redirect=1"
 	  //     </script>';
@@ -31,24 +33,24 @@ class Posting extends MX_Controller{
 return true;
 //**user_validation
 
-		$title 				= 	$this->input->post('title', TRUE);
-  		$description 		= 	$this->input->post('description', TRUE);
-      $sourceLink 		= 	$this->input->post('sourceLink', TRUE);
-      $lyrics 				= 	$this->input->post('lyrics', TRUE);
-      $language 			= 	$this->input->post('language', TRUE);
-      $languageInvalid 	= 	$this->input->post('languageInvalid', TRUE);
-      $section 			= 	$this->input->post('section', TRUE);
-      $sectionInvalid 	= 	$this->input->post('sectionInvalid', TRUE);
-      $artist 				= 	$this->input->post('artist', TRUE);
-      $artistInvalid 	= 	$this->input->post('artistInvalid', TRUE);
-      $singer 				= 	$this->input->post('singer', TRUE);
-      $singerInvalid 	= 	$this->input->post('singerInvalid', TRUE);
-      $composer 			= 	$this->input->post('composer', TRUE);
-      $composerInvalid 	= 	$this->input->post('composerInvalid', TRUE);
-      $writer 				= 	$this->input->post('writer', TRUE);
-      $writerInvalid 	= 	$this->input->post('writerInvalid', TRUE);
-      $producer 			= 	$this->input->post('producer', TRUE);
-      $producerInvalid 	= 	$this->input->post('producerInvalid', TRUE);
+	$title 				= 	$this->input->post('title', TRUE);
+  	$description 		= 	$this->input->post('description', TRUE);
+    $sourceLink 		= 	$this->input->post('sourceLink', TRUE);
+	$lyrics 			= 	$this->input->post('lyrics', TRUE);
+    $language 			= 	$this->input->post('language', TRUE);
+    $languageInvalid 	= 	$this->input->post('languageInvalid', TRUE);
+    $section 			= 	$this->input->post('section', TRUE);
+    $sectionInvalid 	= 	$this->input->post('sectionInvalid', TRUE);
+	$artist 			= 	$this->input->post('artist', TRUE);
+	$artistInvalid 		= 	$this->input->post('artistInvalid', TRUE);
+	$singer 			= 	$this->input->post('singer', TRUE);
+	$singerInvalid 		= 	$this->input->post('singerInvalid', TRUE);
+    $composer 			= 	$this->input->post('composer', TRUE);
+    $composerInvalid 	= 	$this->input->post('composerInvalid', TRUE);
+	$writer 			= 	$this->input->post('writer', TRUE);
+	$writerInvalid 		= 	$this->input->post('writerInvalid', TRUE);
+    $producer 			= 	$this->input->post('producer', TRUE);
+    $producerInvalid 	= 	$this->input->post('producerInvalid', TRUE);
         // echo json_encode(implode( ", ", $producerInvalid));
        	// 	return true;
     	if($title == null || $title == ""){
@@ -219,7 +221,7 @@ return true;
    			exit('No direct script access allowed');
 		}
 
-		$temp = $this->post_model->checkLoggedInUser();
+		$temp = $this->user_model->checkLoggedInUser();
 		if($temp){
 			echo json_encode("true");
 		}
@@ -258,19 +260,25 @@ return true;
 
 	public function varify_youtube_url(){
 //**filw_get_contents showing error, apache srvr can't resolve dns server
-		echo json_encode("true");
-		return;
 		$sourceUrl = $this->input->post('sourceLink', TRUE);
 		parse_str( parse_url( $sourceUrl, PHP_URL_QUERY ), $my_array_of_vars );
 		$id = $my_array_of_vars['v'];
-      $url = "https://www.googleapis.com/youtube/v3/videos?part=snippet&id=".$id."&key=AIzaSyD6bgYF7YzDhtWX4x1zmsKUz9dRcZDwjKk";
-      $data = json_decode(file_get_contents($url));
-       echo json_encode($url);
-
-      // $result = $data.pageInfo.totalResults;
-      //  if(result>0){
-      //    document.getElementById("sourceThumbnail").src=data.items[0].snippet.thumbnails.default.url;   
-      // }
+      $url = "https://www.googleapis.com/youtube/v3/videos?part=snippet&id=".$id."&key=".KEY;
+      $contents = json_decode(file_get_contents($url));
+      if($contents->pageInfo->totalResults > 0){
+      	$thumbnail = $contents->items[0]->snippet->thumbnails->default->url;
+      	$data = array(
+      		'result'  => 'true',
+      		'thumbnail' => $thumbnail
+      		);
+      }
+      else{
+      	$data = array(
+      		'result'  => 'false'
+      		);
+      }
+       echo json_encode($data);
+       return;
 	}
 }
 ?>

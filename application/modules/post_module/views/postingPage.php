@@ -1,24 +1,15 @@
-<div class="container-fluid">
 <?php
   $linkData = array(
-            'link1' => base_url("css/bootstrap.min.css"),
-            'link2' => base_url("css/simply-tag.css")
+            'css' => array("http://localhost/mbuddy/css/bootstrap.min.css", "http://localhost/mbuddy/css/style.css", "http://localhost/mbuddy/css/simply-tag.css")
             );
   $this->load->view("common/header", $linkData);
  ?>
 
-  <div class="row page-header">
+  <div class="row">
         <div class="col-xs-8 col-sm-6 col-md-6 col-xs-offset-2 col-sm-offset-3 col-md-offset-3">
           <h2>Submit Your Post Here</h2>
         </div>
-      </div>
   </div>
-
-<!-- testing below for tag it jquery plugin -->
-
-<!--   <div id='test'></div>
-  <input type="text" id="testTags"> -->
-<!-- test finished -->
 
   <form name=listingForm id=listingForm>
     <div class="form-group">
@@ -137,16 +128,13 @@
 
     <div align="center">
       <button id="listingFormSubmit" class="btn btn-default" name="submit" type="button">Submit</button>
-      <a href="<?php echo base_url("index.php/common/home/index") ?>" id="test3"><button type="button" class="btn btn-default">Home</button></a>
+      <a href="<?php echo base_url("index.php/home_module/home/index") ?>" id="test3"><button type="button" class="btn btn-default">Home</button></a>
     </div>
   </form>
 
 <?php
   $scriptData = array(
-            'script1' => base_url("jquery/jquery-3.1.1.min.js"),
-            'script2' => base_url("js/post/post-javascript.js"),
-            'script3' => base_url("js/bootstrap.min.js"),
-            'script4' => base_url("js/simply-tag.js")
+            'js' => array("http://localhost/mbuddy/jquery/jquery-3.1.1.min.js", "http://localhost/mbuddy/js/javascript.js", "http://localhost/mbuddy/js/post/post-javascript.js", "http://localhost/mbuddy/js/bootstrap.min.js", "http://localhost/mbuddy/js/simply-tag.js")
             );
   $this->load->view("footer", $scriptData);
  ?>

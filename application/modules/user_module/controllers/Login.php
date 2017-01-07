@@ -5,6 +5,7 @@ class Login extends MX_Controller{
 	public function __construct(){
 		$this->load->model("user_model");
 		$this->load->helper('security');
+		$this->load->helper('url');
 	}
 
 
@@ -17,6 +18,7 @@ class Login extends MX_Controller{
 		}
 		$username = $this->input->post('username', TRUE);
 		$password = $this->input->post('password', TRUE);
+		// $windowUrl = $this->input->post('windowUrl', TRUE);
 		if($username == null || $username == ""){
 			echo json_encode("Username field can not be empty");
 			return;
@@ -27,15 +29,23 @@ class Login extends MX_Controller{
 		}
 
 		$result = $this->user_model->userLogin($username, $password);
-		if($result == 'true'){
-			$user = $this->user_model->userExist($username, 'username');
-			$userID = $user->UserID;
+		if(isset($result->UserID)){
+			$userID = $result->UserID;
 			$data = array(
 				'userID' 	=> $userID,
 				'username' 	=> $username
 			);
 			$this->session->set_userdata($data);
+			// parse_str( parse_Url( $windowUrl, PHP_URL_QUERY ), $my_array_of_vars );
+			// $redirect = $my_array_of_vars['redirect'];
+			// if($redirect = 'postingPage'){
+			// 	header('Location: '."http://localhost/mbuddy/index.php/post_module/posting/index");
+				// echo '<script type="text/javascript">
+    //       				window.location.href = "http://localhost/mbuddy/index.php/post_module/posting/index"
+	   //     			</script>';
 			echo json_encode("true");
+
+//redirect user according to the request parameter
 		}
 		else if($result == 'false'){
 			echo json_encode("incorrectCredentials");		

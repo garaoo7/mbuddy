@@ -1,12 +1,11 @@
 <?php
   $linkData = array(
-            'link1' => base_url("css/bootstrap.min.css")
+            'css' => array("http://localhost/mbuddy/css/bootstrap.min.css", "http://localhost/mbuddy/css/style.css")
             );
   $this->load->view("common/header", $linkData);
  ?>
 
 
-<div class="container-fluid">
 <h3>Login Form</h3>
 <form role="form" id="loginForm" class="form-inline" name="loginForm">	
 	<div class="form-group">
@@ -91,14 +90,11 @@
 
 <a href="<?php echo base_url("index.php/common/home/index") ?>"><button type="button" class="btn btn-default">Home</button></a>
 
-   </div>
 
 
 <?php
   $scriptData = array(
-            'script1' => base_url("jquery/jquery-3.1.1.min.js"),
-            'script2' => base_url("js/javascript.js"),
-            'script3' => base_url("js/bootstrap.min.js")
+            'js' => array("http://localhost/mbuddy/jquery/jquery-3.1.1.min.js", "http://localhost/mbuddy/js/javascript.js", "http://localhost/mbuddy/js/bootstrap.min.js")
             );
   $this->load->view("footer", $scriptData);
  ?>

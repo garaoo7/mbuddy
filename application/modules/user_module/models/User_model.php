@@ -48,7 +48,7 @@ class User_model extends MY_Model{
 				$password = $this->hashPassword($password, $salt);
 				if($password == $user->Password){
 					if($status == 'live'){
-						return 'true';
+						return $user;
 					}
 					else{
 						return 'notVerified';

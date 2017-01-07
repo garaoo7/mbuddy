@@ -1,115 +1,6 @@
-
-$(document).ready(function(){
-
-//Tag it and Auto Suggestor
-
-	function ajaxCall(aurl, afunction){
-		$.ajax({
-				url: aurl,
-				dataType: "json",
-				success: function(result){
-					afunction(result);
-				},
-				type: "POST"
-			});
-	}
-
-	var url = "http://localhost/mbuddy/index.php/post_module/posting/auto_complete_language/";
-		function languageFunct(data){
-			$('#language').simplyTag({  
-				forMultiple: true,               
-				dataSource: data,
-			});
-		}
-		ajaxCall(url, languageFunct);
-
-	var url = "http://localhost/mbuddy/index.php/post_module/posting/auto_complete_section/";
-	function sectionFunct(data){
-			$('#section').simplyTag({  
-				forMultiple: true,               
-				dataSource: data,
-			});
-		}
-	ajaxCall(url, sectionFunct);
-
-
-	var url = "http://localhost/mbuddy/index.php/post_module/posting/auto_complete_artist/";
-	function artistFunct(data){
-		$('#artist').simplyTag({  
-			forMultiple: true,               
-			dataSource: data,
-		});
-	}
-	ajaxCall(url, artistFunct);
-
-	var url = "http://localhost/mbuddy/index.php/post_module/posting/auto_complete_singer/";
-	function singerFunct(data){
-		$('#singer').simplyTag({  
-			forMultiple: true,               
-			dataSource: data,
-		});
-	}
-	ajaxCall(url, singerFunct);
-
-	var url = "http://localhost/mbuddy/index.php/post_module/posting/auto_complete_composer/";
-	function composerFunct(data){
-		$('#composer').simplyTag({  
-			forMultiple: true,               
-			dataSource: data,
-		});
-	}
-	ajaxCall(url, composerFunct);
-
-	var url = "http://localhost/mbuddy/index.php/post_module/posting/auto_complete_writer/";
-	function writerFunct(data){
-		$('#writer').simplyTag({  
-	 		forMultiple: true,               
-	 		dataSource: data,
-	 	});
- 	}
-	ajaxCall(url, writerFunct);
-
-
-	var url = "http://localhost/mbuddy/index.php/post_module/posting/auto_complete_producer/";
-	function producerFunct(data){
-		$('#producer').simplyTag({  
-			forMultiple: true,               
-			dataSource: data,
-		});
-	}
-	ajaxCall(url, producerFunct);
-
-
-//**key should be inside inside controller.......single call to the controller and it will return the complete result
-	 $("#verifySourceUrl").unbind('click').click(function(){
-			var id;
-			var sourceLink  = document.listingForm.sourceLink.value.trim();
-			$.ajax({
-				url: "http://localhost/mbuddy/index.php/post_module/posting/varify_youtube_url/",
-				data: {
-					'sourceLink'    :   sourceLink
-				},
-				dataType: "json",
-				async: false,
-				success: function(result){
-					if(result =="true"){
-						$('#sourceLinkError').html('valid');
-						$('#sourceLinkError').show(500);
-//            document.getElementById("sourceThumbnail").src=data.items[0].snippet.thumbnails.default.url;
-					}
-					else{
-						$('#sourceLinkError').html('Please provide a valid link');
-						$('#sourceLinkError').show(500);
-					}
-				},
-				type: "POST"
-			});
- //console.log("clicked");
-	});
 	
-	$('#listingFormSubmit').unbind('click').click(function(){
-	//xss clean
-		var title           = document.listingForm.title.value.trim();
+function postSubmit(){
+	var title           = document.listingForm.title.value.trim();
 		var description     = document.listingForm.description.value.trim();
 		var sourceLink      = document.listingForm.sourceLink.value.trim();
 		var lyrics          = document.listingForm.lyrics.value.trim();
@@ -179,12 +70,17 @@ $(document).ready(function(){
 		function fieldErrors(selector, fieldName1, fieldName2 = null){
 			if((fieldName1 == null || fieldName1 == "") && (fieldName2 == null || fieldName2 == "")){
 				$('#titleError, #descriptionError, #sourceLinkError, #lyricsError, #languageError, #sectionError, #artistError, #singerError, #composerError, #writerError, #producerError').hide(100);
-				$(selector).html('This field can not be empty');
+				$(selector).html('This input field can not be empty');
 				$(selector).show(500);
 				return false;
 			}
 			return true;
 		}
+// var formIds = ['#title','#description'];
+// 		(i in formids){
+// 	var value = $j(formids[i]).value();
+// 	validate(value);
+// }
 
 		if(!fieldErrors('#titleError', title)){
 			return false;
@@ -308,6 +204,70 @@ $(document).ready(function(){
 			});
 		
 		
+	}
+
+function ajaxCall(id){
+	var selector = '#' + id;
+	var aurl = "http://localhost/mbuddy/index.php/post_module/posting/auto_complete_" + id + "/";
+	$.ajax({
+			url: aurl,
+			dataType: "json",
+			success: function(data){
+				$(selector).simplyTag({  
+					forMultiple: true,               
+					dataSource: data,
+				});
+			},
+			type: "POST"
+		});
+}
+
+function verifySourceLink(){
+	var id;
+	var sourceLink  = document.listingForm.sourceLink.value.trim();
+	$.ajax({
+		url: "http://localhost/mbuddy/index.php/post_module/posting/varify_youtube_url/",
+		data: {
+			'sourceLink'    :   sourceLink
+		},
+		dataType: "json",
+		async: false,
+		success: function(data){
+			if(data.result == "true"){
+				$('#sourceLinkError').hide(500);
+				document.getElementById("sourceThumbnail").src=data.thumbnail;
+			}
+			else{
+//give a note to user........to not to use embedded links, and only the one in the site url
+				document.getElementById("sourceThumbnail").src="";
+				$('#sourceLinkError').html("Please provide a Valid link");
+				$('#sourceLinkError').show(500);
+			}
+		},
+		type: "POST"
+			});
+}
+
+$(document).ready(function(){
+
+//Tag it and Auto Suggestor
+	ajaxCall('language');
+	ajaxCall('section');
+	ajaxCall('artist');
+	ajaxCall('singer');
+	ajaxCall('composer');
+	ajaxCall('writer');
+	ajaxCall('producer');
+
+
+//**key should be inside inside controller.......single call to the controller and it will return the complete result
+	$("#verifySourceUrl").unbind('click').click(function(){
+		verifySourceLink();
+ //console.log("clicked");
 	});
 	
+	$('#listingFormSubmit').unbind('click').click(function(){
+		postSubmit();
+	});
+	//xss clean;
 });

@@ -74,7 +74,7 @@ class Signup extends MX_Controller{
 				'Password' 	=> $password,
 				'Salt' 		=> $salt
 				);
-		if($this->user_model->user_signup($data)){
+		if($this->user_model->userSignup($data)){
 			$this->load->module('email_module/send_verification_email');
 			if($this->send_verification_email->send_verification_mail($email, $username, $salt)){
 				$this->user_model->emailSent($username);							

@@ -38,16 +38,6 @@ class Post_model extends MY_Model{
 // 			return $user;
 // 	}
 // }
-	public function checkLoggedInUser(){
-//checks if the user is logged in via accessing session data.
-		$username = $this->session->userdata('username');
-		if(isset($username)){
-			return true;
-		}
-		else{
-			return false;
-		}
-	}
 
 	public function insertData($data, $table){ 
 //inserts the new user data into database

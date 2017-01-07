@@ -1,5 +1,4 @@
 
-<button type="button" class="btn btn-default" data-toggle="modal" data-target="#signupModal">Signup</button>
 <div id="signupModal" class="modal fade" role="dialog">
    <div class="modal-dialog">
       <div class="modal-content">
@@ -62,9 +61,4 @@
      </div>
   </div>
 </div>
-
-
-
-
-<a href="<?php echo base_url("index.php/common/home/index") ?>"><button type="button" class="btn btn-default">Home</button></a>
 
