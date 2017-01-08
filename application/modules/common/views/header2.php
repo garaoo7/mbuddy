@@ -7,41 +7,10 @@
     echo "<link href=".base_url('/css/'.$value)." rel="."'stylesheet'>";
   }
   ?>
-
-
 <style>
-    p { width:400px; }
-
     #searchBox{
       width: 400px;
     }
-    #searchButton{
-      /*margin-left: 0px;*/
-    }
-    #post{
-      /*margin-left: 10px;*/
-    }
-    #navbar{
-      /*margin-left: 200px;
-      margin-right: 200px;
-      */
-    }
-    #leftSide{
-      height: 100%;
-    }
-    .hr {
-   margin-top: 5px;
-   margin-bottom: 5px;
-   /* The color of `hr` is set by its top border color.
-      Yeah, it's weird. */
-   border-top: 1px solid lightgray;
-  }
-  .list-inline {
-    margin-bottom: 0px;
-  }
-  .panel-body {
-    padding-bottom: 5px;
-  }
 </style>
 </head>
 <body>
@@ -65,10 +34,10 @@
         <form class="navbar-form" id="searchBoxForm">
         <div class="input-group">
             <input id="searchBox" type="text" class="form-control searchBox" placeholder="Search" name="q">
-            <!-- <div class="input-group-btn">
+            <div class="input-group-btn">
                 <button class="btn btn-success " type="submit"  ><i class="glyphicon glyphicon-search"></i></button>
             </div>
-          -->
+         
         </div>
         </form>
     </div>
