@@ -1,6 +1,29 @@
-	
+var courseDetailPageClass = function(obj){
+  var self = this, bindElements = {};
+  bindElements['click'] = ['#verifySourceUrl'];
+  // bindElements['change'] = ['#importantDatesSelect'];
+  // this.CoursePageOnloadItems = function(){}
+  this.bindCoursePageElements = function() {
+    for(var eventName in bindElements) {
+          for(var elementSelector in bindElements[eventName]) {
+            self.bindEvents(eventName,bindElements[eventName][elementSelector]);
+          }
+        }
+  }
+  
+  this.bindEvents = function(eventName, elementSelector) {
+    $(document).on(eventName, elementSelector,function(event) {
+      switch(elementSelector) {
+        case '#verifySourceUrl':
+          verifySourceLink();
+        break;
+      }
+    });
+  }
+};
+
 function postSubmit(){
-	var title           = document.listingForm.title.value.trim();
+		var title           = document.listingForm.title.value.trim();
 		var description     = document.listingForm.description.value.trim();
 		var sourceLink      = document.listingForm.sourceLink.value.trim();
 		var lyrics          = document.listingForm.lyrics.value.trim();
@@ -126,85 +149,74 @@ function postSubmit(){
 			},
 			dataType: "json",
 			async: false,
-			success: function(result){
-				if(result =="true"){
-					sourceUrl = true;
-//          document.getElementById("sourceThumbnail").src=data.items[0].snippet.thumbnails.default.url;
-				}
-			},
+			success: function(data){
+			if(data.result == "true"){
+				$('#sourceLinkError').hide(500);
+				document.getElementById("sourceThumbnail").src=data.thumbnail;
+				sourceUrl = true;
+			}
+			else{
+//give a note to user........to not to use embedded links, and only the one in the site url
+				document.getElementById("sourceThumbnail").src="";
+				$('#sourceLinkError').html("Please provide a Valid link");
+				$('#sourceLinkError').show(500);
+				sourceUrl = false;
+			}
+		},
 			type: "POST"
 		});
 		if(!sourceUrl){
 			$('#titleError, #descriptionError, #sourceLinkError, #lyricsError, #languageError, #sectionError, #artistError, #singerError, #composerError, #writerError, #producerError').hide(100);
-			$('#sourceLinkError').html('Please provide a valid link');
-			$('#sourceLinkError').show(500);
 			return false;
 		}
 //no ajax call for userLogin.........there will be a userValdation at backend.......if u want it on front end, try cookies or session
-		$.ajax({
-				url: "http://localhost/mbuddy/index.php/post_module/posting/check_user_login/",
+			$.ajax({
+				url: "http://localhost/mbuddy/index.php/post_module/posting/post_listing/",
+				data: {
+					'title'           :   title,
+					'description'     :   description,
+					'sourceLink'      :   sourceLink,
+					'lyrics'          :   lyrics,
+					'language'        :   language,
+					'languageInvalid' :   languageInvalid,
+					'section'         :   section,
+					'sectionInvalid'  :   sectionInvalid,
+					'artist'          :   artist,
+					'artistInvalid'   :   artistInvalid,
+					'singer'          :   singer,
+					'singerInvalid'   :   singerInvalid,
+					'composer'        :   composer,
+					'composerInvalid' :   composerInvalid,
+					'writer'          :   writer,
+					'writerInvalid'   :   writerInvalid,
+					'producer'        :   producer,
+					'producerInvalid' :   producerInvalid
+				},
 				dataType: "json",
 				success: function(result){
-					
-						if(result == "true"){
-							$.ajax({
-								url: "http://localhost/mbuddy/index.php/post_module/posting/post_listing/",
-								data: {
-									'title'           :   title,
-									'description'     :   description,
-									'sourceLink'      :   sourceLink,
-									'lyrics'          :   lyrics,
-									'language'        :   language,
-									'languageInvalid' :   languageInvalid,
-									'section'         :   section,
-									'sectionInvalid'  :   sectionInvalid,
-									'artist'          :   artist,
-									'artistInvalid'   :   artistInvalid,
-									'singer'          :   singer,
-									'singerInvalid'   :   singerInvalid,
-									'composer'        :   composer,
-									'composerInvalid' :   composerInvalid,
-									'writer'          :   writer,
-									'writerInvalid'   :   writerInvalid,
-									'producer'        :   producer,
-									'producerInvalid' :   producerInvalid
-								},
-								dataType: "json",
-								success: function(result){
 
-								 if(result == "true"){
-										 $('#titleError, #descriptionError, #sourceLinkError, #lyricsError, #languageError, #sectionError, #artistError, #singerError, #composerError, #writerError, #producerError').hide(100);
-										 $('#producerError').html('POST SUCCESSFULL, WILL BE UPLOADED AFTER VERIFICATION');
-										 $('#producerError').show(500);
-									}
+				 if(result == "true"){
+						 $('#titleError, #descriptionError, #sourceLinkError, #lyricsError, #languageError, #sectionError, #artistError, #singerError, #composerError, #writerError, #producerError').hide(100);
+						 $('#producerError').html('POST SUCCESSFULL, WILL BE UPLOADED AFTER VERIFICATION');
+						 $('#producerError').show(500);
+					}
 
-									else if(result == "false"){
-										 $('#titleError, #descriptionError, #sourceLinkError, #lyricsError, #languageError, #sectionError, #artistError, #singerError, #composerError, #writerError, #producerError').hide(100);
-										 $('#producerError').html('SOME ERROR OCCURED, PLEASE TRY AGAIN');
-										 $('#producerError').show(500);
-									}
-									else{
-										 $('#titleError, #descriptionError, #sourceLinkError, #lyricsError, #languageError, #sectionError, #artistError, #singerError, #composerError, #writerError, #producerError').hide(100);
-										 $('#producerError').html(result);
-										 $('#producerError').show(500);
-									}
-								},
-								type: "POST"
-							});
-						}
-//**if false open login page
-						else if(result =='false'){
-							 $('#titleError, #descriptionError, #sourceLinkError, #lyricsError, #languageError, #sectionError, #artistError, #singerError, #composerError, #writerError, #producerError').hide(100);
-							 $('#producerError').html("YOU NEED TO LOGGGED IN TO POST");
-							 $('#producerError').show(500);            
-						}
-					},
+					else if(result == "false"){
+						 $('#titleError, #descriptionError, #sourceLinkError, #lyricsError, #languageError, #sectionError, #artistError, #singerError, #composerError, #writerError, #producerError').hide(100);
+						 $('#producerError').html('SOME ERROR OCCURED, PLEASE TRY AGAIN');
+						 $('#producerError').show(500);
+					}
+					else{
+						 $('#titleError, #descriptionError, #sourceLinkError, #lyricsError, #languageError, #sectionError, #artistError, #singerError, #composerError, #writerError, #producerError').hide(100);
+						 $('#producerError').html(result);
+						 $('#producerError').show(500);
+					}
+				},
 				type: "POST"
-
 			});
+		}
+//**if false open login page
 		
-		
-	}
 
 function ajaxCall(id){
 	var selector = '#' + id;
@@ -250,6 +262,10 @@ function verifySourceLink(){
 
 $(document).ready(function(){
 
+
+	var abc = new courseDetailPageClass();
+	abc.bindCoursePageElements();
+
 //Tag it and Auto Suggestor
 	ajaxCall('language');
 	ajaxCall('section');
@@ -261,10 +277,10 @@ $(document).ready(function(){
 
 
 //**key should be inside inside controller.......single call to the controller and it will return the complete result
-	$("#verifySourceUrl").unbind('click').click(function(){
-		verifySourceLink();
- //console.log("clicked");
-	});
+	// $("#verifySourceUrl").unbind('click').click(function(){
+	// 	verifySourceLink();
+ // //console.log("clicked");
+	// });
 	
 	$('#listingFormSubmit').unbind('click').click(function(){
 		postSubmit();

@@ -1,27 +1,4 @@
 
-// var courseDetailPageClass = function(obj){
-//   var self = this, bindElements = {};
-//   bindElements['click'] = ['#test3'];
-//   // bindElements['change'] = ['#importantDatesSelect'];
-//   // this.CoursePageOnloadItems = function(){}
-//   this.bindCoursePageElements = function() {
-//     for(var eventName in bindElements) {
-//           for(var elementSelector in bindElements[eventName]) {
-//             self.bindEvents(eventName,bindElements[eventName][elementSelector]);
-//           }
-//         }
-//   }
-  
-//   this.bindEvents = function(eventName, elementSelector) {
-//     $(document).on(eventName, elementSelector,function(event) {
-//       switch(elementSelector) {
-//         case '#test3':
-//           alert("hey");
-//         break;
-//       }
-//     });
-//   }
-// };
 
   var regxEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   var regxUsername = /^[A-Za-z0-9\-\_]+$/;
@@ -145,8 +122,9 @@ function signup(){
 }
 
 function login(){
-    var username = document.loginForm.username.value.trim();
-    var password = document.loginForm.password.value.trim();
+//  val() is not xss_clean
+    var username = $("#username, #usernamePage").val();
+    var password = $("#password, #passwordPage").val();
     
     if(username == null || username == ""){
       $('#usernameErrorL').hide(500);
@@ -236,7 +214,7 @@ $("#signupButton").click(function(){
     logout();
 	});
 	
-	$("#post").unbind('click').click(function(){
+	$("#postButton").unbind('click').click(function(){
     postingPage();
 
   });

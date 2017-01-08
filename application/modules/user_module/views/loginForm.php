@@ -10,7 +10,7 @@
 
 					<div class="form-group">
 						<label>Username or Email:
-	  						<input type="text" class="form-control" name="username" placeholder="Username or email">
+	  						<input type="text" class="form-control" id="username" name="username" placeholder="Username or email">
 	  					</label>
 	  					<div class="row">
 					  	<div class="col-md-6">
@@ -21,7 +21,7 @@
 
 			  		<div class="form-group">
 				  		<label>Password:
-				  			<input type="password" class="form-control" name="password" placeholder="Password">
+				  			<input type="password" class="form-control" id="password" name="password" placeholder="Password">
 				  		</label>
 				  		<div class="row">
 					  		<div class="col-md-6">

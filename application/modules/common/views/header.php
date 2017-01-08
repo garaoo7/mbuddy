@@ -15,25 +15,25 @@
 				<div class="col-md-2">
 					<a href="<?php echo base_url("index.php/home_module/home/index") ?>"><h1>!!MBUDDY!!</h1></a>
 				</div>
-				<div class="col-md-8">
+				<div class="col-md-7">
 					<input type="text" id="searchBar" placeholder="Search..">
 				</div>
-				<div class="col-md-2">
+				<div class="col-md-3">
 					<div id=homePageHome>
 						<?php 
 						if($this->session->userID){
 							$username = $this->session->userdata('username');
 							echo "WELCOME ".$username;
 							echo "<div>
-							<button id=logoutButton type='button'>Logout</button>
-							<button id=post type='button'>Post</button>
+							<button id=logoutButton type='button' class='btn btn-default'>Logout</button>
+							<button id=postButton type='button' class='btn btn-default'>Post</button>
 							</div>";
 						}
 						else{
 							echo "<div>
 							<button type='button' class='btn btn-default' id='loginButton'>Login</button>
 							<button type='button' class='btn btn-default' id='signupButton'>Signup</button>
-							<button id=post type='button'>Post</button>
+							<button type='button' class='btn btn-default' id=postButton>Post</button>
 							</div>";
 						}
 						?>

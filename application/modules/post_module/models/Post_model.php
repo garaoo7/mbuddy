@@ -39,10 +39,22 @@ class Post_model extends MY_Model{
 // 	}
 // }
 
-	public function insertData($data, $table){ 
+	public function insertData($data){ 
 //inserts the new user data into database
+		//**not rolling back
 		$this->_init('write');
-		return $this->dbHandle->insert($table, $data);
+		$this->db->trans_start();
+		$this->dbHandle->insert('listing', $data['listingData']);
+		$this->dbHandle->insert_batch('language', $data['languageData']);
+		$this->dbHandle->insert_batch('section', $data['sectionData']);
+		$this->dbHandle->insert_batch('artist', $data['artistData']);
+		$this->dbHandle->insert_batch('singer', $data)['singerData'];
+		$this->dbHandle->insert_batch('composer', $data['composerData']);
+		$this->dbHandle->insert_batch('writer', $data['writerData']);
+		$this->dbHandle->insert_batch('producer', $data['producerData']);
+		$this->dbHandle->insert('temporary_listing_data', $data['invalidData']);
+		$this->db->trans_complete();
+		return $this->db->trans_status();
 	}
 
   function autoSuggestion($coloumn2, $table, $coloumn1 = null){
