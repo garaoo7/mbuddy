@@ -222,18 +222,24 @@ class Posting extends MX_Controller{
 		$id = $my_array_of_vars['v'];
       $url = "https://www.googleapis.com/youtube/v3/videos?part=snippet&id=".$id."&key=".KEY;
       $contents = json_decode(file_get_contents($url));
-      if($contents->pageInfo->totalResults > 0){
-      	$thumbnail = $contents->items[0]->snippet->thumbnails->default->url;
-      	$data = array(
-      		'result'  => 'true',
-      		'thumbnail' => $thumbnail
-      		);
-      }
-      else{
-      	$data = array(
-      		'result'  => 'false'
-      		);
-      }
+      if(!empty($contents)){
+	      if($contents->pageInfo->totalResults > 0){
+	      	$thumbnail = $contents->items[0]->snippet->thumbnails->default->url;
+	      	$data = array(
+	      		'result'  => 'true',
+	      		'thumbnail' => $thumbnail
+	      		);
+	      }
+	      else{
+	      	$data = array(
+	      		'result'  => 'false'
+	      		);
+	      }
+	  }
+	  else{
+	  	echo json_encode("false");
+	  	return;
+	  }
        echo json_encode($data);
        return;
 	}

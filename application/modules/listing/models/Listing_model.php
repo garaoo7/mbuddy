@@ -1,6 +1,6 @@
 <?php
 	
-class ListingModel extends MY_Model{
+class Listing_model extends MY_Model{
 // we might do call by reference for each input in each function below
 	private $dbHandle;
 	private function _init($handle = 'read'){

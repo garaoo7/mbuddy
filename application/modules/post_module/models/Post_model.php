@@ -43,7 +43,7 @@ class Post_model extends MY_Model{
 //inserts the new user data into database
 		//**not rolling back
 		$this->_init('write');
-		$this->db->trans_start();
+		$this->dbHandle->trans_start();
 		$this->dbHandle->insert('listing', $data['listingData']);
 		$this->dbHandle->insert_batch('language', $data['languageData']);
 		$this->dbHandle->insert_batch('section', $data['sectionData']);
@@ -53,8 +53,8 @@ class Post_model extends MY_Model{
 		$this->dbHandle->insert_batch('writer', $data['writerData']);
 		$this->dbHandle->insert_batch('producer', $data['producerData']);
 		$this->dbHandle->insert('temporary_listing_data', $data['invalidData']);
-		$this->db->trans_complete();
-		return $this->db->trans_status();
+		$this->dbHandle->trans_complete();
+		return $this->dbHandle->trans_status();
 	}
 
   function autoSuggestion($coloumn2, $table, $coloumn1 = null){

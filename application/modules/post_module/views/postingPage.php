@@ -38,7 +38,7 @@
     		  <label>Source Link:</label>
     		  <input type="text" class="form-control" name="sourceLink" id="sourceLink" value="https://www.youtube.com/watch?v=JbjzPKTfjlc" placeholder="Source Link">
           <img src id="sourceThumbnail">
-          <div id="sourceLinkError" hidden="true"></div>
+          <div id="sourceError" hidden="true"></div>
         </div>
         <div class="col-xs-1 col-sm-1 col-md-1">
           <button id="verifySourceUrl" class="btn btn-default" name="verify" type="button">Verify</button>

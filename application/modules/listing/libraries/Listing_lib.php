@@ -1,6 +1,6 @@
 <?php
 
-class ListingLib{
+class Listing_lib{
 
 	private $listingModel;
 // we might do call by reference for each input in each function below

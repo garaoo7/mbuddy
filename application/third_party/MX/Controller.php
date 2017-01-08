@@ -58,4 +58,19 @@ class MX_Controller
 	{
 		return CI::$APP->$class;
 	}
+
+	public function check_user_validation(){
+//checks if the user is logged in via accessing session data.
+		$username = $this->session->userdata('username');
+		if(isset($username)){
+			$userValidation = array(
+				'userID' => $this->session->userdata('userID'),
+				'username' => $this->session->userdata('username')
+				);
+			return $userValidation;
+		}
+		else{
+			return false;
+		}
+	}
 }

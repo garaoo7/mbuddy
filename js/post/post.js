@@ -15,7 +15,7 @@ var courseDetailPageClass = function(obj){
     $(document).on(eventName, elementSelector,function(event) {
       switch(elementSelector) {
         case '#verifySourceUrl':
-          verifySourceLink();
+          verifySourceLink('#source');
         break;
       }
     });
@@ -92,7 +92,7 @@ function postSubmit(){
 //**make a common function for all these errors
 		function fieldErrors(selector, fieldName1, fieldName2 = null){
 			if((fieldName1 == null || fieldName1 == "") && (fieldName2 == null || fieldName2 == "")){
-				$('#titleError, #descriptionError, #sourceLinkError, #lyricsError, #languageError, #sectionError, #artistError, #singerError, #composerError, #writerError, #producerError').hide(100);
+				$('#titleError, #descriptionError, #sourceError, #lyricsError, #languageError, #sectionError, #artistError, #singerError, #composerError, #writerError, #producerError').hide(100);
 				$(selector).html('This input field can not be empty');
 				$(selector).show(500);
 				return false;
@@ -111,7 +111,7 @@ function postSubmit(){
 		if(!fieldErrors('#descriptionError', description)){
 			return false;
 		}
-		if(!fieldErrors('#sourceLinkError', sourceLink)){
+		if(!fieldErrors('#sourceError', sourceLink)){
 			return false;
 		}
 		if(!fieldErrors('#lyricsError', lyrics)){
@@ -142,31 +142,32 @@ function postSubmit(){
 		var id;
 		var sourceUrl;
 		var sourceLink  = document.listingForm.sourceLink.value.trim();
-		$.ajax({
-			url: "http://localhost/mbuddy/index.php/post_module/posting/varify_youtube_url/",
-			data: {
-				'sourceLink'    :   sourceLink
-			},
-			dataType: "json",
-			async: false,
-			success: function(data){
-			if(data.result == "true"){
-				$('#sourceLinkError').hide(500);
-				document.getElementById("sourceThumbnail").src=data.thumbnail;
-				sourceUrl = true;
-			}
-			else{
-//give a note to user........to not to use embedded links, and only the one in the site url
-				document.getElementById("sourceThumbnail").src="";
-				$('#sourceLinkError').html("Please provide a Valid link");
-				$('#sourceLinkError').show(500);
-				sourceUrl = false;
-			}
-		},
-			type: "POST"
-		});
-		if(!sourceUrl){
-			$('#titleError, #descriptionError, #sourceLinkError, #lyricsError, #languageError, #sectionError, #artistError, #singerError, #composerError, #writerError, #producerError').hide(100);
+
+// 		$.ajax({
+// 			url: "http://localhost/mbuddy/index.php/post_module/posting/varify_youtube_url/",
+// 			data: {
+// 				'sourceLink'    :   sourceLink
+// 			},
+// 			dataType: "json",
+// 			async: false,
+// 			success: function(data){
+// 			if(data.result == "true"){
+// 				$('#sourceError').hide(500);
+// 				document.getElementById("sourceThumbnail").src=data.thumbnail;
+// 				sourceUrl = true;
+// 			}
+// 			else{
+// //give a note to user........to not to use embedded links, and only the one in the site url
+// 				document.getElementById("sourceThumbnail").src="";
+// 				$('#sourceError').html("Please provide a Valid link");
+// 				$('#sourceError').show(500);
+// 				sourceUrl = false;
+// 			}
+// 		},
+// 			type: "POST"
+// 		});
+		if(!verifySourceLink('#source')){
+			$('#titleError, #descriptionError, #sourceError, #lyricsError, #languageError, #sectionError, #artistError, #singerError, #composerError, #writerError, #producerError').hide(100);
 			return false;
 		}
 //no ajax call for userLogin.........there will be a userValdation at backend.......if u want it on front end, try cookies or session
@@ -196,18 +197,18 @@ function postSubmit(){
 				success: function(result){
 
 				 if(result == "true"){
-						 $('#titleError, #descriptionError, #sourceLinkError, #lyricsError, #languageError, #sectionError, #artistError, #singerError, #composerError, #writerError, #producerError').hide(100);
+						 $('#titleError, #descriptionError, #sourceError, #lyricsError, #languageError, #sectionError, #artistError, #singerError, #composerError, #writerError, #producerError').hide(100);
 						 $('#producerError').html('POST SUCCESSFULL, WILL BE UPLOADED AFTER VERIFICATION');
 						 $('#producerError').show(500);
 					}
 
 					else if(result == "false"){
-						 $('#titleError, #descriptionError, #sourceLinkError, #lyricsError, #languageError, #sectionError, #artistError, #singerError, #composerError, #writerError, #producerError').hide(100);
+						 $('#titleError, #descriptionError, #sourceError, #lyricsError, #languageError, #sectionError, #artistError, #singerError, #composerError, #writerError, #producerError').hide(100);
 						 $('#producerError').html('SOME ERROR OCCURED, PLEASE TRY AGAIN');
 						 $('#producerError').show(500);
 					}
 					else{
-						 $('#titleError, #descriptionError, #sourceLinkError, #lyricsError, #languageError, #sectionError, #artistError, #singerError, #composerError, #writerError, #producerError').hide(100);
+						 $('#titleError, #descriptionError, #sourceError, #lyricsError, #languageError, #sectionError, #artistError, #singerError, #composerError, #writerError, #producerError').hide(100);
 						 $('#producerError').html(result);
 						 $('#producerError').show(500);
 					}
@@ -237,9 +238,9 @@ function ajaxCall(value){
 		});
 }
 
-function verifySourceLink(){
-	var id;
-	var sourceLink  = document.listingForm.sourceLink.value.trim();
+function verifySourceLink(id){
+	var sourceVerified = false;
+	var sourceLink  = $(id + 'Link').val().trim();
 	$.ajax({
 		url: "http://localhost/mbuddy/index.php/post_module/posting/varify_youtube_url/",
 		data: {
@@ -249,18 +250,21 @@ function verifySourceLink(){
 		async: false,
 		success: function(data){
 			if(data.result == "true"){
-				$('#sourceLinkError').hide(500);
-				document.getElementById("sourceThumbnail").src=data.thumbnail;
+				$(id+'Error').hide(500);
+				$(id + "Thumbnail").src=data.thumbnail;
+				sourceVerified = true;
 			}
 			else{
 //give a note to user........to not to use embedded links, and only the one in the site url
-				document.getElementById("sourceThumbnail").src="";
-				$('#sourceLinkError').html("Please provide a Valid link");
-				$('#sourceLinkError').show(500);
+				$(id +"Thumbnail").src="";
+				$(id +'Error').html("Please provide a Valid link");
+				$(id +'Error').show(500);
+				sourceVerified = false;
 			}
 		},
 		type: "POST"
 			});
+	return sourceVerified;
 }
 
 $(document).ready(function(){

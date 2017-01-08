@@ -25,8 +25,7 @@ function postingPage(){
                 window.location = "http://localhost/mbuddy/index.php/post_module/posting/index";
               }
               else if(result =='false'){
-                $('#errorHomepage').html("YOU NEED TO LOGGGED IN TO POST");
-                $('#errorHomepage').show();
+                $("#loginModal").modal();
                }
             },
           type: "POST"
@@ -179,6 +178,7 @@ $(document).ready(function(){
 
 
 $("#loginButton").click(function(){
+    console.log('asda');
      $("#loginModal").modal();
  });
 

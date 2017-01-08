@@ -1,11 +1,11 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 
-class ListingController extends MX_Controller{
+class Listing_controller extends MX_Controller{
 
 	public function index($listingId=1){
-		$this->load->builder('ListingBuilder','Listing');
-		$ListingBuilder = new ListingBuilder();
+		$this->load->builder('listing/Listing_builder');
+		$ListingBuilder = new Listing_builder();
 		$ListingRepository = $ListingBuilder->getListingRepository();
 		$listingObject = $ListingRepository->find($listingId);
 		echo '<pre>'.print_r($listingObject,TRUE).'</pre>';
