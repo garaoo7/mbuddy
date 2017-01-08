@@ -218,11 +218,14 @@ function postSubmit(){
 //**if false open login page
 		
 
-function ajaxCall(id){
-	var selector = '#' + id;
-	var aurl = "http://localhost/mbuddy/index.php/post_module/posting/auto_complete_" + id + "/";
+function ajaxCall(value){
+	var selector = '#' + value;
+	var aurl = "http://localhost/mbuddy/index.php/post_module/posting/auto_complete/";
 	$.ajax({
 			url: aurl,
+			data: {
+				'value': value
+			},
 			dataType: "json",
 			success: function(data){
 				$(selector).simplyTag({  
@@ -238,7 +241,7 @@ function verifySourceLink(){
 	var id;
 	var sourceLink  = document.listingForm.sourceLink.value.trim();
 	$.ajax({
-		url: "post_module/posting/varify_youtube_url/",
+		url: "http://localhost/mbuddy/index.php/post_module/posting/varify_youtube_url/",
 		data: {
 			'sourceLink'    :   sourceLink
 		},
