@@ -238,7 +238,7 @@ function verifySourceLink(){
 	var id;
 	var sourceLink  = document.listingForm.sourceLink.value.trim();
 	$.ajax({
-		url: "http://localhost/mbuddy/index.php/post_module/posting/varify_youtube_url/",
+		url: "post_module/posting/varify_youtube_url/",
 		data: {
 			'sourceLink'    :   sourceLink
 		},

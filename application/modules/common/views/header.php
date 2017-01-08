@@ -4,7 +4,7 @@
 	<title>untitled</title>	
 	<?php
 	foreach ($css as $value) {
-		echo "<link href=".$value." rel="."'stylesheet'>";
+		echo "<link href=".base_url('/css/'.$value)." rel="."'stylesheet'>";
 	}
 	?>
 </head>

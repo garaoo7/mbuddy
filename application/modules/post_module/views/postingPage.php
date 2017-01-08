@@ -1,8 +1,8 @@
 <?php
-  $linkData = array(
-            'css' => array("http://localhost/mbuddy/css/bootstrap.min.css", "http://localhost/mbuddy/css/style.css", "http://localhost/mbuddy/css/simply-tag.css")
-            );
-  $this->load->view("common/header", $linkData);
+  $headerComponents = array(
+                        'css' => array("common/bootstrap.min.css", "style.css", "common/simply-tag.css")
+                      );
+  $this->load->view("common/header", $headerComponents);
  ?>
 
   <div class="row">
@@ -133,10 +133,16 @@
   </form>
 
 <?php
-  $scriptData = array(
-            'js' => array("http://localhost/mbuddy/jquery/jquery-3.1.1.min.js", "http://localhost/mbuddy/js/javascript.js", "http://localhost/mbuddy/js/post/post-javascript.js", "http://localhost/mbuddy/js/bootstrap.min.js", "http://localhost/mbuddy/js/simply-tag.js")
-            );
-  $this->load->view("footer", $scriptData);
+  $footerComponents = array(
+                        'js' => array(
+                                  "common/jquery-3.1.1.min.js", 
+                                  "common/header.js", 
+                                  "post/post.js", 
+                                  "common/bootstrap.min.js", 
+                                  "common/simply-tag.js"
+                                )
+                      );
+  $this->load->view("footer", $footerComponents);
  ?>
 </div>
 
