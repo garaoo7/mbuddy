@@ -2,13 +2,17 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Postlib {
+	private static $CI;
 
 	public function __construct(){
-		$this->load->model('post_model');
+		self::$CI =& get_instance();
+		self::$CI->load->model('post_module/post_model');
 	}
 
-   	public function auto_complete_language(){
-   	    echo json_encode($this->post_model->autoSuggestion('LanguageName', 'language', 'LanguageID'));
-     }
+	public function auto_complete($value){
+		$nameColoumn = ucfirst($value)."Name";
+		$idColoumn = ucfirst($value)."ID";
+	    return self::$CI->post_model->autoSuggestion($nameColoumn, $value, $nameColoumn);
+  	}
 
 }

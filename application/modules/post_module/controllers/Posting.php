@@ -7,6 +7,7 @@ class Posting extends MX_Controller{
 		$this->load->model("post_model");
 		$this->load->model("user_module/user_model");
 		$this->load->helper('security');
+		$this->load->library("post_module/postlib");
 
 	}
 
@@ -205,33 +206,14 @@ class Posting extends MX_Controller{
 		}
 	}
 
-	public function auto_complete_language(){
-	    echo json_encode($this->post_model->autoSuggestion('LanguageName', 'language', 'LanguageID'));
+	public function auto_complete(){
+		$value = $this->input->post('value');
+		echo json_encode($this->postlib->auto_complete($value));
+		// $nameColoumn = ucfirst($value)."Name";
+		// $idColoumn = ucfirst($value)."ID";
+	 //    echo json_encode($this->post_model->autoSuggestion($nameColoumn, $value, $nameColoumn));
   	}
 
-  	public function auto_complete_Section(){
-	    echo json_encode($this->post_model->autoSuggestion('SectionName', 'section', 'SectionID'));
-  	}
-
-  	public function auto_complete_artist(){
-	    echo json_encode($this->post_model->autoSuggestion('ArtistName', 'artist', 'ArtistID'));
-  	}
-
-  	public function auto_complete_singer(){
-	    echo json_encode($this->post_model->autoSuggestion('SingerName', 'singer', 'SingerID'));
-  	}
-
-  	public function auto_complete_composer(){
-	    echo json_encode($this->post_model->autoSuggestion('ComposerName', 'composer', 'ComposerID'));
-  	}
-
-  	public function auto_complete_writer(){
-	    echo json_encode($this->post_model->autoSuggestion('WriterName', 'writer', 'WriterID'));
-  	}
-
-  	public function auto_complete_producer(){
-	    echo json_encode($this->post_model->autoSuggestion('ProducerName', 'producer', 'ProducerID'));
-  	}
 
 	public function varify_youtube_url(){
 //**filw_get_contents showing error, apache srvr can't resolve dns server
