@@ -19,7 +19,7 @@ class Posting extends MX_Controller{
 		}
 		else{
 			// header('Location: '."http://localhost/mbuddy/index.php/user_module/login_signup_page");
-			header('Location: '."http://localhost/mbuddy/index.php/home_module/home/index");
+			header('Location: '."http://localhost/mbuddy/");
 			// echo '<script type="text/javascript">
    //       window.location = "http://localhost/mbuddy/index.php/user_module/loginSignupPage?redirect=1"
 	  //     </script>';

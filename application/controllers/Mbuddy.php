@@ -16,6 +16,7 @@ class Mbuddy extends MX_Controller {
         echo '<pre>'.print_r($listingsObject,TRUE).'</pre>';
         $displayData['listingData'] = $listingsObject;
         $this->load->view('common/homepage',$displayData);
+        // $this->load->view('common/homepage');
     }
 
     public function get_recent_listings(){

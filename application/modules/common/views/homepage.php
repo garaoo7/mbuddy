@@ -4,7 +4,7 @@
             		   'css' => array("common/bootstrap.min.css", "style.css")
             	      );
   $this->load->view("common/header2", $headerComponents);
-  $this->load->view("common/feedelement");
+  // $this->load->view("common/feedelement");
 ?>
 
 

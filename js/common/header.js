@@ -34,46 +34,46 @@ function postingPage(){
 }
 
 function signup(){
-    $('#emailError').hide(100);
-    $('#usernameError').hide(100);
-    $('#passwordError').hide(100);
-    $('#repasswordError').hide(100);
-    var email       = document.signupForm.emailAddress.value.trim();
-    var username    = document.signupForm.username.value.trim();
-    var password    = document.signupForm.password.value.trim();
-    var repassword  = document.signupForm.repassword.value.trim();
+    $('#emailSignupError').hide(100);
+    $('#usernameSignupError').hide(100);
+    $('#passwordSignupError').hide(100);
+    $('#repasswordSignupError').hide(100);
+    var email       = $("#emailSignup").val();
+    var username    = $("#usernameSignup").val();
+    var password    = $("#passwordSignup").val();
+    var repassword  = $("#repasswordSignup").val();
 
     if(email == null || email == ""){
-          $('#emailError').html('Email Address field can not be empty');
-          $('#emailError').show(500);
+          $('#emailSignupError').html('Email Address field can not be empty');
+          $('#emailSignupError').show(500);
         return false;
       }
 
       else if (!regxEmail.test(email)) {
-          $('#emailError').html('Email Address is invalid');
-          $('#emailError').show(500);
+          $('#emailSignupError').html('Email Address is invalid');
+          $('#emailSignupError').show(500);
           return false;
       }
 
       if(username == null || username == ""){
-          $('#usernameError').html('Username field can not be empty');
-          $('#usernameError').show(500);
+          $('#usernameSignupError').html('Username field can not be empty');
+          $('#usernameSignupError').show(500);
           return false;
       }
       else if (!regxUsername.test(username)) {
-        $('#usernameError').html('Username field can only have aplha-numeric characters, hyphens and underscores');
-          $('#usernameError').show(500);
+        $('#usernameSignupError').html('Username field can only have aplha-numeric characters, hyphens and underscores');
+          $('#usernameSignupError').show(500);
           return false;
       }
     
       if (password == null || password == "") {
-          $('#passwordError').html('Password field can not be empty');
-          $('#passwordError').show(500);
+          $('#passwordSignupError').html('Password field can not be empty');
+          $('#passwordSignupError').show(500);
           return false;
       }
       if(password!=repassword){
-          $('#repasswordError').html("Passwords don't match");
-          $('#repasswordError').show(500);
+          $('#repasswordSignupError').html("Passwords don't match");
+          $('#repasswordSignupError').show(500);
           return false;
       }
 
@@ -90,29 +90,29 @@ function signup(){
         success: function(result){
           
             if(result == "usernameExist"){
-              $('#usernameError, #emailError, #passwordError, #repasswordError').hide(100);
-              $('#usernameError').html('Username already exist');
-                $('#usernameError').show(500);
+              $('#usernameSignupError, #emailSignupError, #passwordSignupError, #repasswordSignupError').hide(100);
+              $('#usernameSignupError').html('Username already exist');
+                $('#usernameSignupError').show(500);
             }
             else if(result == "emailExist"){
-              $('#usernameError, #emailError, #passwordError, #repasswordError').hide(100);
-              $('#emailError').html('Email Address already exist');
-                $('#emailError').show(500);
+              $('#usernameSignupError, #emailSignupError, #passwordSignupError, #repasswordSignupError').hide(100);
+              $('#emailSignupError').html('Email Address already exist');
+                $('#emailSignupError').show(500);
             }
             else if(result== "true"){ 
-              $('#usernameError, #emailError, #passwordError, #repasswordError').hide(100);
-              $('#repasswordError').html('Verification mail sent, please verify your email address and login through login page');
-                $('#repasswordError').show(500);
+              $('#usernameSignupError, #emailSignupError, #passwordSignupError, #repasswordSignupError').hide(100);
+              $('#repasswordSignupError').html('Verification mail sent, please verify your email address and login through login page');
+                $('#repasswordSignupError').show(500);
             }
             else if (result == "false"){
-              $('#usernameError, #emailError, #passwordError, #repasswordError').hide(100);
-              $('#repasswordError').html('Could not register, please try again');
-                $('#repasswordError').show(500);
+              $('#usernameSignupError, #emailSignupError, #passwordSignupError, #repasswordSignupError').hide(100);
+              $('#repasswordSignupError').html('Could not register, please try again');
+                $('#repasswordSignupError').show(500);
             }
             else {
-              $('#usernameError, #emailError, #passwordError, #repasswordError').hide(100);
-              $('#repasswordError').html(result);
-              $('#repasswordError').show(500);
+              $('#usernameSignupError, #emailSignupError, #passwordSignupError, #repasswordSignupError').hide(100);
+              $('#repasswordSignupError').html(result);
+              $('#repasswordSignupError').show(500);
             }
           },
         type: "POST"
@@ -122,22 +122,22 @@ function signup(){
 
 function login(){
 //  val() is not xss_clean
-    var username = $("#username, #usernamePage").val();
-    var password = $("#password, #passwordPage").val();
+    var username = $("#usernameLogin").val();
+    var password = $("#passwordLogin").val();
     
     if(username == null || username == ""){
-      $('#usernameErrorL').hide(500);
-      $('#passwordErrorL').hide(500);
-      $('#usernameErrorL').html('Username field can not be empty');
-      $('#usernameErrorL').show(500);
+      $('#userNameLoginError').hide(500);
+      $('#passwordLoginError').hide(500);
+      $('#userNameLoginError').html('Username field can not be empty');
+      $('#userNameLoginError').show(500);
       return false;
     }     
     
     if (password == null || password == "") {
-      $('#usernameErrorL').hide(500);
-      $('#passwordErrorL').hide(500);
-      $('#passwordErrorL').html('Password field can not be empty');
-      $('#passwordErrorL').show(500);
+      $('#userNameLoginError').hide(500);
+      $('#passwordLoginError').hide(500);
+      $('#passwordLoginError').html('Password field can not be empty');
+      $('#passwordLoginError').show(500);
       return false;
     }
 
@@ -153,19 +153,19 @@ function login(){
             window.location.reload();
           }
           else if(result == "accountNotActivated"){
-            $('#usernameErrorL, #passwordErrorL').hide(100);
-            $('#passwordErrorL').html('Your Email address is not verified, please verify first');
-            $('#passwordErrorL').show(500);
+            $('#userNameLoginError, #passwordLoginError').hide(100);
+            $('#passwordLoginError').html('Your Email address is not verified, please verify first');
+            $('#passwordLoginError').show(500);
           }
           else if(result == "incorrectCredentials"){
-            $('#usernameErrorL, #passwordErrorL').hide(100);
-            $('#passwordErrorL').html('Incorrect Username or Password');
-            $('#passwordErrorL').show(500);
+            $('#userNameLoginError, #passwordLoginError').hide(100);
+            $('#passwordLoginError').html('Incorrect Username or Password');
+            $('#passwordLoginError').show(500);
           }
           else {
-            $('#usernameErrorL, #passwordErrorL').hide(100);
-            $('#passwordErrorL').html(result);
-            $('#passwordErrorL').show(500);
+            $('#userNameLoginError, #passwordLoginError').hide(100);
+            $('#passwordLoginError').html(result);
+            $('#passwordLoginError').show(500);
           }
         
        },
@@ -192,6 +192,11 @@ $("#signupButton").click(function(){
 		
 	});
 
+    $("#loginFormSubmit").unbind('click').click(function(){
+  //xss clean
+     login();
+    });
+
   function getParameterByName(name, url) {
     if (!url) {
       url = window.location.href;
@@ -204,10 +209,7 @@ $("#signupButton").click(function(){
   return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-	$("#loginFormSubmit").unbind('click').click(function(){
-//xss clean
-	 login();
-	});
+
 
 	$("#logoutButton").unbind('click').click(function(){
 //xss clean
