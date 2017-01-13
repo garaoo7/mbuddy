@@ -31,10 +31,10 @@ class ListingRepository extends EntityRepository {
             return $ListingObjects;
 		}
 		// $this->_validateSections($sections);
-		$listingsData = $this->listingLib->getMultipleListingsData($listingIds,$status,$sections);
+		return $this->listingLib->getMultipleListingsData($listingIds,$status,$sections);
 		/*
         */
-        return $this->_populateMultipleListingsObjects($listingsData,$listingIds);
+        //return $this->_populateMultipleListingsObjects($listingsData,$listingIds);
 	}
 	private function _populateListingObject($listingData){
 

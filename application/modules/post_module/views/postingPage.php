@@ -60,7 +60,7 @@
         <div class="row">
             <div class="col-xs-8 col-sm-6 col-md-6 col-xs-offset-2 col-sm-offset-3 col-md-offset-3">
                 <label>Language:</label>
-                <div id="language"></div>
+                <div id="language" class="autoComplete"></div>
                 <div id="languageError" hidden="true"></div>
             </div>
         </div>   
@@ -70,7 +70,7 @@
       <div class="row">
         <div class="col-xs-8 col-sm-6 col-md-6 col-xs-offset-2 col-sm-offset-3 col-md-offset-3">
           <label>Category/Section:</label>
-          <div id="section"></div>
+          <div id="section" class="autoComplete"></div>
           <div id="sectionError" hidden="true"></div>
         </div>
       </div>

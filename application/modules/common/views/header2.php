@@ -11,6 +11,7 @@
 	</style>
 </head>
 <body>
+	<div class="container-fluid">
 	<div id="wrapper">
 		<div id="header">
 			<nav class="navbar navbar-fixed-top navbar-default "  role="navigation">
@@ -104,13 +105,12 @@
 										</ul>
 									</li>
 								</ul>
-
 							</li>
 						</ul>
 
 						<?php }?>
-					</div><!-- /.navbar-collapse -->
-				</nav>
+				</div><!-- /.navbar-collapse -->
+			</nav>
 				<div class="modal fade" id="loginModal" role="dialog">
 					<div class="modal-dialog">
 						<div class="modal-content">
@@ -224,3 +224,8 @@
 </div>
 </div>
 </div>
+</div>
+<br>
+<br>
+<br>
+

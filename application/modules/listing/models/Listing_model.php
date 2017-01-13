@@ -38,26 +38,50 @@ class Listing_model extends MY_Model{
 	public function getMultipleListingsData($listingIds = array(),$status = array('live'),$sections=array('basic')){
 
 		$this->_init('read');
-		
-		$this->dbHandle->select('ListingID,ListingTitle,ListingViews');
+		$listingsData = array();
 
-		$this->dbHandle->from('listing');
+		if(array_search("basic",$sections) >= 0){
+			$this->dbHandle->select('listing.ListingID,listing.ListingTitle,listing.ListingViews,user.Username');
 
-		$this->dbHandle->where_in('ListingID',$listingIds);
+			$this->dbHandle->from('listing');
 
-		$this->dbHandle->where_in('Status',$status);
+			$this->dbHandle->where_in('listing.ListingID',$listingIds);
 
-		$listingResults = $this->dbHandle->get()->result_array();
-		echo $this->dbHandle->last_query();
-		print_r($listingResults);
+			$this->dbHandle->where_in('listing.Status',$status);
+
+			$this->dbHandle->join('user', 'user.UserID = listing.UserID');
+
+			$listingResults = $this->dbHandle->get()->result_array();
+
+			foreach ($listingResults as $listingResult){
+				$listingsData[$listingResult['ListingID']]['ListingTitle'] = $listingResult['ListingTitle'];
+				$listingsData[$listingResult['ListingID']]['ListingViews'] = $listingResult['ListingViews'];
+				$listingsData[$listingResult['ListingID']]['Username'] = $listingResult['Username'];
+			}
+		}
+
+		if(array_search("full",$sections) >= 0){
+			$this->dbHandle->select('ListingID,ListingTitle,ListingViews');
+
+			$this->dbHandle->from('listing');
+
+			$this->dbHandle->where_in('ListingID',$listingIds);
+
+			$this->dbHandle->where_in('Status',$status);
+
+			$listingResults = $this->dbHandle->get()->result_array();
+
+			foreach ($listingResults as $listingResult){
+				$listingsData[$listingResult['ListingID']]['ListingTitle'] = $listingResult['ListingTitle'];
+				$listingsData[$listingResult['ListingID']]['ListingViews'] = $listingResult['ListingViews'];
+			}
+		}
+
+		// echo $this->dbHandle->last_query();
+		// print_r($listingResults);
 		// return $listingData[0];
 		
 		//creating temp return data, data should be fetched according to above logic, query will be needed to get changed.
-		$listingsData = array();
-		foreach ($listingResults as $listingResult) {
-			$listingsData[$listingResult['ListingID']]['ListingTitle'] = $listingResult['ListingTitle'];
-			$listingsData[$listingResult['ListingID']]['ListingViews'] = $listingResult['ListingViews'];
-		}
 		return $listingsData;
 	}
 }
