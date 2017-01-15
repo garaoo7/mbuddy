@@ -7,7 +7,8 @@
   // $this->load->view("common/feedelement");
 ?>
 
-<div class="row">
+<br>
+ <div class="row">
 	<div class="col-md-3">
 		<div class="card">
 			<img src="css/images/cards.jpg" id="cardImg">
@@ -15,7 +16,7 @@
 				<h5><b><?php echo $listingData['142']['ListingTitle'];echo $listingData['142']['ListingTitle'];?></b></h5>
 			</div>
 			<div class="container2">
-				<p><b>-<?php echo $listingData['142']['Username']; ?>-</b></p> 
+				<p><b>-<?php echo $listingData['142']['Username']; ?>- <span class="glyphicon glyphicon-ok"></span></b></p> 
 				<p><?php echo $listingData['142']['ListingViews']; ?> views</p> 
 			</div>
 		</div>
@@ -102,7 +103,7 @@
 	</div>
 </div>
 <br>
-<br>
+<br> -->
 
 
 <?php

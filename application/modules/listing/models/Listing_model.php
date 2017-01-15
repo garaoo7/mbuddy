@@ -61,19 +61,36 @@ class Listing_model extends MY_Model{
 		}
 
 		if(array_search("full",$sections) >= 0){
-			$this->dbHandle->select('ListingID,ListingTitle,ListingViews');
+			$this->dbHandle->select('listing.ListingID,ListingTitle,ListingViews,user.Username, ArtistName,LanguageName');
 
 			$this->dbHandle->from('listing');
 
-			$this->dbHandle->where_in('ListingID',$listingIds);
+			$this->dbHandle->where_in('listing.ListingID',$listingIds);
 
-			$this->dbHandle->where_in('Status',$status);
+			$this->dbHandle->where_in('listing.Status',$status);
 
+
+			$this->dbHandle->join('listing_artist_relation', 'listing_artist_relation.ListingID = listing.ListingID');
+
+			$this->dbHandle->join('artist', 'artist.ArtistID = listing_artist_relation.ArtistID');
+
+			$this->dbHandle->join('listing_language_relation', 'listing_language_relation.ListingID = listing.ListingID');
+
+			$this->dbHandle->join('language', 'language.LanguageID = listing_language_relation.LanguageID');
+
+			$this->dbHandle->join('user', 'user.UserID = listing.UserID');
+
+			// $listingss = $this->dbHandle->get();
+			// $listingResults = $listingss->result_array();
 			$listingResults = $this->dbHandle->get()->result_array();
 
 			foreach ($listingResults as $listingResult){
 				$listingsData[$listingResult['ListingID']]['ListingTitle'] = $listingResult['ListingTitle'];
 				$listingsData[$listingResult['ListingID']]['ListingViews'] = $listingResult['ListingViews'];
+				$listingsData[$listingResult['ListingID']]['Username'] = $listingResult['Username'];
+				$listingsData[$listingResult['ListingID']]['ArtistName'] = $listingResult['ArtistName'];
+				$listingsData[$listingResult['ListingID']]['LanguageName'] = $listingResult['LanguageName'];
+				// $listingsData[$listingResult['ListingID']]['numRows'] = $listingss->num_rows();
 			}
 		}
 

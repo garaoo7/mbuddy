@@ -16,7 +16,9 @@
 		<div id="header">
 			<nav class="navbar navbar-fixed-top navbar-default "  role="navigation">
 				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-brand" data-toggle="collapse" data-target="#leftMenubar"><span class="glyphicon glyphicon-menu-hamburger"></span></div>
 				<div class="navbar-header">
+
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
 						<span class="sr-only">Toggle navigation</span>
 						<span class="icon-bar"></span>
@@ -225,7 +227,16 @@
 </div>
 </div>
 </div>
-<br>
-<br>
-<br>
+<div class="leftNavbar navbar navbar-default collapse in" id="leftMenubar" role="navigation">
+	<ul class="nav nav-stacked">
+		<li><a href="<?php echo base_url();?>">&nbsp;&nbsp;<span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;&nbsp;Home</a></li>
+		<li><a href="#">&nbsp;&nbsp;<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;Profile</a></li>
+		<li><a href="#">&nbsp;&nbsp;<span class="glyphicon glyphicon-leaf"></span>&nbsp;&nbsp;&nbsp;Trending</a></li>
+		<li><a href="#">&nbsp;&nbsp;<span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;&nbsp;Subscription</a></li>
+		<li><a href="#">&nbsp;&nbsp;<span class="glyphicon glyphicon-hourglass"></span>&nbsp;&nbsp;&nbsp;History</a></li>
+		<li><a href="#">&nbsp;&nbsp;<span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;&nbsp;Watch Later</a></li>
+		<li><a href="#">&nbsp;&nbsp;<span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;&nbsp;&nbsp;Liked Videos</a></li>
+	</ul>
+</div>
+<div class="pageContent">
 

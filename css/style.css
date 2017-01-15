@@ -42,6 +42,33 @@
     border-radius: 3px 3px 0 0;
 
 }
+
+.leftNavbar{
+    z-index: 1;
+    padding: 10px 0px 0px 0px;
+    width: 180px;
+    left: 0px;
+    top: 50px;
+    position: fixed;
+    height: 100%;
+}
+
+.leftNavbar a{
+    color: rgb(100, 100, 100);
+}
+
+.leftNavbar li{
+    border-bottom-style: solid;
+    border-width: 1px;
+    border-color: grey;
+}
+
+/*class used in header*/
+.pageContent{
+    margin-top: 50px;
+    margin-left: 180px;
+}
+
 /*
 #searchBar{
     width: 130px;

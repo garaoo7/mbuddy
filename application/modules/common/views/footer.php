@@ -1,4 +1,5 @@
 </div>
+</div>
 </body>
 <!-- //use base_url(); -->
 <?php
