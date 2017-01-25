@@ -54,6 +54,15 @@ function postSubmit(){
 			artistInvalid.push($(this).text().trim());
 		});
 
+		var instruments          = [];
+		var instrumentsInvalid   = [];
+		$('#instruments').siblings('.simply-tags').children('.valid').each(function(){
+			instruments.push($(this).attr('data-key'));
+		});
+		$('#instruments').siblings('.simply-tags').children('.invalid').each(function(){
+			instrumentsInvalid.push($(this).text().trim());
+		});
+
 		var singer          = [];
 		var singerInvalid   = [];
 		$('#singer').siblings('.simply-tags').children('.valid').each(function(){
@@ -89,10 +98,20 @@ function postSubmit(){
 		$('#producer').siblings('.simply-tags').children('.invalid').each(function(){
 			producerInvalid.push($(this).text().trim());
 		});
+
+		var tag          = [];
+		var tagInvalid   = [];
+		$('#tag').siblings('.simply-tags').children('.valid').each(function(){
+			tag.push($(this).attr('data-key'));
+		});
+		$('#tag').siblings('.simply-tags').children('.invalid').each(function(){
+			tagInvalid.push($(this).text().trim());
+		});
+
 //**make a common function for all these errors
 		function fieldErrors(selector, fieldName1, fieldName2 = null){
 			if((fieldName1 == null || fieldName1 == "") && (fieldName2 == null || fieldName2 == "")){
-				$('#titleError, #descriptionError, #sourceError, #lyricsError, #languageError, #sectionError, #artistError, #singerError, #composerError, #writerError, #producerError').hide(100);
+				$('#titleError, #descriptionError, #sourceError, #lyricsError, #languageError, #sectionError, #artistError, #instrumentsError, #singerError, #composerError, #writerError, #producerError, #tagError').hide(100);
 				$(selector).html('This input field can not be empty');
 				$(selector).show(500);
 				return false;
@@ -126,6 +145,9 @@ function postSubmit(){
 		if(!fieldErrors('#artistError', artist, artistInvalid)){
 			return false;
 		}
+		if(!fieldErrors('#instrumentsError', instruments, instrumentsInvalid)){
+			return false;
+		}
 		if(!fieldErrors('#singerError', singer, singerInvalid)){
 			return false;
 		}
@@ -136,6 +158,9 @@ function postSubmit(){
 			return false;
 		}
 		if(!fieldErrors('#producerError', producer, producerInvalid)){
+			return false;
+		}
+		if(!fieldErrors('#tagError', tag, tagInvalid)){
 			return false;
 		}
 
@@ -167,50 +192,54 @@ function postSubmit(){
 // 			type: "POST"
 // 		});
 		if(!verifySourceLink('#source')){
-			$('#titleError, #descriptionError, #sourceError, #lyricsError, #languageError, #sectionError, #artistError, #singerError, #composerError, #writerError, #producerError').hide(100);
+			$('#titleError, #descriptionError, #sourceError, #lyricsError, #languageError, #sectionError, #artistError, #instrumentsError, #singerError, #composerError, #writerError, #producerError, #tagError').hide(100);
 			return false;
 		}
 //no ajax call for userLogin.........there will be a userValdation at backend.......if u want it on front end, try cookies or session
 			$.ajax({
 				url: "http://localhost/mbuddy/index.php/post_module/posting/post_listing/",
 				data: {
-					'title'           :   title,
-					'description'     :   description,
-					'sourceLink'      :   sourceLink,
-					'lyrics'          :   lyrics,
-					'language'        :   language,
-					'languageInvalid' :   languageInvalid,
-					'section'         :   section,
-					'sectionInvalid'  :   sectionInvalid,
-					'artist'          :   artist,
-					'artistInvalid'   :   artistInvalid,
-					'singer'          :   singer,
-					'singerInvalid'   :   singerInvalid,
-					'composer'        :   composer,
-					'composerInvalid' :   composerInvalid,
-					'writer'          :   writer,
-					'writerInvalid'   :   writerInvalid,
-					'producer'        :   producer,
-					'producerInvalid' :   producerInvalid
+					'title'           	:   title,
+					'description'     	:   description,
+					'sourceLink'      	:   sourceLink,
+					'lyrics'          	:   lyrics,
+					'language'        	:   language,
+					'languageInvalid' 	:   languageInvalid,
+					'section'         	:   section,
+					'sectionInvalid'  	:   sectionInvalid,
+					'artist'          	:   artist,
+					'artistInvalid'   	:   artistInvalid,
+					'instruments'      	:   instruments,
+					'instrumentsInvalid'	:   instrumentsInvalid,
+					'singer'          	:   singer,
+					'singerInvalid'   	:   singerInvalid,
+					'composer'        	:   composer,
+					'composerInvalid' 	:   composerInvalid,
+					'writer'          	:   writer,
+					'writerInvalid'   	:   writerInvalid,
+					'producer'        	:   producer,
+					'producerInvalid' 	:   producerInvalid,
+					'tag'        		:   tag,
+					'tagInvalid' 		:   tagInvalid
 				},
 				dataType: "json",
 				success: function(result){
 
 				 if(result == "true"){
-						 $('#titleError, #descriptionError, #sourceError, #lyricsError, #languageError, #sectionError, #artistError, #singerError, #composerError, #writerError, #producerError').hide(100);
-						 $('#producerError').html('POST SUCCESSFULL, WILL BE UPLOADED AFTER VERIFICATION');
-						 $('#producerError').show(500);
+						$('#titleError, #descriptionError, #sourceError, #lyricsError, #languageError, #sectionError, #artistError, #instrumentsError, #singerError, #composerError, #writerError, #producerError, #tagError').hide(100);
+						$('#producerError').html('POST SUCCESSFULL, WILL BE UPLOADED AFTER VERIFICATION');
+						$('#producerError').show(500);
 					}
 
 					else if(result == "false"){
-						 $('#titleError, #descriptionError, #sourceError, #lyricsError, #languageError, #sectionError, #artistError, #singerError, #composerError, #writerError, #producerError').hide(100);
-						 $('#producerError').html('SOME ERROR OCCURED, PLEASE TRY AGAIN');
-						 $('#producerError').show(500);
+						$('#titleError, #descriptionError, #sourceError, #lyricsError, #languageError, #sectionError, #artistError, #instrumentsError, #singerError, #composerError, #writerError, #producerError, #tagError').hide(100);
+						$('#producerError').html('SOME ERROR OCCURED, PLEASE TRY AGAIN');
+						$('#producerError').show(500);
 					}
 					else{
-						 $('#titleError, #descriptionError, #sourceError, #lyricsError, #languageError, #sectionError, #artistError, #singerError, #composerError, #writerError, #producerError').hide(100);
-						 $('#producerError').html(result);
-						 $('#producerError').show(500);
+						$('#titleError, #descriptionError, #sourceError, #lyricsError, #languageError, #sectionError, #artistError, #instrumentsError, #singerError, #composerError, #writerError, #producerError, #tagError').hide(100);
+						$('#producerError').html(result);
+						$('#producerError').show(500);
 					}
 				},
 				type: "POST"
@@ -277,10 +306,12 @@ $(document).ready(function(){
 	ajaxCall('language');
 	ajaxCall('section');
 	ajaxCall('artist');
+	ajaxCall('instruments');
 	ajaxCall('singer');
 	ajaxCall('composer');
 	ajaxCall('writer');
 	ajaxCall('producer');
+	ajaxCall('tag');
 
 
 //**key should be inside inside controller.......single call to the controller and it will return the complete result

@@ -50,6 +50,8 @@ class Posting extends MX_Controller{
 	    $sectionInvalid 	= 	$this->input->post('sectionInvalid', TRUE);
 		$artist 			= 	$this->input->post('artist', TRUE);
 		$artistInvalid 		= 	$this->input->post('artistInvalid', TRUE);
+		$instruments 		= 	$this->input->post('instruments', TRUE);
+		$instrumentsInvalid 	= 	$this->input->post('instrumentsInvalid', TRUE);
 		$singer 			= 	$this->input->post('singer', TRUE);
 		$singerInvalid 		= 	$this->input->post('singerInvalid', TRUE);
 	    $composer 			= 	$this->input->post('composer', TRUE);
@@ -58,6 +60,8 @@ class Posting extends MX_Controller{
 		$writerInvalid 		= 	$this->input->post('writerInvalid', TRUE);
 	    $producer 			= 	$this->input->post('producer', TRUE);
 	    $producerInvalid 	= 	$this->input->post('producerInvalid', TRUE);
+	    $tag 				= 	$this->input->post('tag', TRUE);
+	    $tagInvalid 		= 	$this->input->post('tagInvalid', TRUE);
 	        // echo json_encode(implode( ", ", $producerInvalid));
 	       	// 	return true;
 	    	if($title == null || $title == ""){
@@ -88,6 +92,10 @@ class Posting extends MX_Controller{
 		  		echo json_encode("Artist field can not be empty");
 		     	return false;
 		    }
+		    if(($instruments == null || $instruments == "") && ($instrumentsInvalid == null || $instrumentsInvalid == "")){
+		  		echo json_encode("Instruments field can not be empty");
+		     	return false;
+		    }
 		   if(($singer == null || $singer == "") && ($singerInvalid == null || $singerInvalid == "")){
 		  		echo json_encode("Singer field can not be empty");
 		     	return false;
@@ -105,6 +113,10 @@ class Posting extends MX_Controller{
 		  		echo json_encode("Producer field can not be empty");
 		     	return false;
 		    }
+		    if(($tag == null || $tag == "") && ($tagInvalid == null || $tagInvalid == "")){
+		  		echo json_encode("Tag field can not be empty");
+		     	return false;
+		    }
 	//**conditions not checked - same source url enchant_dict_check(dict, word)
 		   else{
 				$this->load->module('common/ticket_generator');
@@ -112,11 +124,11 @@ class Posting extends MX_Controller{
 				$userID 	= $this->session->userdata('userID');
 				$data = array();
 				$data['listingData'] 		= array(
-					'UserID'					=> $userID,
-					'ListingID' 			=> $listingID,
-					'ListingTitle'			=> $title,
-					'ListingDescription' => $description,
-					'ListingSourceLink' 	=> $sourceLink,
+						'UserID'				=> $userID,
+						'ListingID' 			=> $listingID,
+						'ListingTitle'			=> $title,
+						'ListingDescription' 	=> $description,
+						'ListingSourceLink' 	=> $sourceLink,
 					);
 	//queries should not be in a loop....insert multple entries at once in one query
 	//this all should be in model so that transaction can be applied
@@ -140,6 +152,13 @@ class Posting extends MX_Controller{
 				foreach ((array)$artist as $value){
 					$data['artistData'][] 		= array(
 						'ArtistID'			=> $value,
+						'ListingID' 		=> $listingID
+						);
+				}
+
+				foreach ((array)$instruments as $value){
+					$data['instrumentsData'][] 	= array(
+						'InstrumentID'		=> $value,
 						'ListingID' 		=> $listingID
 						);
 				}
@@ -171,16 +190,25 @@ class Posting extends MX_Controller{
 						'ListingID' 		=> $listingID
 						);
 				}
+
+				foreach ((array)$tag as $value){
+					$data['tagData'][] 			= array(
+						'TagID'			=> $value,
+						'ListingID' 		=> $listingID
+						);
+				}
 			
 				$data['invalidData']		= array(
 					'ListingID' 			=> $listingID,
-					'LanguageName' 		=> (implode( ", ", (array)$languageInvalid)),
+					'LanguageName' 			=> (implode( ", ", (array)$languageInvalid)),
 					'SectionName' 			=> (implode( ", ", (array)$sectionInvalid)),
 					'ArtistName'			=> (implode( ", ", (array)$artistInvalid)),
+					'InstrumentName'		=> (implode( ", ", (array)$instrumentsInvalid)),
 					'SingerName' 			=> (implode( ", ", (array)$singerInvalid)),
-					'ComposerName' 		=> (implode( ", ", (array)$composerInvalid)),
+					'ComposerName' 			=> (implode( ", ", (array)$composerInvalid)),
 					'WriterName' 			=> (implode( ", ", (array)$writerInvalid)),
-					'ProducerName' 		=> (implode( ", ", (array)$producerInvalid))
+					'ProducerName' 			=> (implode( ", ", (array)$producerInvalid)),
+					'TagName' 				=> (implode( ", ", (array)$tagInvalid))
 				);		
 				if($this->post_model->insertData($data)){
 					echo json_encode("true");
@@ -243,5 +271,17 @@ class Posting extends MX_Controller{
        echo json_encode($data);
        return;
 	}
+
+	// function loadmore(){
+	//      $limit = $this->input->get('limit');
+	//      $offset = $this->input->get('offset');
+	//      $this->load->model('post_model');
+	//      $result  = $this->post_model->getdata($offset,$limit);
+	//      $data['view'] = $result;
+	//      $data['offset'] =$offset +10;
+	//      $data['limit'] =$limit;
+	//      echo json_encode($data);
+	//    }
 }
+
 ?>

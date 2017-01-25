@@ -25,6 +25,12 @@ class Listing_lib{
 			return $listingsData;
 		}
 		// $this->_validateSections($sections); //maybe
+		// if($sections=='full' || $sections=='artist'){
+		// 	load user builder.
+		// 	get user repo.
+		// 	get artist data.
+		// }
+		// if($sections)
 		return $this->listingModel->getMultipleListingsData($listingIds,$status);
 	}	
 	

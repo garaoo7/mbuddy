@@ -48,10 +48,12 @@ class Post_model extends MY_Model{
 		$this->dbHandle->insert_batch('language', $data['languageData']);
 		$this->dbHandle->insert_batch('section', $data['sectionData']);
 		$this->dbHandle->insert_batch('artist', $data['artistData']);
+		$this->dbHandle->insert_batch('instruments', $data['instrumentsData']);
 		$this->dbHandle->insert_batch('singer', $data)['singerData'];
 		$this->dbHandle->insert_batch('composer', $data['composerData']);
 		$this->dbHandle->insert_batch('writer', $data['writerData']);
 		$this->dbHandle->insert_batch('producer', $data['producerData']);
+		$this->dbHandle->insert_batch('tag', $data['tagData']);
 		$this->dbHandle->insert('temporary_listing_data', $data['invalidData']);
 		$this->dbHandle->trans_complete();
 		return $this->dbHandle->trans_status();
@@ -75,6 +77,12 @@ class Post_model extends MY_Model{
 	    }
 
 	    return $data;
+  }
+
+  function getdata($offset,$limit){
+
+  	return "qwertyiuo";
+
   }
 
 //array(1,2,3,4,'custom'=>array("cool","nice"));

@@ -11,12 +11,12 @@
 	</style>
 </head>
 <body>
-	<div class="container-fluid">
+<!-- 	<div class="container-fluid">
 	<div id="wrapper">
 		<div id="header">
-			<nav class="navbar navbar-fixed-top navbar-default "  role="navigation">
+			<nav class="navbar navbar-fixed-top navbar-default "  role="navigation"> -->
 				<!-- Brand and toggle get grouped for better mobile display -->
-				<div class="navbar-brand" data-toggle="collapse" data-target="#leftMenubar"><span class="glyphicon glyphicon-menu-hamburger"></span></div>
+<!-- 				<div class="navbar-brand" data-toggle="collapse" data-target="#leftMenubar"><span class="glyphicon glyphicon-menu-hamburger"></span></div>
 				<div class="navbar-header">
 
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
@@ -26,10 +26,10 @@
 						<span class="icon-bar"></span>
 					</button>
 					<a class="navbar-brand" href="<?php echo base_url();?>">mBuddy</a>
-				</div>
+				</div> -->
 
 				<!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse" id="navbar-collapse-1">
+				<!-- <div class="collapse navbar-collapse" id="navbar-collapse-1">
 					<div class="col-sm-6 col-md-6">
 						<form class="navbar-form" id="searchBoxForm">
 							<div class="input-group">
@@ -110,7 +110,7 @@
 							</li>
 						</ul>
 
-						<?php }?>
+						<?php }?> -->
 				</div><!-- /.navbar-collapse -->
 			</nav>
 				<div class="modal fade" id="loginModal" role="dialog">
@@ -227,7 +227,7 @@
 </div>
 </div>
 </div>
-<div class="leftNavbar navbar navbar-default collapse in" id="leftMenubar" role="navigation">
+<div class="leftNavbar navbar navbar-default collapse" id="leftMenubar" role="navigation">
 	<ul class="nav nav-stacked">
 		<li><a href="<?php echo base_url();?>">&nbsp;&nbsp;<span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;&nbsp;Home</a></li>
 		<li><a href="#">&nbsp;&nbsp;<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;Profile</a></li>

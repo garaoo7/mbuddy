@@ -89,6 +89,16 @@
     <div class="form-group">
       <div class="row">
         <div class="col-xs-8 col-sm-6 col-md-6 col-xs-offset-2 col-sm-offset-3 col-md-offset-3">
+          <label>Instruments:</label>
+          <div id="instruments"></div>
+          <div id="instrumentsError" hidden="true"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="row">
+        <div class="col-xs-8 col-sm-6 col-md-6 col-xs-offset-2 col-sm-offset-3 col-md-offset-3">
           <label>Singer:</label>
           <div id="singer"></div>
           <div id="singerError" hidden="true"></div>
@@ -124,6 +134,16 @@
           <div id="producerError" hidden="true"></div>
         </div>
       </div>     
+    </div>
+
+    <div class="form-group">
+      <div class="row">
+        <div class="col-xs-8 col-sm-6 col-md-6 col-xs-offset-2 col-sm-offset-3 col-md-offset-3">
+          <label>Tag:</label>
+          <div id="tag"></div>
+          <div id="tagError" hidden="true"></div>
+        </div>
+      </div>
     </div>
 
     <div align="center">

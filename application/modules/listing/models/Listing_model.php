@@ -82,7 +82,10 @@ class Listing_model extends MY_Model{
 
 			// $listingss = $this->dbHandle->get();
 			// $listingResults = $listingss->result_array();
-			$listingResults = $this->dbHandle->get()->result_array();
+			// $listingResults = $this->dbHandle->get()->result_array();
+
+			// echo $this->dbHandle->last_query();
+			// die();
 
 			foreach ($listingResults as $listingResult){
 				$listingsData[$listingResult['ListingID']]['ListingTitle'] = $listingResult['ListingTitle'];

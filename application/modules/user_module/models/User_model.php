@@ -132,5 +132,56 @@ class User_model extends MY_Model{
 // 		}
 // 		return;
 // 	}
+	public function getUserData($userId,$status = array('live'),$sections=array('basic')){
+
+		/*$this->_init('read');
+		
+		$this->dbHandle->select('userTitle,userViews');
+
+		$this->dbHandle->from('user');
+
+		$this->dbHandle->where('userID',$userId);
+
+		$this->dbHandle->where_in('Status',$status);
+
+		$userData = $this->dbHandle->get()->result_array();
+		echo $this->dbHandle->last_query();
+		print_r($userData);
+		return $userData[0];
+		*/
+		//creating temp return data, data should be fetched according to above logic
+		$userData['Username'] = '1000';
+		$userData['FirstName'] = 'Papa';
+		$userData['LastName'] = '1000';
+		return $userData;
+	}
+
+	public function getMultipleUsersData($userIds = array(),$status = array('live'),$sections=array('basic')){
+
+		$this->_init('read');
+		$usersData = array();
+
+		$this->dbHandle->select('UserID,Username,FirstName,LastName');
+
+			$this->dbHandle->from('user');
+
+			$this->dbHandle->where_in('UserID',$userIds);
+
+			$this->dbHandle->where_in('Status',$status);
+
+			$userResults = $this->dbHandle->get()->result_array();
+
+			foreach ($userResults as $userResult){
+				$usersData[$userResult['UserID']]['Username'] 	= $userResult['Username'];
+				$usersData[$userResult['UserID']]['FirstName'] 	= $userResult['FirstName'];
+				$usersData[$userResult['UserID']]['LastName'] 	= $userResult['LastName'];
+			}
+		// echo $this->dbHandle->last_query();
+		// print_r($userResults);
+		// return $userData[0];
+		
+		//creating temp return data, data should be fetched according to above logic, query will be needed to get changed.
+		return $usersData;
+	}
 }
 ?>
