@@ -10,6 +10,7 @@ class ListingRepository extends EntityRepository {
 			$this->listingModel = $listingModel;
 			$this->listingLib   = $listingLib;
 		}
+		
 	}
 	
 	public function find($listingId = NULL, $status = array('live'),$sections=array('basic')){

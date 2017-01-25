@@ -2,8 +2,8 @@
 
 class Artist {
 
-	private $artistID;
-	private $artistName;
+	private $ArtistID;
+	private $ArtistName;
 
     public function getArtistID(){
          return $this->ArtistID;

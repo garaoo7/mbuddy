@@ -23,5 +23,6 @@ class Listing_builder {
 		$ListingModel = new listing_model();
 		$ListingLib   = new listing_lib($ListingModel);
 		return new ListingRepository($ListingModel,$ListingLib);
+	
 	}
 }

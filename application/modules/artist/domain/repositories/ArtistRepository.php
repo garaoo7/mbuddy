@@ -43,7 +43,6 @@ class ArtistRepository extends EntityRepository {
 		$artistObjectData['ArtistName'] 	= $artistData['ArtistName'];
         $artistObject = new artist();
         $this->fillObjectWithData($artistObject,$artistObjectData);
-        echo '<pre>'.print_r($artistObjectData,TRUE).'</pre>';
         return $artistObject;
 	}
 

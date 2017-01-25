@@ -51,7 +51,7 @@ class Posting extends MX_Controller{
 		$artist 			= 	$this->input->post('artist', TRUE);
 		$artistInvalid 		= 	$this->input->post('artistInvalid', TRUE);
 		$instruments 		= 	$this->input->post('instruments', TRUE);
-		$instrumentsInvalid 	= 	$this->input->post('instrumentsInvalid', TRUE);
+		$instrumentsInvalid	= 	$this->input->post('instrumentsInvalid', TRUE);
 		$singer 			= 	$this->input->post('singer', TRUE);
 		$singerInvalid 		= 	$this->input->post('singerInvalid', TRUE);
 	    $composer 			= 	$this->input->post('composer', TRUE);
