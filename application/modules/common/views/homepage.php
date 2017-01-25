@@ -23,8 +23,8 @@
 	</div>
 </div> -->
 
-<!-- <button type="button" id="loadMore" value="loadmore">Load More</button>
-<input type="hidden" name="limit" id="limit" value="10"/>
+<button type="button" id="loadMore" value="loadmore">Load More</button>
+<!-- <input type="hidden" name="limit" id="limit" value="10"/>
 <input type="hidden" name="offset" id="offset" value="20"/>
 <div id="testT"></div> -->
 

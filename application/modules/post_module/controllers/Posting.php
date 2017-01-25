@@ -272,16 +272,16 @@ class Posting extends MX_Controller{
        return;
 	}
 
-	// function loadmore(){
-	//      $limit = $this->input->get('limit');
-	//      $offset = $this->input->get('offset');
-	//      $this->load->model('post_model');
-	//      $result  = $this->post_model->getdata($offset,$limit);
-	//      $data['view'] = $result;
-	//      $data['offset'] =$offset +10;
-	//      $data['limit'] =$limit;
-	//      echo json_encode($data);
-	//    }
+	function loadmore(){
+	     $limit = $this->input->get('limit');
+	     $offset = $this->input->get('offset');
+	     $this->load->model('post_model');
+	     $result  = $this->post_model->getdata($offset,$limit);
+	     $data['view'] = $result;
+	     $data['offset'] =$offset +10;
+	     $data['limit'] =$limit;
+	     echo json_encode($data);
+	   }
 }
 
 ?>
