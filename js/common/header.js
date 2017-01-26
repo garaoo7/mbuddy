@@ -176,21 +176,23 @@ function login(){
 
 $(document).ready(function(){
 
-  $("#loadMore").click(function(){
-      $.ajax({
-          url:"http://localhost/mbuddy/index.php/post_module/posting/loadmore/",
-          data:{
-            offset :$('#offset').val(),
-            limit :$('#limit').val()
-          },
-          dataType: "json", 
-          success :function(data){
-              $('#testT').html(data.view)
-              $('#offset').val(data.offset)
-              $('#limit').val(data.limit)
-          }
-      })
-  });
+  // $("#loadMore").click(function(){
+  //   offset,limit
+  //     $.ajax({
+  //         url:"http://localhost/mbuddy/index.php/post_module/posting/loadmore/?",
+  //         data:{
+  //           offset :$('#offset').val(),
+  //           limit :$('#limit').val()
+  //         },
+  //         dataType: "json", 
+  //         success :function(data){
+  //           $(id).html();
+  //             $('#testT').html(data.view)
+  //             $('#offset').val(data.offset)
+  //             $('#limit').val(data.limit)
+  //         }
+  //     })
+  // });
 
 
 $("#loginButton").click(function(){

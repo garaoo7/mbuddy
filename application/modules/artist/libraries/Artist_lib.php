@@ -19,7 +19,7 @@ class Artist_lib{
 		return $this->artistModel->getArtistData($artistId,$status);
 	}
 
-	public function getMultipleArtistsData($artistIds, $status = array('live'),$sections=array('basic')){
+	public function getMultipleArtistsData($artistIds, $status = array('live'),$sections = 'basic'){
 		$artistsData = false;
 		if(empty($artistIds)){ //check for array also
 			return $artistsData;

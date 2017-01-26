@@ -24,7 +24,7 @@ class ArtistRepository extends EntityRepository {
 	}
 
 
-	public function findMultiple($artistIds = array(), $status = array('live'),$sections=array('basic')){
+	public function findMultiple($artistIds = array(), $status = array('live'),$sections = 'basic'){
 		//Contract::mustBeNumericValueGreaterThanZero($courseId,'Course ID'); //do not delete this
 		$artistObjects 	= false;
 		if(empty($artistIds)){//check for array also

@@ -6,7 +6,7 @@ class Listing_lib{
 	private $ci;
 // we might do all by reference for each input in each function below
 	public function __construct($listingModel){
-		if(!empty($listingModel) &&){
+		if(!empty($listingModel)){
 			$this->listingModel = $listingModel;
 		}
 		$this->ci =& get_instance();
@@ -26,7 +26,6 @@ class Listing_lib{
 		if(empty($listingIds)){ //check for array also
 			return $listingsData;
 		}
-)
 		return $this->listingModel->getMultipleListingsData($listingIds,$status);
 	}	
 	

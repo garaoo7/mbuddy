@@ -35,7 +35,7 @@ class Artist_model extends MY_Model{
 		return $artistData;
 	}
 
-	public function getMultipleArtistsData($artistIds = array(),$status = array('live'),$sections=array('full')){
+	public function getMultipleArtistsData($artistIds = array(),$status = array('live'),$sections = 'basic'){
 
 		$this->_init('read');
 		$artistsData = array();
@@ -59,26 +59,26 @@ class Artist_model extends MY_Model{
 		 	}
 		}
 
-		if($sections == 'full'){
-		 	$this->dbHandle->select('ArtistName, artist.ArtistID, listing_artist_relation.listingID');
+		// if($sections == 'full'){
+		//  	$this->dbHandle->select('ArtistName, artist.ArtistID, listing_artist_relation.listingID');
 
-		 	$this->dbHandle->from('artist');
+		//  	$this->dbHandle->from('artist');
 
-		 	$this->dbHandle->where_in('artist.ArtistID',$artistIds);
+		//  	$this->dbHandle->where_in('artist.ArtistID',$artistIds);
 
-		 	$this->dbHandle->where_in('artist.Status',$status);
+		//  	$this->dbHandle->where_in('artist.Status',$status);
 
-		 	$this->dbHandle->join('listing_artist_relation', 'listing_artist_relation.ArtistID = artist.ArtistID');
+		//  	$this->dbHandle->join('listing_artist_relation', 'listing_artist_relation.ArtistID = artist.ArtistID');
 
-			$artistResults = $this->dbHandle->get()->result_array();
+		// 	$artistResults = $this->dbHandle->get()->result_array();
 
-		 	foreach ($artistResults as $artistResult){
-		 		$artistsData[$artistResult['ArtistID']]['ArtistID'] = $artistResult['ArtistID'];
-		 		$artistsData[$artistResult['ArtistID']]['ArtistName'] = $artistResult['ArtistName'];
-		 	}
-		}
+		//  	foreach ($artistResults as $artistResult){
+		//  		$artistsData[$artistResult['ArtistID']]['ArtistID'] = $artistResult['ArtistID'];
+		//  		$artistsData[$artistResult['ArtistID']]['ArtistName'] = $artistResult['ArtistName'];
+		//  	}
+		// }
 
-		 echo $this->dbHandle->last_query();
+		 //echo $this->dbHandle->last_query();
 		// print_r($artistResults);
 		// return $artistData[0];
 		// foreach ($artistIds as $artistId) {

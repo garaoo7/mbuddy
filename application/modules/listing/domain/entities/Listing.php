@@ -13,7 +13,7 @@ class Listing {
     }
 
     public function getListingViews(){
-                return $this->ListingViews;
+        return $this->ListingViews;
     }
 
     public function getUsername(){

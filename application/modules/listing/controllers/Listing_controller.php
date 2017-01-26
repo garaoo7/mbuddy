@@ -3,22 +3,21 @@
 
 class Listing_controller extends MX_Controller{
 
+	public function __construct(){
+		$this->load->library('listing/listing_assembly_lib');
+		$this->listingLib = new listing_assembly_lib();
+
+	}
+
 	public function index($listingId=1){
 
-		$this->load->builder('artist/Artist_builder');
-		$this->ArtistBuilder = new Artist_builder();
-		$this->ArtistRepository = $this->ArtistBuilder->getArtistRepository();
-		$artistIds = array('107', '108', '101');
-		$artistObjects = $this->ArtistRepository->findMultiple($artistIds, 'live', 'basic');
-		echo '<pre>'.print_r($artistObjects,TRUE).'</pre>';
+		//place checks listingid validation
+		$listingId = 142;
 
 
-		$this->load->builder('listing/Listing_builder');
-		$ListingBuilder = new Listing_builder();
-		$ListingRepository = $ListingBuilder->getListingRepository();
-		$listingIds = array(142, 145, 130);
-		$listingObjects = $ListingRepository->findMultiple($listingIds);
+		$listingObjects = $this->listingLib->getListingsData($listingId, 'live', array('basic'));
 		echo '<pre>'.print_r($listingObjects,TRUE).'</pre>';
+		echo $listingObjects[142]->getListingTitle();
 		//print_r($listingObjects);
 	}
 }
