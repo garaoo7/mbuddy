@@ -35,12 +35,12 @@ class Artist_model extends MY_Model{
 		return $artistData;
 	}
 
-	public function getMultipleArtistsData($artistIds = array(),$status = array('live'),$sections = 'basic'){
+	public function getMultipleArtistsData($artistIds = array(),$status = array('live'),$sections = array('basic')){
 
 		$this->_init('read');
 		$artistsData = array();
 
-		if($sections == 'basic'){
+		if(in_array('basic', $sections)){
 		 	$this->dbHandle->select('ArtistName, ArtistID');
 
 		 	$this->dbHandle->from('artist');

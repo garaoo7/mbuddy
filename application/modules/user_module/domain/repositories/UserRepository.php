@@ -34,24 +34,27 @@ class UserRepository extends EntityRepository {
 		$usersData = $this->userLib->getMultipleUsersData($userIds,$status,$sections);
 		/*
         */
-        return $this->_populateMultipleUsersObjects($usersData,$userIds);
+        return $this->_populateMultipleUsersObjects($usersData,$userIds,$sections);
 	}
-	private function _populateUserObject($userData){
+	private function _populateUserObject($userData,$sections=array('basic')){
 
 		$userObjectData 				= array();
 		$userObjectData['Username'] 	= $userData['Username'];
-		$userObjectData['FirstName'] 	= $userData['FirstName'];
-		$userObjectData['LastName'] 	= $userData['LastName'];
+		if(in_array('full', $sections)){
+			$userObjectData['FirstName'] 	= $userData['FirstName'];
+			$userObjectData['LastName'] 	= $userData['LastName'];
+		}
         $userObject = new user();
+        print_r($userObjectData);
         $this->fillObjectWithData($userObject,$userObjectData);
         return $userObject;
 	}
 
-	private function _populateMultipleUsersObjects($usersData,$userIds){
+	private function _populateMultipleUsersObjects($usersData,$userIds,$sections=array('basic')){
 		$userObjects = array();
 		foreach ($userIds as $userId) {
 			if(isset($usersData[$userId])){
-				$userObjects[$userId] = $this->_populateUserObject($usersData[$userId]);
+				$userObjects[$userId] = $this->_populateUserObject($usersData[$userId],$sections);
 			}
 		}
 		return $userObjects;

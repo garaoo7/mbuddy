@@ -9,7 +9,7 @@ class Artist_controller extends MX_Controller{
 		$this->ArtistBuilder = new Artist_builder();
 		$this->ArtistRepository = $this->ArtistBuilder->getArtistRepository();
 		$artistIds = array('107', '108', '101');//take ids as input
-		$artistObjects = $this->ArtistRepository->findMultiple($artistIds, 'live', 'full');
+		$artistObjects = $this->ArtistRepository->findMultiple($artistIds, 'live', array('basic'));
 		echo '<pre>'.print_r($artistObjects,TRUE).'</pre>';
 		echo "string";
 

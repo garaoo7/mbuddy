@@ -14,24 +14,37 @@ class Listing_model extends MY_Model{
 
 	public function getListingData($listingId,$status = array('live'),$sections=array('basic')){
 
-		/*$this->_init('read');
-		
-		$this->dbHandle->select('ListingTitle,ListingViews');
+		$this->_init('read');
+		$listingData = array();
 
-		$this->dbHandle->from('listing');
+		if(in_array('basic',$sections)){
+			$this->dbHandle->select('ListingID, ListingTitle, ListingViews');
 
-		$this->dbHandle->where('ListingID',$listingId);
+			$this->dbHandle->from('listing');
 
-		$this->dbHandle->where_in('Status',$status);
+			$this->dbHandle->where_in('ListingID',$listingId);
 
-		$listingData = $this->dbHandle->get()->result_array();
-		echo $this->dbHandle->last_query();
-		print_r($listingData);
-		return $listingData[0];
-		*/
+			$this->dbHandle->where_in('Status',$status);
+
+			$listingData = $this->dbHandle->get()->row_array();
+
+		}
+
+		if(in_array('full',$sections)){
+			$this->dbHandle->select('ListingID, ListingTitle, ListingViews, ListingLikes, ListingDislikes');
+
+			$this->dbHandle->from('listing');
+
+			$this->dbHandle->where_in('ListingID',$listingId);
+
+			$this->dbHandle->where_in('Status',$status);
+
+			$listingData = $this->dbHandle->get()->row_array();
+
+		}
 		//creating temp return data, data should be fetched according to above logic
-		$listingData['ListingTitle'] = 'Papa';
-		$listingData['ListingViews'] = '1000';
+		// $listingData['ListingTitle'] = 'Papa';
+		// $listingData['ListingViews'] = '1000';
 		return $listingData;
 	}
 
@@ -40,49 +53,35 @@ class Listing_model extends MY_Model{
 		$this->_init('read');
 		$listingsData = array();
 
-		if(array_search("basic",$sections) >= 0){
-			$this->dbHandle->select('listing.ListingID,listing.ListingTitle,listing.ListingViews,user.Username');
+		if(in_array('basic',$sections)){
+			$this->dbHandle->select('ListingID, ListingTitle, ListingViews');
 
 			$this->dbHandle->from('listing');
 
-			$this->dbHandle->where_in('listing.ListingID',$listingIds);
+			$this->dbHandle->where_in('ListingID',$listingId);
 
-			$this->dbHandle->where_in('listing.Status',$status);
-
-			$this->dbHandle->join('user', 'user.UserID = listing.UserID');
+			$this->dbHandle->where_in('Status',$status);
 
 			$listingResults = $this->dbHandle->get()->result_array();
 
 			foreach ($listingResults as $listingResult){
 				$listingsData[$listingResult['ListingID']]['ListingTitle'] = $listingResult['ListingTitle'];
 				$listingsData[$listingResult['ListingID']]['ListingViews'] = $listingResult['ListingViews'];
-				$listingsData[$listingResult['ListingID']]['Username'] = $listingResult['Username'];
 			}
 		}
 
-		if(array_search("full",$sections) >= 0){
-			$this->dbHandle->select('listing.ListingID,ListingTitle,ListingViews,user.Username, ArtistName,LanguageName');
+		if(in_array('full',$sections)){
+			$this->dbHandle->select('ListingID, ListingTitle, ListingViews, ListingLikes, ListingDislikes');
 
 			$this->dbHandle->from('listing');
 
-			$this->dbHandle->where_in('listing.ListingID',$listingIds);
+			$this->dbHandle->where_in('ListingID',$listingId);
 
-			$this->dbHandle->where_in('listing.Status',$status);
-
-
-			$this->dbHandle->join('listing_artist_relation', 'listing_artist_relation.ListingID = listing.ListingID');
-
-			$this->dbHandle->join('artist', 'artist.ArtistID = listing_artist_relation.ArtistID');
-
-			$this->dbHandle->join('listing_language_relation', 'listing_language_relation.ListingID = listing.ListingID');
-
-			$this->dbHandle->join('language', 'language.LanguageID = listing_language_relation.LanguageID');
-
-			$this->dbHandle->join('user', 'user.UserID = listing.UserID');
+			$this->dbHandle->where_in('Status',$status);
 
 			// $listingss = $this->dbHandle->get();
 			// $listingResults = $listingss->result_array();
-			// $listingResults = $this->dbHandle->get()->result_array();
+			$listingResults = $this->dbHandle->get()->result_array();
 
 			// echo $this->dbHandle->last_query();
 			// die();
@@ -90,9 +89,8 @@ class Listing_model extends MY_Model{
 			foreach ($listingResults as $listingResult){
 				$listingsData[$listingResult['ListingID']]['ListingTitle'] = $listingResult['ListingTitle'];
 				$listingsData[$listingResult['ListingID']]['ListingViews'] = $listingResult['ListingViews'];
-				$listingsData[$listingResult['ListingID']]['Username'] = $listingResult['Username'];
-				$listingsData[$listingResult['ListingID']]['ArtistName'] = $listingResult['ArtistName'];
-				$listingsData[$listingResult['ListingID']]['LanguageName'] = $listingResult['LanguageName'];
+				$listingsData[$listingResult['ListingID']]['ListingLikes'] = $listingResult['ListingLikes'];
+				$listingsData[$listingResult['ListingID']]['ListingDislikes'] = $listingResult['ListingDislikes'];
 				// $listingsData[$listingResult['ListingID']]['numRows'] = $listingss->num_rows();
 			}
 		}
@@ -103,5 +101,38 @@ class Listing_model extends MY_Model{
 		
 		//creating temp return data, data should be fetched according to above logic, query will be needed to get changed.
 		return $listingsData;
+	}
+
+	public function getIds($listingId, $key){
+		$this->_init('read');
+
+		$arrayId = array();
+
+		if($key == 'artist'){
+			$this->dbHandle->select('ArtistID');
+
+			$this->dbHandle->from('listing_artist_relation');
+
+			$this->dbHandle->where_in('ListingID',$listingId);
+
+			$artistResults = $this->dbHandle->get()->result_array();
+			foreach ($artistResults as $artistResult) {
+				array_push($arrayId, $artistResult['ArtistID']);
+			}
+		}
+
+		if($key == 'user'){
+			$this->dbHandle->select('UserID');
+
+			$this->dbHandle->from('listing');
+
+			$this->dbHandle->where_in('ListingID',$listingId);
+
+			$userResult = $this->dbHandle->get()->row_array();
+			$arrayId = $userResult['UserID'];
+		}
+
+
+		return $arrayId;
 	}
 }

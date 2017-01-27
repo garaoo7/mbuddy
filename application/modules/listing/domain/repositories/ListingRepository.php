@@ -40,11 +40,14 @@ class ListingRepository extends EntityRepository {
 	private function _populateListingObject($listingData){
 
 		$listingObjectData 				   	= array();
-		$listingObjectData['ListingTitle'] 	= $listingData['ListingTitle'];
-		$listingObjectData['ListingViews'] 	= $listingData['ListingViews'];
-		$listingObjectData['Username'] 		= $listingData['Username'];
+		$listingObjectData['ListingTitle'] 	= $listingData['listingData']['ListingTitle'];
+		$listingObjectData['ListingViews'] 	= $listingData['listingData']['ListingViews'];
+		$listingObjectData['ListingLikes'] 	= $listingData['listingData']['ListingLikes'];
+		$listingObjectData['ListingDislikes'] 	= $listingData['listingData']['ListingDislikes'];
+		$listingObjectData['ArtistObject'] 	= $listingData['artistsObject'];
         $listingObject = new Listing();
         $this->fillObjectWithData($listingObject,$listingObjectData);
+        // echo '<pre>'.print_r($listingObject,TRUE).'</pre>';
         return $listingObject;
 	}
 
