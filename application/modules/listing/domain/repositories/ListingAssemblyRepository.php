@@ -1,17 +1,17 @@
 <?php
 
-class ListingRepository extends EntityRepository {
+class ListingAssemblyRepository extends EntityRepository {
 	// we might do call by reference for each input in each function below
 	private $listingModel;
-    private $listingLib;
+    private $listingAssemblyLib;
     private $cacheLib;
     private $caching;
-    public function __construct($listingModel,$listingLib) {
+    public function __construct($listingModel, $listingAssemblyLib) {
     	$this->CI =& get_instance();
 		parent::__construct();
-		if(!empty($listingModel) && !empty($listingLib)){
+		if(!empty($listingModel) && !empty($listingAssemblyLib)){
 			$this->listingModel = $listingModel;
-			$this->listingLib   = $listingLib;
+			$this->listingAssemblyLib   = $listingAssemblyLib;
 		}
 		$this->cacheLib = $this->CI->load->library("cache/cache_lib");
 		$this->caching = true;
@@ -29,7 +29,7 @@ class ListingRepository extends EntityRepository {
 			// $listingObject = $this->cacheLib->getListingObject($listingId,$status,$sections);
 			// return;
 		}
-		$listingData = $this->listingLib->getListingData($listingId,$status,$sections);
+		$listingData = $this->listingAssemblyLib->getListingData($listingId,$status,$sections);
 		//echo '<pre>'.print_r($listingData,TRUE).'</pre>';
 		return $this->_populateListingObject($listingData);
 	}
@@ -42,33 +42,30 @@ class ListingRepository extends EntityRepository {
             return $ListingObjects;
 		}
 		// $this->_validateSections($sections);
-		$listingsData = $this->listingLib->getMultipleListingsData($listingIds,$status,$sections);
+		$listingsData = $this->listingAssemblyLib->getMultipleListingsData($listingIds,$status,$sections);
 		//echo '<pre>'.print_r($listingsData,TRUE).'</pre>';
-
-        return $this->_populateMultipleListingsObjects($listingsData,$listingIds);
+        return $this->_populateListingObject($listingsData,$listingIds);
 	}
 	private function _populateListingObject($listingData){
 
 		$listingObjectData 				   	= array();
-		$listingObjectData['ListingTitle'] 	= $listingData['ListingTitle'];
-		$listingObjectData['ListingViews'] 	= $listingData['ListingViews'];
-		$listingObjectData['ListingLikes'] 	= $listingData['ListingLikes'];
-		$listingObjectData['ListingDislikes'] 	= $listingData['ListingDislikes'];
-		$listingObjectData['UserID'] 	= $listingData['UserID'];
-        $listingObject = new Listing();
+		$listingObjectData['ListingObject'] = $listingData['listingsObject'];	
+		$listingObjectData['ArtistObject'] 	= $listingData['artistsObject'];
+		$listingObjectData['UserObject'] 	= $listingData['userObject'];
+        $listingObject = new ListingAssembly();
         $this->fillObjectWithData($listingObject,$listingObjectData);
          //echo '<pre>'.print_r($listingData,TRUE).'</pre>';
         return $listingObject;
 	}
 
-	private function _populateMultipleListingsObjects($listingsData,$listingIds){
-		$listingObjects = array();
-		foreach ($listingIds as $listingId) {
-			if(isset($listingsData[$listingId])){
-				$listingObjects[$listingId] = $this->_populateListingObject($listingsData[$listingId]);
-			}
-		}
-		return $listingObjects;
-	}
+	// private function _populateMultipleListingsObjects($listingsData,$listingIds){
+	// 	$listingObjects = array();
+	// 	foreach ($listingIds as $listingId) {
+	// 		if(isset($listingsData[$listingId])){
+	// 			$listingObjects[$listingId] = $this->_populateListingObject($listingsData[$listingId]);
+	// 		}
+	// 	}
+	// 	return $listingObjects;
+	// }
 
 }

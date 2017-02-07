@@ -1,6 +1,6 @@
 <?php
 
-class Listing_builder {
+class Listing_builder{
 	
 	static protected $_ci;
 

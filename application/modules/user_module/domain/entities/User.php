@@ -17,7 +17,7 @@ class User {
     }
 
     public function getLastName(){
-                return $this->LastName;
+        return $this->LastName;
     }
 
 	public function __set($property,$value) {

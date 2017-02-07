@@ -5,8 +5,8 @@ class Listing {
 	private $ListingTitle;
 	private $ListingViews;
 	private $ListingLikes;
-	private $ListingDislikes;
-	private $ArtistObject;
+    private $ListingDislikes;
+	private $UserID;
 
 	public function getListingTitle(){
         return $this->ListingTitle;
@@ -23,9 +23,8 @@ class Listing {
     public function getListingDislikes(){
         return $this->ListingDislikes;
     }
-
-    public function getArtistObject(){
-        return $this->ArtistObject;
+    public function getUserID(){
+        return $this->UserID;
     }
 
 	public function __set($property,$value) {

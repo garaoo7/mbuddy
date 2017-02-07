@@ -40,12 +40,11 @@ class UserRepository extends EntityRepository {
 
 		$userObjectData 				= array();
 		$userObjectData['Username'] 	= $userData['Username'];
-		if(in_array('full', $sections)){
-			$userObjectData['FirstName'] 	= $userData['FirstName'];
-			$userObjectData['LastName'] 	= $userData['LastName'];
-		}
+		$userObjectData['FirstName'] 	= $userData['FirstName'];
+		$userObjectData['LastName'] 	= $userData['LastName'];
+		
         $userObject = new user();
-        print_r($userObjectData);
+        //print_r($userObjectData);
         $this->fillObjectWithData($userObject,$userObjectData);
         return $userObject;
 	}

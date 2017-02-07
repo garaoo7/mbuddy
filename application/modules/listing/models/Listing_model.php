@@ -54,7 +54,7 @@ class Listing_model extends MY_Model{
 		$listingsData = array();
 
 		if(in_array('basic',$sections)){
-			$this->dbHandle->select('ListingID, ListingTitle, ListingViews');
+			$this->dbHandle->select('ListingID, ListingTitle, ListingViews, UserID');
 
 			$this->dbHandle->from('listing');
 
@@ -67,11 +67,12 @@ class Listing_model extends MY_Model{
 			foreach ($listingResults as $listingResult){
 				$listingsData[$listingResult['ListingID']]['ListingTitle'] = $listingResult['ListingTitle'];
 				$listingsData[$listingResult['ListingID']]['ListingViews'] = $listingResult['ListingViews'];
+				$listingsData[$listingResult['ListingID']]['UserID'] = $listingResult['UserID'];
 			}
 		}
 
 		if(in_array('full',$sections)){
-			$this->dbHandle->select('ListingID, ListingTitle, ListingViews, ListingLikes, ListingDislikes');
+			$this->dbHandle->select('ListingID, ListingTitle, ListingViews, ListingLikes, ListingDislikes, UserID');
 
 			$this->dbHandle->from('listing');
 
@@ -91,6 +92,7 @@ class Listing_model extends MY_Model{
 				$listingsData[$listingResult['ListingID']]['ListingViews'] = $listingResult['ListingViews'];
 				$listingsData[$listingResult['ListingID']]['ListingLikes'] = $listingResult['ListingLikes'];
 				$listingsData[$listingResult['ListingID']]['ListingDislikes'] = $listingResult['ListingDislikes'];
+				$listingsData[$listingResult['ListingID']]['UserID'] = $listingResult['UserID'];
 				// $listingsData[$listingResult['ListingID']]['numRows'] = $listingss->num_rows();
 			}
 		}
@@ -103,7 +105,7 @@ class Listing_model extends MY_Model{
 		return $listingsData;
 	}
 
-	public function getIds($listingId, $key){
+	public function getRelatedIds($listingIds, $key){
 		$this->_init('read');
 
 		$arrayId = array();
@@ -113,7 +115,7 @@ class Listing_model extends MY_Model{
 
 			$this->dbHandle->from('listing_artist_relation');
 
-			$this->dbHandle->where_in('ListingID',$listingId);
+			$this->dbHandle->where_in('ListingID',$listingIds);
 
 			$artistResults = $this->dbHandle->get()->result_array();
 			foreach ($artistResults as $artistResult) {
@@ -126,10 +128,12 @@ class Listing_model extends MY_Model{
 
 			$this->dbHandle->from('listing');
 
-			$this->dbHandle->where_in('ListingID',$listingId);
+			$this->dbHandle->where_in('ListingID',$listingIds);
 
-			$userResult = $this->dbHandle->get()->row_array();
-			$arrayId = $userResult['UserID'];
+			$userResults = $this->dbHandle->get()->result_array();
+			foreach ($userResults as $userResult) {
+				array_push($arrayId, $userResult['UserID']);
+			}
 		}
 
 

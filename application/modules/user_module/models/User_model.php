@@ -137,7 +137,7 @@ class User_model extends MY_Model{
 		$this->_init('read');
 
 		if(in_array('basic', $sections)){
-			$this->dbHandle->select('Username');
+			$this->dbHandle->select('UserID,Username,FirstName,LastName');
 
 			$this->dbHandle->from('user');
 
@@ -164,7 +164,9 @@ class User_model extends MY_Model{
 		$this->_init('read');
 		$usersData = array();
 
-		$this->dbHandle->select('UserID,Username,FirstName,LastName');
+		if(in_array('basic', $sections)){
+
+			$this->dbHandle->select('UserID,Username,FirstName,LastName');
 
 			$this->dbHandle->from('user');
 
@@ -179,6 +181,7 @@ class User_model extends MY_Model{
 				$usersData[$userResult['UserID']]['FirstName'] 	= $userResult['FirstName'];
 				$usersData[$userResult['UserID']]['LastName'] 	= $userResult['LastName'];
 			}
+		}
 		// echo $this->dbHandle->last_query();
 		// print_r($userResults);
 		// return $userData[0];

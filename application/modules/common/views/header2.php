@@ -227,15 +227,16 @@
 </div>
 </div>
 </div>
-<div class="leftNavbar navbar navbar-default collapse" id="leftMenubar" role="navigation">
+<!-- add  collapse in class below, to toggle off menu at start -->
+<div class="leftNavbar navbar navbar-default" id="leftMenubar" role="navigation">
 	<ul class="nav nav-stacked">
-		<li><a href="<?php echo base_url();?>">&nbsp;&nbsp;<span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;&nbsp;Home</a></li>
-		<li><a href="#">&nbsp;&nbsp;<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;Profile</a></li>
-		<li><a href="#">&nbsp;&nbsp;<span class="glyphicon glyphicon-leaf"></span>&nbsp;&nbsp;&nbsp;Trending</a></li>
-		<li><a href="#">&nbsp;&nbsp;<span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;&nbsp;Subscription</a></li>
-		<li><a href="#">&nbsp;&nbsp;<span class="glyphicon glyphicon-hourglass"></span>&nbsp;&nbsp;&nbsp;History</a></li>
-		<li><a href="#">&nbsp;&nbsp;<span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;&nbsp;Watch Later</a></li>
-		<li><a href="#">&nbsp;&nbsp;<span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;&nbsp;&nbsp;Liked Videos</a></li>
+		<li><a href="<?php echo base_url();?>">&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Home</a></li>
+		<li><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Profile</a></li>
+		<li><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-leaf"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Trending</a></li>
+		<li><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Subscription</a></li>
+		<li><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-hourglass"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;History</a></li>
+		<li><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Watch Later</a></li>
+		<li><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Liked Videos</a></li>
 	</ul>
 </div>
 <div class="pageContent">
