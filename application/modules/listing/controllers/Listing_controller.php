@@ -18,7 +18,8 @@ class Listing_controller extends MX_Controller{
 		$listingObject = $this->ListingAssemblyRepository->find($listingId, array('live'), array('full'));
 		$displayData['listingData'] = $listingObject;
 		$this->load->view('listingPage', $displayData);
-		//echo '<pre>'.print_r($listingObject,TRUE).'</pre>';
+		echo "<br><br><br><br>";
+		echo '<pre>'.print_r($listingObject,TRUE).'</pre>';
 		// echo $listingObjects[142]->getListingTitle();
 		//print_r($listingObjects);
 	}

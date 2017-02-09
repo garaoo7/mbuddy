@@ -14,7 +14,7 @@ class Mbuddy extends MX_Controller {
         $recentListings = $this->get_recent_listings();
         $listingIds = array('130', '142');
         $listingsObject = $this->ListingAssemblyRepository->findMultiple($listingIds, array('live'), array('basic'));
-        // echo "<br>";
+        //echo "<br><br><br>";
         $displayData['listingsData'] = $listingsObject;
         $this->load->view('common/homepage',$displayData);//echo "<br>";echo "<br>";echo "<br>";
         // $this->load->view('common/homepage');

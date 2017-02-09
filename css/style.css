@@ -1,10 +1,28 @@
+body{
+    background-color: rgb(220, 220, 220);
+}
+
 .card {
     /* Add shadows to create the "card" effect */
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
-    width: 240px;
-    height: 250px;
+    width: 200px;
+    height: 193px;
     border-radius: 3px;
+    background-color: white;
+    margin-bottom: 30px;
+}
+
+.jumbotronX{
+    background-color: rgb(255, 255, 255);
+    margin: 0px 0px 0px 0px;
+    padding: 20px 0px 20px 0px;
+    text-align: center;
+}
+
+.cardSpacing {
+    /* Add shadows to create the "card" effect */
+    padding: 0px 110px 0px 110px;
 }
 
 /* On mouse-over, add a deeper shadow */
@@ -14,8 +32,8 @@
 
 /* Add some padding inside the card container */
 .container1 {
-    padding: 2px 6px 0px 6px;
-    width: 240px;
+    padding: 0px 6px 0px 6px;
+    width: 200px;
     height: 40px;
     overflow: hidden;
     
@@ -27,8 +45,8 @@
 }
 
 .container2{
-    padding: 5px 6px 2px 6px;
-    width: 240px; 
+    padding: 0px 6px 0px 6px;
+    width: 200px; 
 }
 
 .container2 p{
@@ -37,8 +55,8 @@
 }
 
 #cardImg{
-    height: 160px;
-    width: 240px;
+    height: 110px;
+    width: 200px;
     border-radius: 3px 3px 0 0;
 
 }
@@ -63,10 +81,21 @@
     border-color: rgba(1, 1, 1, 0.1);
 }
 
+/*.leftNavbar li:active{
+    color: rgb(50, 50, 50);
+}*/
+
 /*class used in header*/
 .pageContent{
-    margin-top: 50px;
+    margin-top: 40px;
+}
+
+.pageContentLeftMargin{
     margin-left: 200px;
+}
+
+.pageContentListing{
+    margin-top: 60px;
 }
 
 /*

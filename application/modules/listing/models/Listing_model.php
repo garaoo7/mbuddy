@@ -18,7 +18,7 @@ class Listing_model extends MY_Model{
 		$listingData = array();
 
 		if(in_array('basic',$sections)){
-			$this->dbHandle->select('ListingID, ListingTitle, ListingViews');
+			$this->dbHandle->select('ListingID, ListingTitle, ListingViews, UserID');
 
 			$this->dbHandle->from('listing');
 
@@ -31,7 +31,7 @@ class Listing_model extends MY_Model{
 		}
 
 		if(in_array('full',$sections)){
-			$this->dbHandle->select('ListingID, ListingTitle, ListingViews, ListingLikes, ListingDislikes');
+			$this->dbHandle->select('ListingID, ListingTitle, ListingViews, ListingLikes, ListingDislikes, UserID');
 
 			$this->dbHandle->from('listing');
 
