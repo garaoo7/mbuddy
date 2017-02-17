@@ -235,8 +235,8 @@ class Posting extends MX_Controller{
 	}
 
 	public function auto_complete(){
-		$value = $this->input->post('value');
-		echo json_encode($this->postlib->auto_complete($value));
+		$fieldName = $this->input->post('fieldName');
+		echo json_encode($this->postlib->auto_complete($fieldName));
 		// $nameColoumn = ucfirst($value)."Name";
 		// $idColoumn = ucfirst($value)."ID";
 	 //    echo json_encode($this->post_model->autoSuggestion($nameColoumn, $value, $nameColoumn));
@@ -272,16 +272,16 @@ class Posting extends MX_Controller{
        return;
 	}
 
-	function loadmore(){
-	     $limit = $this->input->get('limit');
-	     $offset = $this->input->get('offset');
-	     $this->load->model('post_model');
-	     $result  = $this->post_model->getdata($offset,$limit);
-	     $data['view'] = $result;
-	     $data['offset'] =$offset +10;
-	     $data['limit'] =$limit;
-	     echo json_encode($data);
-	   }
+	// function loadmore(){
+	//      $limit = $this->input->get('limit');
+	//      $offset = $this->input->get('offset');
+	//      $this->load->model('post_model');
+	//      $result  = $this->post_model->getdata($offset,$limit);
+	//      $data['view'] = $result;
+	//      $data['offset'] =$offset +10;
+	//      $data['limit'] =$limit;
+	//      echo json_encode($data);
+	//    }
 }
 
 ?>

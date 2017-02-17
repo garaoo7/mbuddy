@@ -16,8 +16,8 @@
 		</div>
 		<div class="row">
 			<div class="well col-md-12">
-				<h3><b><?php echo $listingData->getListingObject()->getListingTitle();?></b></h3>
-				<h5><b><?php echo $listingData->getUserObject()->getUsername();?></b> (<?php echo $listingData->getUserObject()->getFirstname();?> <?php echo $listingData->getUserObject()->getLastname();?>)</h5>
+				<h3><b><?php //echo $listingData->getListingObject()->getListingTitle();?></b></h3>
+				<h5><b><?php //echo $listingData->getUserObject()->getUsername();?></b> (<?php //echo $listingData->getUserObject()->getFirstname();?> <?php //echo $listingData->getUserObject()->getLastname();?>)</h5>
 
 			</div>
 		</div>
@@ -25,9 +25,9 @@
 			<div class="well col-md-12">
 				<h4>Artist: </h4>
 				<?php 
-					foreach ($listingData->getArtistObject() as $value) {
-						echo "<h5>".$value->getArtistName()."</h5>";
-					}
+					//foreach ($listingData->getArtistObject() as $value) {
+						//echo "<h5>".$value->getArtistName()."</h5>";
+					//}
 				?>
 			</div>
 		</div>

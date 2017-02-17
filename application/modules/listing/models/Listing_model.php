@@ -65,6 +65,7 @@ class Listing_model extends MY_Model{
 			$listingResults = $this->dbHandle->get()->result_array();
 
 			foreach ($listingResults as $listingResult){
+				$listingsData[$listingResult['ListingID']]['ListingID'] = $listingResult['ListingID'];
 				$listingsData[$listingResult['ListingID']]['ListingTitle'] = $listingResult['ListingTitle'];
 				$listingsData[$listingResult['ListingID']]['ListingViews'] = $listingResult['ListingViews'];
 				$listingsData[$listingResult['ListingID']]['UserID'] = $listingResult['UserID'];
@@ -88,7 +89,7 @@ class Listing_model extends MY_Model{
 			// die();
 
 			foreach ($listingResults as $listingResult){
-				$listingsData[$listingResult['ListingID']]['ListingTitle'] = $listingResult['ListingTitle'];
+				$listingsData[$listingResult['ListingID']]['ListingID'] = $listingResult['ListingID'];
 				$listingsData[$listingResult['ListingID']]['ListingViews'] = $listingResult['ListingViews'];
 				$listingsData[$listingResult['ListingID']]['ListingLikes'] = $listingResult['ListingLikes'];
 				$listingsData[$listingResult['ListingID']]['ListingDislikes'] = $listingResult['ListingDislikes'];
@@ -108,7 +109,7 @@ class Listing_model extends MY_Model{
 	public function getRelatedIds($listingIds, $key){
 		$this->_init('read');
 
-		$arrayId = array();
+		$arrayIds = array();
 
 		if($key == 'artist'){
 			$this->dbHandle->select('ArtistID');
@@ -119,7 +120,7 @@ class Listing_model extends MY_Model{
 
 			$artistResults = $this->dbHandle->get()->result_array();
 			foreach ($artistResults as $artistResult) {
-				array_push($arrayId, $artistResult['ArtistID']);
+				array_push($arrayIds, $artistResult['ArtistID']);
 			}
 		}
 
@@ -132,11 +133,11 @@ class Listing_model extends MY_Model{
 
 			$userResults = $this->dbHandle->get()->result_array();
 			foreach ($userResults as $userResult) {
-				array_push($arrayId, $userResult['UserID']);
+				array_push($arrayIds, $userResult['UserID']);
 			}
 		}
 
 
-		return $arrayId;
+		return $arrayIds;
 	}
 }

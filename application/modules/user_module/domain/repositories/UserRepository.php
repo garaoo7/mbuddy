@@ -37,11 +37,21 @@ class UserRepository extends EntityRepository {
         return $this->_populateMultipleUsersObjects($usersData,$userIds,$sections);
 	}
 	private function _populateUserObject($userData,$sections=array('basic')){
-
-		$userObjectData 				= array();
-		$userObjectData['Username'] 	= $userData['Username'];
-		$userObjectData['FirstName'] 	= $userData['FirstName'];
-		$userObjectData['LastName'] 	= $userData['LastName'];
+		//creating too many unwanted variables if basic is required, solution might be to use 2 entites
+		$userObjectData 					= array();
+		$userObjectData['UserID'] 			= $userData['UserID'];
+		$userObjectData['Username'] 		= $userData['Username'];
+		$userObjectData['FirstName'] 		= $userData['FirstName'];
+		$userObjectData['LastName'] 		= $userData['LastName'];
+		$userObjectData['DateOfBirth'] 		= $userData['DateOfBirth'];
+		$userObjectData['Gender'] 			= $userData['Gender'];
+		$userObjectData['City'] 			= $userData['CityName'];
+		$userObjectData['Country'] 			= $userData['CountryName'];
+		$userObjectData['Mobile'] 			= $userData['Mobile'];
+		$userObjectData['FollowersCount'] 	= $userData['FollowersCount'];
+		$userObjectData['FollowingCount'] 	= $userData['FollowingCount'];
+		$userObjectData['TagsCount'] 		= $userData['TagsCount'];
+		$userObjectData['AboutMe'] 			= $userData['AboutMe'];
 		
         $userObject = new user();
         //print_r($userObjectData);

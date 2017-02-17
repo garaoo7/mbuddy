@@ -147,6 +147,22 @@ class User_model extends MY_Model{
 
 			$userData = $this->dbHandle->get()->row_array();
 		}
+
+		else if(in_array('full', $sections)){
+			$this->dbHandle->select('UserID,Username,FirstName,LastName,DateOfBirth,Gender,Mobile,FollowersCount,FollowingCount,TagsCount,AboutMe,CityName,CountryName');
+
+			$this->dbHandle->from('user');
+
+			$this->dbHandle->where_in('UserID',$userId);
+
+			$this->dbHandle->where_in('user.Status',$status);
+
+			$this->dbHandle->join('city', 'city.CityID = user.CityID');
+
+			$this->dbHandle->join('country', 'country.CountryID = user.CountryID');
+
+			$userData = $this->dbHandle->get()->row_array();
+		}
 		//echo $this->dbHandle->last_query();
 		//print_r($userData);
 		return $userData;
@@ -177,6 +193,7 @@ class User_model extends MY_Model{
 			$userResults = $this->dbHandle->get()->result_array();
 
 			foreach ($userResults as $userResult){
+				$usersData[$userResult['UserID']]['UserID'] 	= $userResult['UserID'];
 				$usersData[$userResult['UserID']]['Username'] 	= $userResult['Username'];
 				$usersData[$userResult['UserID']]['FirstName'] 	= $userResult['FirstName'];
 				$usersData[$userResult['UserID']]['LastName'] 	= $userResult['LastName'];

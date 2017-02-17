@@ -67,6 +67,8 @@ class Post_model extends MY_Model{
 	    $this->db->select($coloumn1);
 	    $this->db->select($coloumn2);
 	    $this->db->from($table);
+	    // $this->db->like();
+	    // $this->db->limit();
 	    $result = $this->db->get()->result_array();
 	    $data = array();
 	    // $i = 0;	
@@ -75,7 +77,7 @@ class Post_model extends MY_Model{
       		$data[$key]['value'] = $temp[$coloumn2];
       		// $i++;
 	    }
-
+// where $coulumn2 like 'userInput%' limit 10;
 	    return $data;
   }
 

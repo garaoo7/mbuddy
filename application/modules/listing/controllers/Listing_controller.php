@@ -3,19 +3,19 @@
 class Listing_controller extends MX_Controller{
 
 	public function __construct(){
-		// $this->load->library('listing/listing_assembly_lib');
-		// $this->listingLib = new listing_assembly_lib();
+		// $this->load->library('listing/listing__lib');
+		// $this->listingLib = new listing__lib();
 
 	}
 
-	public function index($listingId=1){
+	public function index($listingId=142){
 		//place checks listingid validation
-		$listingId = 142;
-
-		$this->load->builder('listing/Listing_assembly_builder');
-		$this->ListingAssemblyBuilder = new Listing_assembly_builder();
-		$this->ListingAssemblyRepository = $this->ListingAssemblyBuilder->getListingAssemblyRepository();
-		$listingObject = $this->ListingAssemblyRepository->find($listingId, array('live'), array('full'));
+		echo "<br><br><br><br>";
+		echo $listingId;
+		$this->load->builder('listing/Listing_builder');
+		$this->ListingBuilder = new Listing_builder();
+		$this->ListingRepository = $this->ListingBuilder->getListingRepository();
+		$listingObject = $this->ListingRepository->find($listingId, array('live'), array('full'));
 		$displayData['listingData'] = $listingObject;
 		$this->load->view('listingPage', $displayData);
 		echo "<br><br><br><br>";

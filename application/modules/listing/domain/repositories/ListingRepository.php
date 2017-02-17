@@ -37,24 +37,27 @@ class ListingRepository extends EntityRepository {
 
 	public function findMultiple($listingIds = array(), $status = array('live'),$sections=array('basic')){
 		//Contract::mustBeNumericValueGreaterThanZero($courseId,'Course ID'); //do not delete this
-		$ListingObjects 	= false;
+		$listingObjects	= array();
 		if(empty($listingIds)){//check for array also
             return $ListingObjects;
 		}
 		// $this->_validateSections($sections);
 		$listingsData = $this->listingLib->getMultipleListingsData($listingIds,$status,$sections);
-		//echo '<pre>'.print_r($listingsData,TRUE).'</pre>';
+		$listingObjects = $this->_populateMultipleListingsObjects($listingsData, $listingIds);
 
-        return $this->_populateMultipleListingsObjects($listingsData,$listingIds);
+		//echo '<pre>'.print_r($listingsData,TRUE).'</pre>';
+        return $listingObjects;
 	}
 	private function _populateListingObject($listingData){
 
 		$listingObjectData 				   	= array();
-		$listingObjectData['ListingTitle'] 	= $listingData['ListingTitle'];
-		$listingObjectData['ListingViews'] 	= $listingData['ListingViews'];
-		$listingObjectData['ListingLikes'] 	= $listingData['ListingLikes'];
-		$listingObjectData['ListingDislikes'] 	= $listingData['ListingDislikes'];
-		$listingObjectData['UserID'] 	= $listingData['UserID'];
+		$listingObjectData['ListingID'] 	= $listingData['listingData']['ListingID'];
+		$listingObjectData['ListingTitle'] 	= $listingData['listingData']['ListingTitle'];
+		$listingObjectData['ListingViews'] 	= $listingData['listingData']['ListingViews'];
+		$listingObjectData['ListingLikes'] 	= $listingData['listingData']['ListingLikes'];
+		$listingObjectData['ListingDislikes']= $listingData['listingData']['ListingDislikes'];
+		$listingObjectData['ArtistObject'] 	= $listingData['artistsObject'];
+		$listingObjectData['UserObject'] 	= $listingData['userObject'];
         $listingObject = new Listing();
         $this->fillObjectWithData($listingObject,$listingObjectData);
          //echo '<pre>'.print_r($listingData,TRUE).'</pre>';
@@ -64,7 +67,7 @@ class ListingRepository extends EntityRepository {
 	private function _populateMultipleListingsObjects($listingsData,$listingIds){
 		$listingObjects = array();
 		foreach ($listingIds as $listingId) {
-			if(isset($listingsData[$listingId])){
+			if(isset($listingsData[$listingId])){//echo "<br>";
 				$listingObjects[$listingId] = $this->_populateListingObject($listingsData[$listingId]);
 			}
 		}

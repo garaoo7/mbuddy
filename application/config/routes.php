@@ -52,3 +52,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'Mbuddy';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+
+$route['nice'] = "listing/Listing_controller/index/$2";
+$route['watch/([0-9]+)'] = "listing/listing_controller/index/$1";
+$route['profile/([0-9]+)'] = "user_module/profile/index/$1";
+$route['upload/post'] = "post_module/posting/index";

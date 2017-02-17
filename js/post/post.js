@@ -210,7 +210,7 @@ function postSubmit(){
 					'artist'          	:   artist,
 					'artistInvalid'   	:   artistInvalid,
 					'instruments'      	:   instruments,
-					'instrumentsInvalid'	:   instrumentsInvalid,
+					'instrumentsInvalid':   instrumentsInvalid,
 					'singer'          	:   singer,
 					'singerInvalid'   	:   singerInvalid,
 					'composer'        	:   composer,
@@ -248,13 +248,13 @@ function postSubmit(){
 //**if false open login page
 		
 
-function ajaxCall(value){
-	var selector = '#' + value;
+function ajaxCall(fieldName){
+	var selector = '#' + fieldName;
 	var aurl = "http://localhost/mbuddy/index.php/post_module/posting/auto_complete/";
 	$.ajax({
 			url: aurl,
 			data: {
-				'value': value
+				'fieldName': fieldName
 			},
 			dataType: "json",
 			success: function(data){
@@ -297,6 +297,11 @@ function verifySourceLink(id){
 }
 
 $(document).ready(function(){
+
+	// $('#language').parents('.simply-tag-root').click(function(){
+	// 	alert("asd");
+	// });
+
 
 
 	var abc = new courseDetailPageClass();

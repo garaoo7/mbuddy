@@ -6,225 +6,490 @@
   $this->load->view("common/header2", $headerComponents);
   // $this->load->view("common/feedelement");
 ?>
-
-<br>
-<div class="pageContent pageContentLeftMargin">
-	 <div class="row">
-		<div align="center" id="eachFirstRowCard1" class="col-md-2 cardSpacing">
-			<div align="left" class="card">
-				<a href="<?php echo base_url("index.php/listing/Listing_controller");?>">
-				<img src="css/images/cards.jpg" id="cardImg">
-				</a>
-				<div class="container1">
-					<a href="<?php echo base_url("index.php/listing/Listing_controller");?>">
-					<h5><b><?php echo $listingsData->getListingObject()[142]->getListingTitle();?></b></h5>
-					</a>
+<div class="row" id="homepage">
+	<div class="col-md-2" id="homepageLeftMenu"></div>
+	<div class="col-md-10 col-md-offset-2">
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-10">
+				<div class="row">
+					<div class="col-md-3">
+						<div align="center">
+							<div align="left" class="card">
+								<a href="<?php 
+											$listingTitle = $listingsData[130]->getListingTitle();
+											$listingID = $listingsData[130]->getListingID();
+											echo base_url("index.php/watch/$listingID");
+										?>">
+									<img src="css/images/cards.jpg" id="cardImg">
+								</a>
+								<div class="container1">
+									<a href="<?php 
+												echo base_url("index.php/watch/$listingID");
+											?>">
+										<h5><b><?php echo $listingTitle;?></b></h5>
+									</a>
+								</div>
+								<div class="container2">
+									<h6><?php 
+											echo $listingsData[130]->getUserObject()->getUsername();
+										?>
+										<span class="glyphicon glyphicon-ok"></span></h6> 
+									<h6><?php 
+											echo $listingsData[130]->getListingViews();
+										?> views</h6> 
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div align="center">
+							<div align="left" class="card">
+								<a href="<?php 
+											$listingTitle = $listingsData[142]->getListingTitle();
+											$listingID = $listingsData[142]->getListingID();
+											echo base_url("index.php/watch/$listingID");
+										?>">
+									<img src="css/images/cards.jpg" id="cardImg">
+								</a>
+								<div class="container1">
+									<a href="<?php 
+												echo base_url("index.php/watch/$listingID");
+											?>">
+										<h5><b><?php echo $listingTitle;?></b></h5>
+									</a>
+								</div>
+								<div class="container2">
+									<h6><?php 
+											echo $listingsData[142]->getUserObject()->getUsername();
+										?>
+										<span class="glyphicon glyphicon-ok"></span></h6> 
+									<h6><?php 
+											echo $listingsData[142]->getListingViews();
+										?> views</h6> 
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div align="center">
+							<div align="left" class="card">
+								<a href="<?php 
+											$listingTitle = $listingsData[130]->getListingTitle();
+											$listingID = $listingsData[130]->getListingID();
+											echo base_url("index.php/watch/$listingID");
+										?>">
+									<img src="css/images/cards.jpg" id="cardImg">
+								</a>
+								<div class="container1">
+									<a href="<?php 
+												echo base_url("index.php/watch/$listingID");
+											?>">
+										<h5><b><?php echo $listingTitle;?></b></h5>
+									</a>
+								</div>
+								<div class="container2">
+									<h6><?php 
+											echo $listingsData[130]->getUserObject()->getUsername();
+										?>
+										<span class="glyphicon glyphicon-ok"></span></h6> 
+									<h6><?php 
+											echo $listingsData[130]->getListingViews();
+										?> views</h6> 
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div align="center">
+							<div align="left" class="card">
+								<a href="<?php 
+											$listingTitle = $listingsData[130]->getListingTitle();
+											$listingID = $listingsData[130]->getListingID();
+											echo base_url("index.php/watch/$listingID");
+										?>">
+									<img src="css/images/cards.jpg" id="cardImg">
+								</a>
+								<div class="container1">
+									<a href="<?php 
+												echo base_url("index.php/watch/$listingID");
+											?>">
+										<h5><b><?php echo $listingTitle;?></b></h5>
+									</a>
+								</div>
+								<div class="container2">
+									<h6><?php 
+											echo $listingsData[130]->getUserObject()->getUsername();
+										?>
+										<span class="glyphicon glyphicon-ok"></span></h6> 
+									<h6><?php 
+											echo $listingsData[130]->getListingViews();
+										?> views</h6> 
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="container2">
-					<p><b><?php 
-								$userID = $listingsData->getListingObject()[142]->getUserID();
-								echo $listingsData->getUserObject()[$userID]->getUsername();
-
-								?> <span class="glyphicon glyphicon-ok"></span></b></p> 
-					<p><?php echo $listingsData->getListingObject()[142]->getListingViews(); ?> views</p> 
+				<div class="row">
+					<div class="col-md-3">
+						<div align="center">
+							<div align="left" class="card">
+								<a href="<?php 
+											$listingTitle = $listingsData[142]->getListingTitle();
+											$listingID = $listingsData[142]->getListingID();
+											echo base_url("index.php/watch/$listingID");
+										?>">
+									<img src="css/images/cards.jpg" id="cardImg">
+								</a>
+								<div class="container1">
+									<a href="<?php 
+												echo base_url("index.php/watch/$listingID");
+											?>">
+										<h5><b><?php echo $listingTitle;?></b></h5>
+									</a>
+								</div>
+								<div class="container2">
+									<h6><?php 
+											echo $listingsData[142]->getUserObject()->getUsername();
+										?>
+										<span class="glyphicon glyphicon-ok"></span></h6> 
+									<h6><?php 
+											echo $listingsData[142]->getListingViews();
+										?> views</h6> 
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div align="center">
+							<div align="left" class="card">
+								<a href="<?php 
+											$listingTitle = $listingsData[130]->getListingTitle();
+											$listingID = $listingsData[130]->getListingID();
+											echo base_url("index.php/watch/$listingID");
+										?>">
+									<img src="css/images/cards.jpg" id="cardImg">
+								</a>
+								<div class="container1">
+									<a href="<?php 
+												echo base_url("index.php/watch/$listingID");
+											?>">
+										<h5><b><?php echo $listingTitle;?></b></h5>
+									</a>
+								</div>
+								<div class="container2">
+									<h6><?php 
+											echo $listingsData[130]->getUserObject()->getUsername();
+										?>
+										<span class="glyphicon glyphicon-ok"></span></h6> 
+									<h6><?php 
+											echo $listingsData[130]->getListingViews();
+										?> views</h6> 
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div align="center">
+							<div align="left" class="card">
+								<a href="<?php 
+											$listingTitle = $listingsData[130]->getListingTitle();
+											$listingID = $listingsData[130]->getListingID();
+											echo base_url("index.php/watch/$listingID");
+										?>">
+									<img src="css/images/cards.jpg" id="cardImg">
+								</a>
+								<div class="container1">
+									<a href="<?php 
+												echo base_url("index.php/watch/$listingID");
+											?>">
+										<h5><b><?php echo $listingTitle;?></b></h5>
+									</a>
+								</div>
+								<div class="container2">
+									<h6><?php 
+											echo $listingsData[130]->getUserObject()->getUsername();
+										?>
+										<span class="glyphicon glyphicon-ok"></span></h6> 
+									<h6><?php 
+											echo $listingsData[130]->getListingViews();
+										?> views</h6> 
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div align="center">
+							<div align="left" class="card">
+								<a href="<?php 
+											$listingTitle = $listingsData[130]->getListingTitle();
+											$listingID = $listingsData[130]->getListingID();
+											echo base_url("index.php/watch/$listingID");
+										?>">
+									<img src="css/images/cards.jpg" id="cardImg">
+								</a>
+								<div class="container1">
+									<a href="<?php 
+												echo base_url("index.php/watch/$listingID");
+											?>">
+										<h5><b><?php echo $listingTitle;?></b></h5>
+									</a>
+								</div>
+								<div class="container2">
+									<h6><?php 
+											echo $listingsData[130]->getUserObject()->getUsername();
+										?>
+										<span class="glyphicon glyphicon-ok"></span></h6> 
+									<h6><?php 
+											echo $listingsData[130]->getListingViews();
+										?> views</h6> 
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						<div align="center">
+							<div align="left" class="card">
+								<a href="<?php 
+											$listingTitle = $listingsData[130]->getListingTitle();
+											$listingID = $listingsData[130]->getListingID();
+											echo base_url("index.php/watch/$listingID");
+										?>">
+									<img src="css/images/cards.jpg" id="cardImg">
+								</a>
+								<div class="container1">
+									<a href="<?php 
+												echo base_url("index.php/watch/$listingID");
+											?>">
+										<h5><b><?php echo $listingTitle;?></b></h5>
+									</a>
+								</div>
+								<div class="container2">
+									<h6><?php 
+											echo $listingsData[130]->getUserObject()->getUsername();
+										?>
+										<span class="glyphicon glyphicon-ok"></span></h6> 
+									<h6><?php 
+											echo $listingsData[130]->getListingViews();
+										?> views</h6> 
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div align="center">
+							<div align="left" class="card">
+								<a href="<?php 
+											$listingTitle = $listingsData[130]->getListingTitle();
+											$listingID = $listingsData[130]->getListingID();
+											echo base_url("index.php/watch/$listingID");
+										?>">
+									<img src="css/images/cards.jpg" id="cardImg">
+								</a>
+								<div class="container1">
+									<a href="<?php 
+												echo base_url("index.php/watch/$listingID");
+											?>">
+										<h5><b><?php echo $listingTitle;?></b></h5>
+									</a>
+								</div>
+								<div class="container2">
+									<h6><?php 
+											echo $listingsData[130]->getUserObject()->getUsername();
+										?>
+										<span class="glyphicon glyphicon-ok"></span></h6> 
+									<h6><?php 
+											echo $listingsData[130]->getListingViews();
+										?> views</h6> 
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div align="center">
+							<div align="left" class="card">
+								<a href="<?php 
+											$listingTitle = $listingsData[130]->getListingTitle();
+											$listingID = $listingsData[130]->getListingID();
+											echo base_url("index.php/watch/$listingID");
+										?>">
+									<img src="css/images/cards.jpg" id="cardImg">
+								</a>
+								<div class="container1">
+									<a href="<?php 
+												echo base_url("index.php/watch/$listingID");
+											?>">
+										<h5><b><?php echo $listingTitle;?></b></h5>
+									</a>
+								</div>
+								<div class="container2">
+									<h6><?php 
+											echo $listingsData[130]->getUserObject()->getUsername();
+										?>
+										<span class="glyphicon glyphicon-ok"></span></h6> 
+									<h6><?php 
+											echo $listingsData[130]->getListingViews();
+										?> views</h6> 
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div align="center">
+							<div align="left" class="card">
+								<a href="<?php 
+											$listingTitle = $listingsData[130]->getListingTitle();
+											$listingID = $listingsData[130]->getListingID();
+											echo base_url("index.php/watch/$listingID");
+										?>">
+									<img src="css/images/cards.jpg" id="cardImg">
+								</a>
+								<div class="container1">
+									<a href="<?php 
+												echo base_url("index.php/watch/$listingID");
+											?>">
+										<h5><b><?php echo $listingTitle;?></b></h5>
+									</a>
+								</div>
+								<div class="container2">
+									<h6><?php 
+											echo $listingsData[130]->getUserObject()->getUsername();
+										?>
+										<span class="glyphicon glyphicon-ok"></span></h6> 
+									<h6><?php 
+											echo $listingsData[130]->getListingViews();
+										?> views</h6> 
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						<div align="center">
+							<div align="left" class="card">
+								<a href="<?php 
+											$listingTitle = $listingsData[130]->getListingTitle();
+											$listingID = $listingsData[130]->getListingID();
+											echo base_url("index.php/watch/$listingID");
+										?>">
+									<img src="css/images/cards.jpg" id="cardImg">
+								</a>
+								<div class="container1">
+									<a href="<?php 
+												echo base_url("index.php/watch/$listingID");
+											?>">
+										<h5><b><?php echo $listingTitle;?></b></h5>
+									</a>
+								</div>
+								<div class="container2">
+									<h6><?php 
+											echo $listingsData[130]->getUserObject()->getUsername();
+										?>
+										<span class="glyphicon glyphicon-ok"></span></h6> 
+									<h6><?php 
+											echo $listingsData[130]->getListingViews();
+										?> views</h6> 
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div align="center">
+							<div align="left" class="card">
+								<a href="<?php 
+											$listingTitle = $listingsData[130]->getListingTitle();
+											$listingID = $listingsData[130]->getListingID();
+											echo base_url("index.php/watch/$listingID");
+										?>">
+									<img src="css/images/cards.jpg" id="cardImg">
+								</a>
+								<div class="container1">
+									<a href="<?php 
+												echo base_url("index.php/watch/$listingID");
+											?>">
+										<h5><b><?php echo $listingTitle;?></b></h5>
+									</a>
+								</div>
+								<div class="container2">
+									<h6><?php 
+											echo $listingsData[130]->getUserObject()->getUsername();
+										?>
+										<span class="glyphicon glyphicon-ok"></span></h6> 
+									<h6><?php 
+											echo $listingsData[130]->getListingViews();
+										?> views</h6> 
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div align="center">
+							<div align="left" class="card">
+								<a href="<?php 
+											$listingTitle = $listingsData[130]->getListingTitle();
+											$listingID = $listingsData[130]->getListingID();
+											echo base_url("index.php/watch/$listingID");
+										?>">
+									<img src="css/images/cards.jpg" id="cardImg">
+								</a>
+								<div class="container1">
+									<a href="<?php 
+												echo base_url("index.php/watch/$listingID");
+											?>">
+										<h5><b><?php echo $listingTitle;?></b></h5>
+									</a>
+								</div>
+								<div class="container2">
+									<h6><?php 
+											echo $listingsData[130]->getUserObject()->getUsername();
+										?>
+										<span class="glyphicon glyphicon-ok"></span></h6> 
+									<h6><?php 
+											echo $listingsData[130]->getListingViews();
+										?> views</h6> 
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div align="center">
+							<div align="left" class="card">
+								<a href="<?php 
+											$listingTitle = $listingsData[130]->getListingTitle();
+											$listingID = $listingsData[130]->getListingID();
+											echo base_url("index.php/watch/$listingID");
+										?>">
+									<img src="css/images/cards.jpg" id="cardImg">
+								</a>
+								<div class="container1">
+									<a href="<?php 
+												echo base_url("index.php/watch/$listingID");
+											?>">
+										<h5><b><?php echo $listingTitle;?></b></h5>
+									</a>
+								</div>
+								<div class="container2">
+									<h6><?php 
+											echo $listingsData[130]->getUserObject()->getUsername();
+										?>
+										<span class="glyphicon glyphicon-ok"></span></h6> 
+									<h6><?php 
+											echo $listingsData[130]->getListingViews();
+										?> views</h6> 
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div align="center" class="col-md-2 cardSpacing">
-			<div align="left" class="card">
-				<img src="css/images/cards.jpg" id="cardImg">
-				<div class="container1">
-					<h5><b><?php echo $listingsData->getListingObject()[142]->getListingTitle();?></b></h5>
-				</div>
-				<div class="container2">
-					<p><b>-<?php 
-								$userID = $listingsData->getListingObject()[142]->getUserID();
-								echo $listingsData->getUserObject()[$userID]->getUsername();
-
-								?>- <span class="glyphicon glyphicon-ok"></span></b></p> 
-					<p><?php echo $listingsData->getListingObject()[142]->getListingViews(); ?> views</p> 
-				</div>
-			</div>
-		</div>
-		<div align="center" class="col-md-2 cardSpacing">
-			<div align="left" class="card">
-				<img src="css/images/cards.jpg" id="cardImg">
-				<div class="container1">
-					<h5><b><?php echo $listingsData->getListingObject()[142]->getListingTitle();?></b></h5>
-				</div>
-				<div class="container2">
-					<p><b>-<?php 
-								$userID = $listingsData->getListingObject()[142]->getUserID();
-								echo $listingsData->getUserObject()[$userID]->getUsername();
-
-								?>- <span class="glyphicon glyphicon-ok"></span></b></p> 
-					<p><?php echo $listingsData->getListingObject()[142]->getListingViews(); ?> views</p> 
-				</div>
-			</div>
-		</div>
-		<div align="center" class="col-md-2 cardSpacing">
-			<div align="left" class="card">
-				<img src="css/images/cards.jpg" id="cardImg">
-				<div class="container1">
-					<h5><b><?php echo $listingsData->getListingObject()[142]->getListingTitle();?></b></h5>
-				</div>
-				<div class="container2">
-					<p><b>-<?php 
-								$userID = $listingsData->getListingObject()[142]->getUserID();
-								echo $listingsData->getUserObject()[$userID]->getUsername();
-
-								?>- <span class="glyphicon glyphicon-ok"></span></b></p> 
-					<p><?php echo $listingsData->getListingObject()[142]->getListingViews(); ?> views</p> 
-				</div>
-			</div>
-		</div>
-	</div>
-	 <div class="row">
-		<div align="center" id="eachFirstRowCard2" class="col-md-2 cardSpacing">
-			<div align="left" class="card">
-				<a href="<?php echo base_url("index.php/listing/Listing_controller");?>">
-				<img src="css/images/cards.jpg" id="cardImg">
-				</a>
-				<div class="container1">
-					<a href="<?php echo base_url("index.php/listing/Listing_controller");?>">
-					<h5><b><?php echo $listingsData->getListingObject()[142]->getListingTitle();?></b></h5>
-					</a>
-				</div>
-				<div class="container2">
-					<p><b>-<?php 
-								$userID = $listingsData->getListingObject()[142]->getUserID();
-								echo $listingsData->getUserObject()[$userID]->getUsername();
-
-								?>- <span class="glyphicon glyphicon-ok"></span></b></p> 
-					<p><?php echo $listingsData->getListingObject()[142]->getListingViews(); ?> views</p> 
-				</div>
-			</div>
-		</div>
-		<div align="center" class="col-md-2 cardSpacing">
-			<div align="left" class="card">
-				<img src="css/images/cards.jpg" id="cardImg">
-				<div class="container1">
-					<h5><b><?php echo $listingsData->getListingObject()[142]->getListingTitle();?></b></h5>
-				</div>
-				<div class="container2">
-					<p><b>-<?php 
-								$userID = $listingsData->getListingObject()[142]->getUserID();
-								echo $listingsData->getUserObject()[$userID]->getUsername();
-
-								?>- <span class="glyphicon glyphicon-ok"></span></b></p> 
-					<p><?php echo $listingsData->getListingObject()[142]->getListingViews(); ?> views</p> 
-				</div>
-			</div>
-		</div>
-		<div align="center" class="col-md-2 cardSpacing">
-			<div align="left" class="card">
-				<img src="css/images/cards.jpg" id="cardImg">
-				<div class="container1">
-					<h5><b><?php echo $listingsData->getListingObject()[142]->getListingTitle();?></b></h5>
-				</div>
-				<div class="container2">
-					<p><b>-<?php 
-								$userID = $listingsData->getListingObject()[142]->getUserID();
-								echo $listingsData->getUserObject()[$userID]->getUsername();
-
-								?>- <span class="glyphicon glyphicon-ok"></span></b></p> 
-					<p><?php echo $listingsData->getListingObject()[142]->getListingViews(); ?> views</p> 
-				</div>
-			</div>
-		</div>
-		<div align="center" class="col-md-2 cardSpacing">
-			<div align="left" class="card">
-				<img src="css/images/cards.jpg" id="cardImg">
-				<div class="container1">
-					<h5><b><?php echo $listingsData->getListingObject()[142]->getListingTitle();?></b></h5>
-				</div>
-				<div class="container2">
-					<p><b>-<?php 
-								$userID = $listingsData->getListingObject()[142]->getUserID();
-								echo $listingsData->getUserObject()[$userID]->getUsername();
-
-								?>- <span class="glyphicon glyphicon-ok"></span></b></p> 
-					<p><?php echo $listingsData->getListingObject()[142]->getListingViews(); ?> views</p> 
-				</div>
-			</div>
-		</div>
-	</div>
-	 <div class="row">
-		<div align="center" id="eachFirstRowCard3" class="col-md-2 cardSpacing">
-			<div align="left" class="card">
-				<a href="<?php echo base_url("index.php/listing/Listing_controller");?>">
-				<img src="css/images/cards.jpg" id="cardImg">
-				</a>
-				<div class="container1">
-					<a href="<?php echo base_url("index.php/listing/Listing_controller");?>">
-					<h5><b><?php echo $listingsData->getListingObject()[142]->getListingTitle();?></b></h5>
-					</a>
-				</div>
-				<div class="container2">
-					<p><b>-<?php 
-								$userID = $listingsData->getListingObject()[142]->getUserID();
-								echo $listingsData->getUserObject()[$userID]->getUsername();
-
-								?>- <span class="glyphicon glyphicon-ok"></span></b></p> 
-					<p><?php echo $listingsData->getListingObject()[142]->getListingViews(); ?> views</p> 
-				</div>
-			</div>
-		</div>
-		<div align="center" class="col-md-2 cardSpacing">
-			<div align="left" class="card">
-				<img src="css/images/cards.jpg" id="cardImg">
-				<div class="container1">
-					<h5><b><?php echo $listingsData->getListingObject()[142]->getListingTitle();?></b></h5>
-				</div>
-				<div class="container2">
-					<p><b>-<?php 
-								$userID = $listingsData->getListingObject()[142]->getUserID();
-								echo $listingsData->getUserObject()[$userID]->getUsername();
-
-								?>- <span class="glyphicon glyphicon-ok"></span></b></p> 
-					<p><?php echo $listingsData->getListingObject()[142]->getListingViews(); ?> views</p> 
-				</div>
-			</div>
-		</div>
-		<div align="center" class="col-md-2 cardSpacing">
-			<div align="left" class="card">
-				<img src="css/images/cards.jpg" id="cardImg">
-				<div class="container1">
-					<h5><b><?php echo $listingsData->getListingObject()[142]->getListingTitle();?></b></h5>
-				</div>
-				<div class="container2">
-					<p><b>-<?php 
-								$userID = $listingsData->getListingObject()[142]->getUserID();
-								echo $listingsData->getUserObject()[$userID]->getUsername();
-
-								?>- <span class="glyphicon glyphicon-ok"></span></b></p> 
-					<p><?php echo $listingsData->getListingObject()[142]->getListingViews(); ?> views</p> 
-				</div>
-			</div>
-		</div>
-		<div align="center" class="col-md-2 cardSpacing">
-			<div align="left" class="card">
-				<img src="css/images/cards.jpg" id="cardImg">
-				<div class="container1">
-					<h5><b><?php echo $listingsData->getListingObject()[142]->getListingTitle();?></b></h5>
-				</div>
-				<div class="container2">
-					<p><b>-<?php 
-								$userID = $listingsData->getListingObject()[142]->getUserID();
-								echo $listingsData->getUserObject()[$userID]->getUsername();
-
-								?>- <span class="glyphicon glyphicon-ok"></span></b></p> 
-					<p><?php echo $listingsData->getListingObject()[142]->getListingViews(); ?> views</p> 
-				</div>
-			</div>
+			<div class="col-md-1"></div>
 		</div>
 	</div>
 </div>
-<!-- <button type="button" id="loadMore" value="loadmore">Load More</button>
-<input type="hidden" name="limit" id="limit" value="10"/>
-<input type="hidden" name="offset" id="offset" value="20"/>
-<div id="testT"></div>
-<script>var offset = <?php echo $offset?></script> -->
+
 
 <?php
   $footerComponents = array(

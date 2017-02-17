@@ -16,7 +16,7 @@ class User_lib{
 			return $userData;
 		}
 		// $this->_validateSections($sections); //maybe
-		return $this->userModel->getuserData($userId,$status);
+		return $this->userModel->getUserData($userId,$status,$sections);
 	}
 
 	public function getMultipleUsersData($userIds, $status = array('live'),$sections=array('basic')){
@@ -25,7 +25,7 @@ class User_lib{
 			return $usersData;
 		}
 
-		return $this->userModel->getMultipleUsersData($userIds,$status);
+		return $this->userModel->getMultipleUsersData($userIds,$status,$sections);
 	}	
 	
 }

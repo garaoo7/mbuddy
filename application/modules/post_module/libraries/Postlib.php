@@ -9,10 +9,10 @@ class Postlib {
 		self::$CI->load->model('post_module/post_model');
 	}
 
-	public function auto_complete($value){
-		$nameColoumn = ucfirst($value)."Name";
-		$idColoumn = ucfirst($value)."ID";
-	    return self::$CI->post_model->autoSuggestion($nameColoumn, $value, $nameColoumn);
+	public function auto_complete($fieldName){
+		$nameColoumn = ucfirst($fieldName)."Name";
+		$idColoumn = ucfirst($fieldName)."ID";
+	    return self::$CI->post_model->autoSuggestion($nameColoumn, $fieldName, $nameColoumn);
   	}
 
 }

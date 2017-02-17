@@ -14,9 +14,9 @@
 <div class="container-fluid">
 	<div id="wrapper">
 		<div id="header">
-			<nav class="navbar navbar-fixed-top navbar-default "  role="navigation">
+			<nav class="navbar navbar-fixed-top navbar-inverse"  role="navigation">
 				<!-- Brand and toggle get grouped for better mobile display -->
- 				<div class="navbar-brand" id='leftMenubarButton'><span class="glyphicon glyphicon-menu-hamburger"></span></div>
+ 				<div class="navbar-brand" id='leftMenubarButton' data-toggle="collapse" data-target="#leftMenubar"><span class="glyphicon glyphicon-menu-hamburger"></span></div>
 				<div class="navbar-header">
 
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
@@ -25,7 +25,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="<?php echo base_url();?>">mBuddy</a>
+					<a class="navbar-brand" style="color: white; font-size: 25px;" href="<?php echo base_url();?>"><b>mBuddy</b></a>
 				</div>
 
 				<!-- Collect the nav links, forms, and other content for toggling -->
@@ -33,9 +33,9 @@
 					<div class="col-sm-6 col-md-6">
 						<form class="navbar-form" id="searchBoxForm">
 							<div class="input-group">
-								<input id="searchBox" type="text" class="form-control searchBox" placeholder="Search" name="q">
+								<input id="searchBox" style="background-color: rgb(40, 40, 40); color: white;" type="text" class="form-control searchBox" placeholder="Search" name="q">
 								<div class="input-group-btn">
-									<button class="btn btn-success " type="submit"  ><i class="glyphicon glyphicon-search"></i></button>
+									<button class="btn" type="submit"  ><i class="glyphicon glyphicon-search"></i></button>
 								</div>
 
 							</div>
@@ -67,7 +67,9 @@
 												<div class="navbar-login navbar-login-session">
 													<div class="row">
 														<div class="col-lg-10">
-															<a href="#" class="btn btn-block">Profile</a>
+															<a href="<?php 
+																$userID = $this->session->userdata('userID');
+																echo base_url("index.php/profile/$userID");?>" class="btn btn-block">Profile</a>
 														</div>
 													</div>
 												</div>
@@ -228,10 +230,9 @@
 </div>
 </div>
 <!-- add  collapse in class below, to toggle off menu at start -->
-<div class="leftNavbar navbar navbar-default" id="leftMenubar" role="navigation">
+<div class="leftNavbar navbar navbar-inverse" id="leftMenubar" role="navigation">
 	<ul class="nav nav-stacked">
 		<li class="active"><a href="<?php echo base_url();?>">&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Home</a></li>
-		<li><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Profile</a></li>
 		<li><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-leaf"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Trending</a></li>
 		<li><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Subscription</a></li>
 		<li><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-hourglass"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;History</a></li>
@@ -239,5 +240,6 @@
 		<li><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Liked Videos</a></li>
 	</ul>
 </div>
+<div class='pageContent'>
 
 

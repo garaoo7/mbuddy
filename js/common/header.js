@@ -22,7 +22,7 @@ function postingPage(){
 			 success: function(result){
 				
 				  if(result == "true"){
-					 window.location = "http://localhost/mbuddy/index.php/post_module/posting/index";
+					 window.location = "http://localhost/mbuddy/index.php/upload/post";
 				  }
 				  else if(result =='false'){
 					 $("#loginModal").modal();
@@ -208,31 +208,31 @@ $(document).ready(function(){
   //     })
   // });
 
-$('#leftMenubarButton').click(function(){
-	$('#leftMenubar').toggle();
-	$('.pageContent').toggleClass("pageContentLeftMargin");
-	$('#eachFirstRowCard1').toggleClass("col-md-offset-1");
-	$('#eachFirstRowCard2').toggleClass("col-md-offset-1");
-	$('#eachFirstRowCard3').toggleClass("col-md-offset-1");
-});
+// $('#leftMenubarButton').click(function(){
+// 	$('#leftMenubar').toggle();
+// 	$('.pageContent').toggleClass("pageContentLeftMargin");
+// 	$('#eachFirstRowCard1').toggleClass("col-md-offset-1");
+// 	$('#eachFirstRowCard2').toggleClass("col-md-offset-1");
+// 	$('#eachFirstRowCard3').toggleClass("col-md-offset-1");
+// });
 
-$(window).resize(function(){
-	if ($(window).width() < 1250)
-	{
-		 $('#leftMenubar').hide();
-		 $('.pageContent').removeClass("pageContentLeftMargin");
-		 $('#eachFirstRowCard1').addClass("col-md-offset-1");
-		 $('#eachFirstRowCard2').addClass("col-md-offset-1");
-		 $('#eachFirstRowCard3').addClass("col-md-offset-1");
-	}
-	else{
-		$('#leftMenubar').show();
-		$('.pageContent').addClass("pageContentLeftMargin");
-		$('#eachFirstRowCard1').removeClass("col-md-offset-1");
-		$('#eachFirstRowCard2').removeClass("col-md-offset-1");
-		$('#eachFirstRowCard3').removeClass("col-md-offset-1");
-	}
- });
+// $(window).resize(function(){
+// 	if ($(window).width() < 1250)
+// 	{
+// 		 $('#leftMenubar').hide();
+// 		 $('.pageContent').removeClass("pageContentLeftMargin");
+// 		 $('#eachFirstRowCard1').addClass("col-md-offset-1");
+// 		 $('#eachFirstRowCard2').addClass("col-md-offset-1");
+// 		 $('#eachFirstRowCard3').addClass("col-md-offset-1");
+// 	}
+// 	else{
+// 		$('#leftMenubar').show();
+// 		$('.pageContent').addClass("pageContentLeftMargin");
+// 		$('#eachFirstRowCard1').removeClass("col-md-offset-1");
+// 		$('#eachFirstRowCard2').removeClass("col-md-offset-1");
+// 		$('#eachFirstRowCard3').removeClass("col-md-offset-1");
+// 	}
+//  });
 
 $("#loginButton").click(function(){
 	 console.log('asda');
