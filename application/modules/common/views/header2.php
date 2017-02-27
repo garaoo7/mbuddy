@@ -14,7 +14,7 @@
 <div class="container-fluid">
 	<div id="wrapper">
 		<div id="header">
-			<nav class="navbar navbar-fixed-top navbar-inverse"  role="navigation">
+			<nav class="navbar navbar-fixed-top navbar-inverse" style="background-color: rgb(25, 25, 25);"  role="navigation">
 				<!-- Brand and toggle get grouped for better mobile display -->
  				<div class="navbar-brand" id='leftMenubarButton' data-toggle="collapse" data-target="#leftMenubar"><span class="glyphicon glyphicon-menu-hamburger"></span></div>
 				<div class="navbar-header">
@@ -46,11 +46,11 @@
 						if($this->session->userdata('username')){
 							?><li><a id=postButton href="javascript:void(0)">Post</a></li><?php 
 						}?>
-						<li><a href="#">About</a></li>
+						<li><a href="#"><b>About</b></a></li>
 						<?php
 						if(!$this->session->userdata('username')) {
 							?>
-							<li><a href="javascript:void(0)" id='loginButton'>Log In/Sign Up</a></li> </ul>
+							<li><a href="javascript:void(0)" id='loginButton'><b>Log In/Sign Up</b></a></li> </ul>
 							<?php 
 							}  
 							else{?>
