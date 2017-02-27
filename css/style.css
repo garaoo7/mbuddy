@@ -17,7 +17,7 @@ body{
 
 /* On mouse-over, add a deeper shadow */
 .card:hover {
-    box-shadow: 0 8px 16px 0 rgb(0,0,0);
+    box-shadow: 0 4px 8px 0 rgb(0,0,0);
 }
 
 /* Add some padding inside the card container */
@@ -70,7 +70,7 @@ body{
     top: 51px;
     position: fixed;
     height: 100%;
-    background-color: rgb(40, 40, 40);
+    background-color: rgb(25, 25, 25);
     border-top: 1px solid rgb(200, 200, 200);
 }
 
