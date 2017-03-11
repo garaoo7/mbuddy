@@ -55,6 +55,8 @@ $route['translate_uri_dashes'] = FALSE;
 
 
 $route['nice'] = "listing/Listing_controller/index/$2";
-$route['watch/([0-9]+)'] = "listing/listing_controller/index/$1";
+//put exceptions for profile and errorPage below
+$route['([a-zA-Z-]+)/([0-9]+)'] = "listing/listing_controller/index/$2";
 $route['profile/([0-9]+)'] = "user_module/profile/index/$1";
 $route['upload/post'] = "post_module/posting/index";
+$route['errorPage'] = "common/error_page/error";

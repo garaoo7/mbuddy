@@ -7,6 +7,7 @@ class Listing {
 	private $ListingViews;
 	private $ListingLikes;
     private $ListingDislikes;
+    private $ListingSourceLink;
     private $ArtistObject;
     private $UserObject;
 
@@ -29,6 +30,10 @@ class Listing {
 
     public function getListingDislikes(){
         return $this->ListingDislikes;
+    }
+
+    public function getListingSourceLink(){
+        return $this->ListingSourceLink;
     }
 
     public function getArtistObject(){
