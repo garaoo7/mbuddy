@@ -31,7 +31,7 @@ class Listing_model extends MY_Model{
 		}
 
 		if(in_array('full',$sections)){
-			$this->dbHandle->select('ListingID, ListingTitle, ListingViews, ListingLikes, ListingDislikes, UserID');
+			$this->dbHandle->select('ListingID, ListingTitle, ListingViews, ListingLikes, ListingDislikes, ListingSourceLink, UserID');
 
 			$this->dbHandle->from('listing');
 
@@ -139,5 +139,23 @@ class Listing_model extends MY_Model{
 
 
 		return $arrayIds;
+	}
+
+	public function getListingTitle($listingId){
+		$this->_init('read');
+
+		$this->dbHandle->select('ListingTitle');
+		$this->dbHandle->from('listing');
+		$this->dbHandle->where('ListingID', $listingId);
+
+		$listingTitle = $this->dbHandle->get();
+		if($listingTitle->num_rows() > 0){
+			$listingTitle = $listingTitle->row();
+			return $listingTitle->ListingTitle;
+		}
+		else{
+			return false;
+		}
+		
 	}
 }

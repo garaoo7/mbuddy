@@ -12,7 +12,7 @@ class Postlib {
 	public function auto_complete($fieldName){
 		$nameColoumn = ucfirst($fieldName)."Name";
 		$idColoumn = ucfirst($fieldName)."ID";
-	    return self::$CI->post_model->autoSuggestion($nameColoumn, $fieldName, $nameColoumn);
+	    return self::$CI->post_model->autoSuggestion($nameColoumn, $fieldName, $idColoumn);
   	}
 
 }

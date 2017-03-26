@@ -56,6 +56,7 @@ class ListingRepository extends EntityRepository {
 		$listingObjectData['ListingViews'] 	= $listingData['listingData']['ListingViews'];
 		$listingObjectData['ListingLikes'] 	= $listingData['listingData']['ListingLikes'];
 		$listingObjectData['ListingDislikes']= $listingData['listingData']['ListingDislikes'];
+		$listingObjectData['ListingSourceLink']= $listingData['listingData']['ListingSourceLink'];
 		$listingObjectData['ArtistObject'] 	= $listingData['artistsObject'];
 		$listingObjectData['UserObject'] 	= $listingData['userObject'];
         $listingObject = new Listing();

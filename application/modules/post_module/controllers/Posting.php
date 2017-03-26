@@ -50,8 +50,8 @@ class Posting extends MX_Controller{
 	    $sectionInvalid 	= 	$this->input->post('sectionInvalid', TRUE);
 		$artist 			= 	$this->input->post('artist', TRUE);
 		$artistInvalid 		= 	$this->input->post('artistInvalid', TRUE);
-		$instruments 		= 	$this->input->post('instruments', TRUE);
-		$instrumentsInvalid	= 	$this->input->post('instrumentsInvalid', TRUE);
+		$instrument 		= 	$this->input->post('instrument', TRUE);
+		$instrumentInvalid	= 	$this->input->post('instrumentInvalid', TRUE);
 		$singer 			= 	$this->input->post('singer', TRUE);
 		$singerInvalid 		= 	$this->input->post('singerInvalid', TRUE);
 	    $composer 			= 	$this->input->post('composer', TRUE);
@@ -92,8 +92,8 @@ class Posting extends MX_Controller{
 		  		echo json_encode("Artist field can not be empty");
 		     	return false;
 		    }
-		    if(($instruments == null || $instruments == "") && ($instrumentsInvalid == null || $instrumentsInvalid == "")){
-		  		echo json_encode("Instruments field can not be empty");
+		    if(($instrument == null || $instrument == "") && ($instrumentInvalid == null || $instrumentInvalid == "")){
+		  		echo json_encode("Instrument field can not be empty");
 		     	return false;
 		    }
 		   if(($singer == null || $singer == "") && ($singerInvalid == null || $singerInvalid == "")){
@@ -123,12 +123,12 @@ class Posting extends MX_Controller{
 				$listingID  = $this->ticket_generator->generate_ticket_listing();
 				$userID 	= $this->session->userdata('userID');
 				$data = array();
-				$data['listingData'] 		= array(
-						'UserID'				=> $userID,
-						'ListingID' 			=> $listingID,
-						'ListingTitle'			=> $title,
-						'ListingDescription' 	=> $description,
-						'ListingSourceLink' 	=> $sourceLink,
+				$data['listingData'] 			= array(
+						'UserID'			=> $userID,
+						'ListingID' 		=> $listingID,
+						'ListingTitle'		=> $title,
+						'ListingDescription'=> $description,
+						'ListingSourceLink' => $sourceLink,
 					);
 	//queries should not be in a loop....insert multple entries at once in one query
 	//this all should be in model so that transaction can be applied
@@ -136,8 +136,8 @@ class Posting extends MX_Controller{
 	// user validation in controller (any one with the url can open the page for now)
 
 				foreach ((array)$language as $value){
-					$data['languageData'][] = array(
-						'LanguageIDa'			=> $value,
+					$data['languageData'][] 	= array(
+						'LanguageID'		=> $value,
 						'ListingID' 		=> $listingID
 						);
 				}
@@ -156,8 +156,8 @@ class Posting extends MX_Controller{
 						);
 				}
 
-				foreach ((array)$instruments as $value){
-					$data['instrumentsData'][] 	= array(
+				foreach ((array)$instrument as $value){
+					$data['instrumentData'][] 	= array(
 						'InstrumentID'		=> $value,
 						'ListingID' 		=> $listingID
 						);
@@ -203,7 +203,7 @@ class Posting extends MX_Controller{
 					'LanguageName' 			=> (implode( ", ", (array)$languageInvalid)),
 					'SectionName' 			=> (implode( ", ", (array)$sectionInvalid)),
 					'ArtistName'			=> (implode( ", ", (array)$artistInvalid)),
-					'InstrumentName'		=> (implode( ", ", (array)$instrumentsInvalid)),
+					'InstrumentName'		=> (implode( ", ", (array)$instrumentInvalid)),
 					'SingerName' 			=> (implode( ", ", (array)$singerInvalid)),
 					'ComposerName' 			=> (implode( ", ", (array)$composerInvalid)),
 					'WriterName' 			=> (implode( ", ", (array)$writerInvalid)),

@@ -45,25 +45,25 @@ class Post_model extends MY_Model{
 		$this->_init('write');
 		$this->dbHandle->trans_start();
 		$this->dbHandle->insert('listing', $data['listingData']);
-		$this->dbHandle->insert_batch('language', $data['languageData']);
-		$this->dbHandle->insert_batch('section', $data['sectionData']);
-		$this->dbHandle->insert_batch('artist', $data['artistData']);
-		$this->dbHandle->insert_batch('instruments', $data['instrumentsData']);
-		$this->dbHandle->insert_batch('singer', $data)['singerData'];
-		$this->dbHandle->insert_batch('composer', $data['composerData']);
-		$this->dbHandle->insert_batch('writer', $data['writerData']);
-		$this->dbHandle->insert_batch('producer', $data['producerData']);
-		$this->dbHandle->insert_batch('tag', $data['tagData']);
+		$this->dbHandle->insert_batch('listing_language_relation', $data['languageData']);
+		$this->dbHandle->insert_batch('listing_section_relation', $data['sectionData']);
+		$this->dbHandle->insert_batch('listing_artist_relation', $data['artistData']);
+		$this->dbHandle->insert_batch('listing_instrument_relation', $data['instrumentData']);
+		$this->dbHandle->insert_batch('listing_singer_relation', $data['singerData'])	;
+		$this->dbHandle->insert_batch('listing_composer_relation', $data['composerData']);
+		$this->dbHandle->insert_batch('listing_writer_relation', $data['writerData']);
+		$this->dbHandle->insert_batch('listing_producer_relation', $data['producerData']);
+		//$this->dbHandle->insert_batch('listing_tag_relation', $data['tagData']);
 		$this->dbHandle->insert('temporary_listing_data', $data['invalidData']);
 		$this->dbHandle->trans_complete();
 		return $this->dbHandle->trans_status();
 	}
 
   function autoSuggestion($coloumn2, $table, $coloumn1 = null){
-    //print_r($this->db);
-    if($coloumn1 == null){
-    	$coloumn1 = $coloumn2;
-    }
+    //** Check why coloumn1 is set to null by default followed by the below condition, i can't remember why i did it so i commented the below part:
+    // if($coloumn1 == null){
+    // 	$coloumn1 = $coloumn2;
+    // }
 	    $this->db->select($coloumn1);
 	    $this->db->select($coloumn2);
 	    $this->db->from($table);
