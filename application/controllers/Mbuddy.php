@@ -30,7 +30,9 @@ class Mbuddy extends MX_Controller {
         $offset = $this->input->post('offset');
         $listingIds = $this->listing_recommendations->get_more_listings($this->userValidation, $offset);
         $listingsObject = $this->ListingRepository->findMultiple($listingIds, array('live'), array('basic'));
-        echo json_encode($listingIds);
+        $displayData['listingsData'] = $listingsObject;
+        $data = $this->load->view('common/loadMoreTemp',$displayData, TRUE);
+        echo json_encode($data);
         return;
 
     }

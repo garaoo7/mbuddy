@@ -15,8 +15,8 @@ class Listing_recommendations_model extends MY_Model{
 
 
 	public function get_more_listings($userValidation, $offset){
-		if(!$userValidation)
-			return array();
+		// if(!$userValidation)
+		// 	return array();
 		$arrayID = array();
 		$this->_init('read');
 		$this->dbHandle->select('ListingID');
@@ -35,8 +35,8 @@ class Listing_recommendations_model extends MY_Model{
 	}
 
 	public function get_recent_listings($userValidation){
-		if(!$userValidation)
-			return array();
+		// if(!$userValidation)
+		// 	return array();
 		$arrayID = array();
 		$this->_init('read');
 		$this->dbHandle->select('ListingID');

@@ -184,8 +184,10 @@ function loadmore(){
 	 	 },
 	 	dataType: "json",
 	 	success: function(result){
-	 			$('#loadMore').append(result);
-	 			$('#resultParameters').val(+$('#resultParameters').val() + 1);
+	 			if(result){
+	 				$('#mainContent').append(result);
+	 				$('#resultParameters').val(+$('#resultParameters').val() + 1);
+	 			}
 	 		},
 	 	type: "POST"
  	});

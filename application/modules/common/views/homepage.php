@@ -3,7 +3,7 @@
   $headerComponents = array(
 							'css' => array("common/bootstrap.min.css", "style.css")
 							);
-  $this->load->view("common/header2", $headerComponents);
+  $this->load->view("common/header", $headerComponents);
   // $this->load->view("common/feedelement");
 ?>
 <div class="row" id="homepage">
@@ -11,7 +11,7 @@
 	<div class="col-md-10 col-md-offset-2">
 		<div class="row">
 			<div class="col-md-1"></div>
-			<div class="col-md-10">
+			<div class="col-md-10" id=mainContent>
 			<?php 	
 			// for ($i=4;$i>0;$i--){
 			foreach($listingsData as $listingData){
@@ -50,14 +50,12 @@
 				echo "</div>";
 			}
 			?>
-			<div id=loadMore></div>
 			</div>
 			<div align="center">
-				<input type="hidden" id="resultParameters" value="2">
+				<input type="hidden" id="resultParameters" value="3">
 				<input type="button" id="load" value="Load More Results">
 			</div>
 			
-			<!-- <input type="button" align="center" id="load" value="Load More Results"> -->
 			<div class="col-md-1"></div>
 		</div>
 	</div>
