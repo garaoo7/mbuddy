@@ -11,6 +11,11 @@ class Listing {
     private $ArtistObject;
     private $UserObject;
 
+    public function getListingUrl(){
+        $id     = $this->getListingID();
+        $text   = convertTextToUrl($this->getListingTitle());
+        return MBUDDY_HOME.$text."/".$id;
+    }
 
     public function getListingID(){
         return $this->ListingID;

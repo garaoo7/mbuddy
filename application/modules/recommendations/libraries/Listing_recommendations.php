@@ -15,4 +15,8 @@ class Listing_recommendations {
 	public function get_recent_listings($userValidation){
 		return	$this->listing_recommendations_model->get_recent_listings($userValidation);
 	}
+
+	public function get_more_listings($userValidation, $offset){
+		return	$this->listing_recommendations_model->get_more_listings($userValidation, $offset);
+	}
 }

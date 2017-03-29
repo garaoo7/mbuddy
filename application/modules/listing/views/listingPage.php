@@ -48,7 +48,9 @@
 	</div>
 	<div class="well col-md-4">
 		<h1>heya!!</h1>
-		<?php echo $listingData->getListingSourceLink();?>	
+		<?php    
+			echo getYoutubeVideoId($listingData->getListingSourceLink());
+		?>	
 	</div>
 </div>
 

@@ -174,6 +174,24 @@ function login(){
 		});
 }
 
+
+function loadmore(){
+	var offset = $('#resultParameters').val();
+	 $.ajax({
+	 	url: "http://localhost/mbuddy/index.php/mbuddy/get_more_listings/",
+	 	data: {
+	 		'offset' : offset
+	 	 },
+	 	dataType: "json",
+	 	success: function(result){
+	 			$('#loadMore').append(result);
+	 			$('#resultParameters').val(+$('#resultParameters').val() + 1);
+	 		},
+	 	type: "POST"
+ 	});
+}
+
+
 // function leftMenubar(){
 
 // 	$('leftMenubarButton').click(function(){
@@ -277,4 +295,8 @@ $("#signupButton").click(function(){
 	 postingPage();
 
   });
+
+	$("#load").unbind('click').click(function(){
+  		loadmore();
+ 	});
 });

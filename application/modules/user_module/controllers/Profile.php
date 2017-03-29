@@ -3,6 +3,7 @@
 class Profile extends MX_Controller{
 
 	public function __construct(){
+		die("main hu yahan");
 		$this->load->model("user_model");
 	}
 

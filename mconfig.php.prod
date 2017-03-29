@@ -1,0 +1,5 @@
+<?php
+
+
+define("MBUDDY_HOME",'http://www.mbuddy.com')
+?>
