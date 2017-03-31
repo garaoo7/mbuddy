@@ -16,7 +16,7 @@ class Listing_lib{
 		$listingData = false;
 		if(empty($listingId)){
 			return $listingData;
-		}
+		} 
 
 		if(in_array('artist', $sections) || in_array('full', $sections)){
 			$artistIds = $this->getRelatedIds($listingId, 'artist');
@@ -45,13 +45,13 @@ class Listing_lib{
 		return $listingData;
 	}
 
-	public function getMultipleListingsData($listingIds, $status = array('live'),$sections=array('basic')){
+	public function getMultipleListingsData($listingIds, $status = array('live'),$sections){
 		$listingsData = false;
 		if(empty($listingIds)){ //check for array also
 			return $listingsData;
 		}
 
-		if(in_array('basic', $sections) || in_array('full', $sections)){
+		if(in_array('basic', $sections)){
 
 			$listingsTempData = $this->listingModel->getMultipleListingsData($listingIds,$status,$sections);
 			//get userID from listing table and use it below
@@ -61,7 +61,6 @@ class Listing_lib{
 			$this->UserRepository = $this->UserBuilder->getUserRepository();
 			$userObjects = $this->UserRepository->findMultiple($userIds, $status, array('basic'));
 		}
-		//echo '<pre>'.print_r($userIds,TRUE).'</pre>';
 		foreach ($listingIds as $listingId) {
 			$listingsData[$listingId]['listingData'] = $listingsTempData[$listingId];
 			$listingsData[$listingId]['userObject'] = $userObjects[$listingsTempData[$listingId]['UserID']];

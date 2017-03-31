@@ -54,13 +54,13 @@ function postSubmit(){
 			artistInvalid.push($(this).text().trim());
 		});
 
-		var instruments          = [];
-		var instrumentsInvalid   = [];
-		$('#instruments').siblings('.simply-tags').children('.valid').each(function(){
-			instruments.push($(this).attr('data-key'));
+		var instrument          = [];
+		var instrumentInvalid   = [];
+		$('#instrument').siblings('.simply-tags').children('.valid').each(function(){
+			instrument.push($(this).attr('data-key'));
 		});
-		$('#instruments').siblings('.simply-tags').children('.invalid').each(function(){
-			instrumentsInvalid.push($(this).text().trim());
+		$('#instrument').siblings('.simply-tags').children('.invalid').each(function(){
+			instrumentInvalid.push($(this).text().trim());
 		});
 
 		var singer          = [];
@@ -111,7 +111,7 @@ function postSubmit(){
 //**make a common function for all these errors
 		function fieldErrors(selector, fieldName1, fieldName2 = null){
 			if((fieldName1 == null || fieldName1 == "") && (fieldName2 == null || fieldName2 == "")){
-				$('#titleError, #descriptionError, #sourceError, #lyricsError, #languageError, #sectionError, #artistError, #instrumentsError, #singerError, #composerError, #writerError, #producerError, #tagError').hide(100);
+				$('#titleError, #descriptionError, #sourceError, #lyricsError, #languageError, #sectionError, #artistError, #instrumentError, #singerError, #composerError, #writerError, #producerError, #tagError').hide(100);
 				$(selector).html('This input field can not be empty');
 				$(selector).show(500);
 				return false;
@@ -145,7 +145,7 @@ function postSubmit(){
 		if(!fieldErrors('#artistError', artist, artistInvalid)){
 			return false;
 		}
-		if(!fieldErrors('#instrumentsError', instruments, instrumentsInvalid)){
+		if(!fieldErrors('#instrumentError', instrument, instrumentInvalid)){
 			return false;
 		}
 		if(!fieldErrors('#singerError', singer, singerInvalid)){
@@ -192,7 +192,7 @@ function postSubmit(){
 // 			type: "POST"
 // 		});
 		if(!verifySourceLink('#source')){
-			$('#titleError, #descriptionError, #sourceError, #lyricsError, #languageError, #sectionError, #artistError, #instrumentsError, #singerError, #composerError, #writerError, #producerError, #tagError').hide(100);
+			$('#titleError, #descriptionError, #sourceError, #lyricsError, #languageError, #sectionError, #artistError, #instrumentError, #singerError, #composerError, #writerError, #producerError, #tagError').hide(100);
 			return false;
 		}
 //no ajax call for userLogin.........there will be a userValdation at backend.......if u want it on front end, try cookies or session
@@ -209,8 +209,8 @@ function postSubmit(){
 					'sectionInvalid'  	:   sectionInvalid,
 					'artist'          	:   artist,
 					'artistInvalid'   	:   artistInvalid,
-					'instruments'      	:   instruments,
-					'instrumentsInvalid':   instrumentsInvalid,
+					'instrument'      	:   instrument,
+					'instrumentInvalid':   instrumentInvalid,
 					'singer'          	:   singer,
 					'singerInvalid'   	:   singerInvalid,
 					'composer'        	:   composer,
@@ -226,20 +226,20 @@ function postSubmit(){
 				success: function(result){
 
 				 if(result == "true"){
-						$('#titleError, #descriptionError, #sourceError, #lyricsError, #languageError, #sectionError, #artistError, #instrumentsError, #singerError, #composerError, #writerError, #producerError, #tagError').hide(100);
-						$('#producerError').html('POST SUCCESSFULL, WILL BE UPLOADED AFTER VERIFICATION');
-						$('#producerError').show(500);
+						$('#titleError, #descriptionError, #sourceError, #lyricsError, #languageError, #sectionError, #artistError, #instrumentError, #singerError, #composerError, #writerError, #producerError, #tagError').hide(100);
+						$('#tagError').html('POST SUCCESSFULL, WILL BE UPLOADED AFTER VERIFICATION');
+						$('#tagError').show(500);
 					}
 
 					else if(result == "false"){
-						$('#titleError, #descriptionError, #sourceError, #lyricsError, #languageError, #sectionError, #artistError, #instrumentsError, #singerError, #composerError, #writerError, #producerError, #tagError').hide(100);
-						$('#producerError').html('SOME ERROR OCCURED, PLEASE TRY AGAIN');
-						$('#producerError').show(500);
+						$('#titleError, #descriptionError, #sourceError, #lyricsError, #languageError, #sectionError, #artistError, #instrumentError, #singerError, #composerError, #writerError, #producerError, #tagError').hide(100);
+						$('#tagError').html('SOME ERROR OCCURED, PLEASE TRY AGAIN');
+						$('#tagError').show(500);
 					}
 					else{
-						$('#titleError, #descriptionError, #sourceError, #lyricsError, #languageError, #sectionError, #artistError, #instrumentsError, #singerError, #composerError, #writerError, #producerError, #tagError').hide(100);
-						$('#producerError').html(result);
-						$('#producerError').show(500);
+						$('#titleError, #descriptionError, #sourceError, #lyricsError, #languageError, #sectionError, #artistError, #instrumentError, #singerError, #composerError, #writerError, #producerError, #tagError').hide(100);
+						$('#tagError').html(result);
+						$('#tagError').show(500);
 					}
 				},
 				type: "POST"
@@ -280,7 +280,7 @@ function verifySourceLink(id){
 		success: function(data){
 			if(data.result == "true"){
 				$(id+'Error').hide(500);
-				$(id + "Thumbnail").src=data.thumbnail;
+				$(id + "Thumbnail").attr('src', data.thumbnail);	
 				sourceVerified = true;
 			}
 			else{
@@ -311,7 +311,7 @@ $(document).ready(function(){
 	ajaxCall('language');
 	ajaxCall('section');
 	ajaxCall('artist');
-	ajaxCall('instruments');
+	ajaxCall('instrument');
 	ajaxCall('singer');
 	ajaxCall('composer');
 	ajaxCall('writer');

@@ -18,7 +18,7 @@ class Listing_model extends MY_Model{
 		$listingData = array();
 
 		if(in_array('basic',$sections)){
-			$this->dbHandle->select('ListingID, ListingTitle, ListingViews, UserID');
+			$this->dbHandle->select('ListingID, ListingTitle, ListingViews, ListingSourceLink, UserID');
 
 			$this->dbHandle->from('listing');
 
@@ -48,48 +48,23 @@ class Listing_model extends MY_Model{
 		return $listingData;
 	}
 
-	public function getMultipleListingsData($listingIds = array(),$status = array('live'),$sections=array('basic')){
+	public function getMultipleListingsData($listingIds = array(),$status = array('live'),$sections){
 
 		$this->_init('read');
 		$listingsData = array();
 
 		if(in_array('basic',$sections)){
-			$this->dbHandle->select('ListingID, ListingTitle, ListingViews, UserID');
-
-			$this->dbHandle->from('listing');
-
-			$this->dbHandle->where_in('ListingID',$listingId);
-
-			$this->dbHandle->where_in('Status',$status);
-
-			$listingResults = $this->dbHandle->get()->result_array();
-
-			foreach ($listingResults as $listingResult){
-				$listingsData[$listingResult['ListingID']]['ListingID'] = $listingResult['ListingID'];
-				$listingsData[$listingResult['ListingID']]['ListingTitle'] = $listingResult['ListingTitle'];
-				$listingsData[$listingResult['ListingID']]['ListingViews'] = $listingResult['ListingViews'];
-				$listingsData[$listingResult['ListingID']]['UserID'] = $listingResult['UserID'];
-			}
-		}
-
-		if(in_array('full',$sections)){
 			$this->dbHandle->select('ListingID, ListingTitle, ListingViews, ListingLikes, ListingDislikes, UserID');
 
 			$this->dbHandle->from('listing');
 
-			$this->dbHandle->where_in('ListingID',$listingId);
+			$this->dbHandle->where_in('ListingID',$listingIds);
 
 			$this->dbHandle->where_in('Status',$status);
-
-			// $listingss = $this->dbHandle->get();
-			// $listingResults = $listingss->result_array();
 			$listingResults = $this->dbHandle->get()->result_array();
-
-			// echo $this->dbHandle->last_query();
-			// die();
-
 			foreach ($listingResults as $listingResult){
 				$listingsData[$listingResult['ListingID']]['ListingID'] = $listingResult['ListingID'];
+				$listingsData[$listingResult['ListingID']]['ListingTitle'] = $listingResult['ListingTitle'];
 				$listingsData[$listingResult['ListingID']]['ListingViews'] = $listingResult['ListingViews'];
 				$listingsData[$listingResult['ListingID']]['ListingLikes'] = $listingResult['ListingLikes'];
 				$listingsData[$listingResult['ListingID']]['ListingDislikes'] = $listingResult['ListingDislikes'];

@@ -15,15 +15,17 @@ class ListingRepository extends EntityRepository {
 		}
 		$this->cacheLib = $this->CI->load->library("cache/cache_lib");
 		$this->caching = true;
+		$this->CI->load->config('listing/listingConfig');
 	}
 	
 	public function find($listingId = NULL, $status = array('live'),$sections=array('basic')){
-		//Contract::mustBeNumericValueGreaterThanZero($courseId,'Course ID'); //do not delete this
 		$ListingObject 	= false;
 		if(empty($listingId)){
             return $ListingObject;
 		}
-		//$this->_validateSections($sections);
+		Contract::mustBeNumericValueGreaterThanZero($listingId,'Course ID'); //do not delete this
+		
+		$this->_validateSections($sections);
 
 		if($this->caching){
 			// $listingObject = $this->cacheLib->getListingObject($listingId,$status,$sections);
@@ -36,12 +38,12 @@ class ListingRepository extends EntityRepository {
 
 
 	public function findMultiple($listingIds = array(), $status = array('live'),$sections=array('basic')){
-		//Contract::mustBeNumericValueGreaterThanZero($courseId,'Course ID'); //do not delete this
 		$listingObjects	= array();
-		if(empty($listingIds)){//check for array also
-            return $ListingObjects;
+		if(empty($listingIds)){
+			return $listingObjects;
 		}
-		// $this->_validateSections($sections);
+		Contract::mustBeNonEmptyArrayOfIntegerValues($listingIds,'Course IDs'); //do not delete this
+		$this->_validateSections($sections);
 		$listingsData = $this->listingLib->getMultipleListingsData($listingIds,$status,$sections);
 		$listingObjects = $this->_populateMultipleListingsObjects($listingsData, $listingIds);
 
@@ -73,6 +75,20 @@ class ListingRepository extends EntityRepository {
 			}
 		}
 		return $listingObjects;
+	}
+
+	private function _validateSections(&$sections){
+		global $listingSections;
+		_p($listingSections);
+		die;
+		if(in_array('full', $sections)){
+			$sections = $listingSections;
+		}
+		foreach ($sections as $key => $sectionName) {
+			if(!in_array($sectionName, $listingSections)){
+				unset($sections[$key]);
+			}
+		}
 	}
 
 }

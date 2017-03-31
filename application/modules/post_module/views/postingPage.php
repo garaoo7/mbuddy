@@ -89,9 +89,9 @@
     <div class="form-group">
       <div class="row">
         <div class="col-xs-8 col-sm-6 col-md-6 col-xs-offset-2 col-sm-offset-3 col-md-offset-3">
-          <label>Instruments:</label>
-          <div id="instruments"></div>
-          <div id="instrumentsError" hidden="true"></div>
+          <label>Instrument:</label>
+          <div id="instrument"></div>
+          <div id="instrumentError" hidden="true"></div>
         </div>
       </div>
     </div>
@@ -148,7 +148,7 @@
 
     <div align="center">
       <button id="listingFormSubmit" class="btn btn-default" name="submit" type="button">Submit</button>
-      <a href="<?php echo base_url("index.php/home_module/home/index") ?>" id="test3"><button type="button" class="btn btn-default">Home</button></a>
+      <a href="<?php echo base_url() ?>" id="test3"><button type="button" class="btn btn-default">Home</button></a>
     </div>
   </form>
 

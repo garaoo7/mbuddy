@@ -39,9 +39,9 @@
 			<div class="well col-md-12">
 				<h4>Artist: </h4>
 				<?php 
-					//foreach ($listingData->getArtistObject() as $value) {
-						//echo "<h5>".$value->getArtistName()."</h5>";
-					//}
+					foreach ($listingData->getArtistObject() as $value) {
+						echo "<h5>".$value->getArtistName()."</h5>";
+					}
 				?>
 			</div>
 		</div>
