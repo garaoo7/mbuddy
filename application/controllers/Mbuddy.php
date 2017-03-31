@@ -11,17 +11,15 @@ class Mbuddy extends MX_Controller {
 
 	}
     public function index(){
-        
         $recentListings = $this->get_recent_listings();
         $listingIds = array('130', '142');
-        // $listingIds = array();
-        $listingsObject = $this->ListingRepository->findMultiple($listingIds, array('live'), array('basic'));
+        $listingsObject = $this->ListingRepository->findMultiple($recentListings, array('live'), array('basic'));
         //echo "<br><br><br>";
         $displayData['listingsData'] = $listingsObject;
         $this->load->view('common/homepage',$displayData);//echo "<br>";echo "<br>";echo "<br>";
         // $this->load->view('common/homepage');
         //echo $listingsObject->getListingObject()[130]->getListingTitle();
-       // echo '<pre>'.print_r($listingsObject,TRUE).'</pre>';
+        //echo '<pre>'.print_r($listingsObject,TRUE).'</pre>';
     }
 
     public function get_recent_listings(){

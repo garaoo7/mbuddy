@@ -3,7 +3,7 @@
   $headerComponents = array(
 							'css' => array("common/bootstrap.min.css", "style.css")
 							);
-  $this->load->view("common/header2", $headerComponents);
+  $this->load->view("common/header", $headerComponents);
   // $this->load->view("common/feedelement");
 ?>
 <div class="pageContentListing">
@@ -48,7 +48,9 @@
 	</div>
 	<div class="well col-md-4">
 		<h1>heya!!</h1>
-		<?php echo $listingData->getListingSourceLink();?>	
+		<?php    
+			echo getYoutubeVideoId($listingData->getListingSourceLink());
+		?>	
 	</div>
 </div>
 

@@ -12,6 +12,7 @@ class Listing_controller extends MX_Controller{
 	}
 
 	public function index($listingId=142){
+		
 		//place checks listingid validation
 
 		$url = $this->listingUrl->getListingUrl($listingId);
@@ -22,9 +23,6 @@ class Listing_controller extends MX_Controller{
 			redirect(MBUDDY_HOME.$url);
 		}
 		else{
-
-			// echo "<br><br><br><br>";
-			// echo $listingId;
 			$this->load->builder('listing/Listing_builder');
 			$this->ListingBuilder = new Listing_builder();
 			$this->ListingRepository = $this->ListingBuilder->getListingRepository();
@@ -32,7 +30,7 @@ class Listing_controller extends MX_Controller{
 			$displayData['listingData'] = $listingObject;
 			$this->load->view('listingPage', $displayData);
 			
-			//echo "<br><br><br><br>";
+			echo "<br><br><br><br>";
 			//echo '<pre>'.print_r($listingObject,TRUE).'</pre>';
 		}
 

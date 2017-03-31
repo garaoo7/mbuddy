@@ -2,7 +2,7 @@
   $headerComponents = array(
                         'css' => array("common/bootstrap.min.css", "style.css", "common/simply-tag.css")
                       );
-  $this->load->view("common/header2", $headerComponents);
+  $this->load->view("common/header", $headerComponents);
  ?>
 
   <div class="row">

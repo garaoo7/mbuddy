@@ -61,13 +61,16 @@ class Listing_model extends MY_Model{
 			$this->dbHandle->where_in('ListingID',$listingIds);
 
 			$this->dbHandle->where_in('Status',$status);
+
 			$listingResults = $this->dbHandle->get()->result_array();
+
 			foreach ($listingResults as $listingResult){
 				$listingsData[$listingResult['ListingID']]['ListingID'] = $listingResult['ListingID'];
 				$listingsData[$listingResult['ListingID']]['ListingTitle'] = $listingResult['ListingTitle'];
 				$listingsData[$listingResult['ListingID']]['ListingViews'] = $listingResult['ListingViews'];
 				$listingsData[$listingResult['ListingID']]['ListingLikes'] = $listingResult['ListingLikes'];
 				$listingsData[$listingResult['ListingID']]['ListingDislikes'] = $listingResult['ListingDislikes'];
+				$listingsData[$listingResult['ListingID']]['ListingSourceLink'] = $listingResult['ListingSourceLink'];
 				$listingsData[$listingResult['ListingID']]['UserID'] = $listingResult['UserID'];
 				// $listingsData[$listingResult['ListingID']]['numRows'] = $listingss->num_rows();
 			}

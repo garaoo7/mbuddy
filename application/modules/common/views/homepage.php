@@ -3,7 +3,7 @@
   $headerComponents = array(
 							'css' => array("common/bootstrap.min.css", "style.css")
 							);
-  $this->load->view("common/header2", $headerComponents);
+  $this->load->view("common/header", $headerComponents);
   // $this->load->view("common/feedelement");
 ?>
 <div class="row" id="homepage">
@@ -11,35 +11,36 @@
 	<div class="col-md-10 col-md-offset-2">
 		<div class="row">
 			<div class="col-md-1"></div>
-			<div class="col-md-10">
+			<div class="col-md-10" id=mainContent>
 			<?php 	
-			for ($i=4;$i>0;$i--){
+			// for ($i=4;$i>0;$i--){
+			foreach($listingsData as $listingData){
 				echo "<div class='row'>";
 				for ($j=4;$j>0;$j--){ 
 					echo "<div class='col-md-3'>
 							<div align='center'>
 								<div align='left' class='card'>
 									<a href='";
-					$listingID = $listingsData[142]->getListingID();
-					echo base_url("index.php/watch/$listingID");
+					$listingID = $listingData->getListingID();
+					echo $listingData->getListingUrl();
 					echo "			'>
-										<img src='css/images/cards.jpg' id='cardImg'>
+										<img src='".getYoutubeVideoThumbnailUrl($listingData->getListingSourceLink(), "small")."' id='cardImg'>
 									</a>
 									<div class='container1'>
 										<a href='";
-					echo base_url("index.php/watch/$listingID");
+					echo $listingData->getListingUrl();
 					echo "				'>
 											<h5><b>";
-					echo $listingsData[142]->getListingTitle();
+					echo $listingData->getListingTitle();
 					echo "					</b></h5>
 										</a>
 									</div>
 									<div class='container2'>
 										<h6>";
-					echo $listingsData[142]->getUserObject()->getUsername();
+					echo $listingData->getUserObject()->getUsername();
 					echo "					<span class='glyphicon glyphicon-ok'></span></h6> 
 										<h6>";
-					echo $listingsData[142]->getListingViews();
+					echo $listingData->getListingViews();
 					echo "				 views</h6> 
 									</div>
 								</div>
@@ -50,6 +51,11 @@
 			}
 			?>
 			</div>
+			<div align="center">
+				<input type="hidden" id="resultParameters" value="3">
+				<input type="button" id="load" value="Load More Results">
+			</div>
+			
 			<div class="col-md-1"></div>
 		</div>
 	</div>
