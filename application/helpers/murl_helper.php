@@ -40,5 +40,5 @@ function getYoutubeVideoThumbnailUrl($sourceUrl, $size = "small"){
 }
 
 function show_error_page(){
-	redirect('index.php/common/error_page/error');
+	redirect(MBUDDY_HOME.'common/error_page/error');
 }

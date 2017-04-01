@@ -7,10 +7,14 @@ class Listing {
 	private $ListingViews;
 	private $ListingLikes;
     private $ListingDislikes;
+    private $ListingSourceId;
     private $ListingSourceLink;
     private $ArtistObject;
     private $UserObject;
-
+    private $ListingLeads;
+    private $ListingUploadDate;
+    private $ListingDescription;
+    private $ListingLyrics;
     public function getListingUrl(){
         $id     = $this->getListingID();
         $text   = convertTextToUrl($this->getListingTitle());
@@ -47,6 +51,19 @@ class Listing {
     
     public function getUserObject(){
         return $this->UserObject;
+    }
+
+    public function getListingLeads(){
+        return $this->ListingLeads;
+    }
+    public function getListingUploadDate(){
+        return $this->ListingUploadDate;
+    }
+    public function getListingSourceId(){
+        return $this->ListingSourceId;
+    }
+    public function getListingLyrics(){
+        return $this->ListingLyrics;
     }
 
 	public function __set($property,$value) {

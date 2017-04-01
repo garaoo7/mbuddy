@@ -26,8 +26,10 @@ class Listing_controller extends MX_Controller{
 			$this->load->builder('listing/Listing_builder');
 			$this->ListingBuilder = new Listing_builder();
 			$this->ListingRepository = $this->ListingBuilder->getListingRepository();
-			$listingObject = $this->ListingRepository->find($listingId, array('live'), array('full'));
+			$listingObject = $this->ListingRepository->find($listingId,array('full'));
 			$displayData['listingData'] = $listingObject;
+			// _p($displayData);
+			// die;
 			$this->load->view('listingPage', $displayData);
 			
 			echo "<br><br><br><br>";

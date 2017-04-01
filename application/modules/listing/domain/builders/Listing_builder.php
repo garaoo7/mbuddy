@@ -15,6 +15,7 @@ class Listing_builder{
 		self::$_ci->load->repository('ListingRepository','listing');
 		self::$_ci->load->model('listing/listing_model');
 		self::$_ci->load->library('listing/listing_lib');
+		self::$_ci->load->library('listing/listing_cache');
 	}
 	
 	
@@ -22,7 +23,8 @@ class Listing_builder{
 		self::initListingRepository();
 		$ListingModel = new listing_model();
 		$ListingLib   = new listing_lib($ListingModel);
-		return new ListingRepository($ListingModel,$ListingLib);
+		$ListingCache = new listing_cache();
+		return new ListingRepository($ListingModel,$ListingLib,$ListingCache);
 	
 	}
 }

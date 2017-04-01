@@ -2,5 +2,5 @@
 $config['test'] = 1;
 
 global $listingSections;
-$listingSections = array('basic','artist');
+$listingSections = array('basic','listingLeads','artists');
 ?>

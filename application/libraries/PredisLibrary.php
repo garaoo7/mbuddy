@@ -1,6 +1,6 @@
 <?php
     use Predis\Pipeline\Pipeline;
-class PredisLibrary{
+ class PredisLibrary{
         private $client;
         private $redisServerConfig;
         private $CI;
@@ -14,8 +14,8 @@ class PredisLibrary{
             $this->redisServerConfig = $this->CI->config->item('redis_server');
             //$this->enablePipeline = $this->CI->config->item('EnablePipeline');
             $this->enablePipeline = TRUE;
-            require_once APPPATH.'third_party/Predis/autoload.php';
-            Predis\Autoloader::register();
+            $path = str_replace('application/', '', APPPATH);
+            require_once $path.'vendor/autoload.php';
             $this->client = new Predis\Client(array(    'scheme'    => 'tcp',
                                                         'host'      => $this->redisServerConfig['host'],
                                                         'port'      => $this->redisServerConfig['port'],
@@ -27,10 +27,7 @@ class PredisLibrary{
         
         public static function getInstance(){
         	if(static::$predisLibrary === null){
-        		$s = microtime(true);
-                global $isMobileApp;
                 static::$predisLibrary = new PredisLibrary();
-                if((microtime(true)-$s) > 0.1) error_log("\n".date("d-m-y h:i:s")." Inside getInstance ".(microtime(true)-$s)." , Mobile : ".$isMobileApp, 3, '/tmp/perfLogs.log');
         	}
         	return static::$predisLibrary;
         }
@@ -485,6 +482,7 @@ class PredisLibrary{
 	        		}
 	        		$pipe->execute();
 	        	}else{
+
 	        		return $this->client->hmset($key, $members);
 	        	}
         	}
