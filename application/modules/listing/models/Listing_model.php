@@ -19,7 +19,6 @@ class Listing_model extends MY_Model{
 	}
 
 	public function getMultipleListingsData($listingIds = array(),$status = array('live')){
-		_p($listingIds);
 		$this->_init('read');
 		$listingsData = array();
 
@@ -114,7 +113,7 @@ class Listing_model extends MY_Model{
 		foreach ($result_array as $key => $value) {
 			$returnArray[$value['ListingID']][] = $value[ucwords($idKey).'ID'];
 		}
-		return $result_array;
+		return $returnArray;
 		// if($key == 'artist'){
 		// 	$this->dbHandle->select('ListingID,ArtistID');
 

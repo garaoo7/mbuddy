@@ -31,6 +31,7 @@ class ListingRepository extends EntityRepository {
 			return $listingObject;
 		}
 		$listingData = $this->listingLib->getSectionWiseListingData($listingId);
+		
 		if(!empty($listingData)){
 			$listingObject = $this->_populateListingObject($listingData,$sections);
 			if($this->caching){
