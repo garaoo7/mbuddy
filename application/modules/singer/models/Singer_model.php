@@ -12,61 +12,72 @@ class Singer_model extends MY_Model{
 		}
 	}
 
-	public function getSingerData($singerId,$status = array('live'),$sections= 'basic'){
+	public function getSingerData($singerId,$status = array('live')){
 
-		/*$this->_init('read');
-		
-		$this->dbHandle->select('ListingTitle,ListingViews');
-
-		$this->dbHandle->from('listing');
-
-		$this->dbHandle->where('ListingID',$listingId);
-
-		$this->dbHandle->where_in('Status',$status);
-
-		$listingData = $this->dbHandle->get()->result_array();
-		echo $this->dbHandle->last_query();
-		print_r($listingData);
-		return $listingData[0];
-		*/
-		//creating temp return data, data should be fetched according to above logic
-		$singerData['singerName'] = 'Papa';
-		$singerData['singerID'] = '1000';
-		return $singerData;
+		$singerId = array($singerId);
+		$data = $this->getMultipleSingersData($singerId);
+		return $data[current($singerId)];
 	}
 
-	public function getMultipleSingersData($singerIds = array(),$status = array('live'),$sections='basic'){
+	public function getMultipleSingersData($singerIds = array(),$status = array('live')){
 
 		$this->_init('read');
 		$singersData = array();
 
-		if($sections == 'basic'){
-		 	$this->dbHandle->select('SingerName, SingerID');
+		$this->dbHandle->select('	SingerID,
+								 	SingerName
+								'
+								);
 
-		 	$this->dbHandle->from('singer');
+		$this->dbHandle->from('singer');
 
-		 	$this->dbHandle->where_in('SingerID',$singerIds);
+		$this->dbHandle->where_in('SingerID',$singerIds);
 
-		 	$this->dbHandle->where_in('Status',$status);
+		$this->dbHandle->where_in('Status',$status);
 
-		// 	$this->dbHandle->join('user', 'user.UserID = listing.UserID');
 
-			$singerResults = $this->dbHandle->get()->result_array();
+		$singerResults 	= $this->dbHandle->get()->result_array();
+		$listingIds 	= $this->getRelatedListingIds($singerIds);
+		$returnArray    = array();
+		foreach ($singerResults as $key=>$singerData) {
+			$returnArray[$singerData['SingerID']]['basic'] = $singerData;
+			if($listingIds[$singerData['SingerID']]){
+				$returnArray[$singerData['SingerID']]['listings'] 		= $listingIds[$singerData['SingerID']];
+			}
+		}	
+		return $returnArray;
+	}
 
-		 	foreach ($singerResults as $singerResult){
-		 		$singersData[$singerResult['SingerID']]['SingerID'] = $singerResult['SingerID'];
-		 		$singersData[$singerResult['SingerID']]['SingerName'] = $singerResult['SingerName'];
-		 	}
+	public function getRelatedListingIds($singerIds){
+		$this->_init('read');
+
+		$this->dbHandle->select('SingerID, ListingID');
+		$this->dbHandle->from('listing_singer_relation');
+		$this->dbHandle->where_in('SingerID',$singerIds);
+		$result_array = $this->dbHandle->get()->result_array();
+		// _p($this->dbHandle->last_query());
+		$returnArray = array();
+		foreach ($result_array as $key => $value) {
+			$returnArray[$value['SingerID']][] = $value['ListingID'];
 		}
+		return $returnArray;
+	}
 
-		// echo $this->dbHandle->last_query();
-		// print_r($listingResults);
-		// return $listingData[0];
-		// foreach ($singerIds as $singerId) {
-		// 	$singersData[$singerId]['singerName'] = 'Papa';
-		// 	$singersData[$singerId]['singerID'] = '1000';
-		// }
-		//creating temp return data, data should be fetched according to above logic, query will be needed to get changed.
-		return $singersData;
+	public function getSingerName($singerId,$status='live'){
+		$this->_init('read');
+
+		$this->dbHandle->select('SingerName');
+		$this->dbHandle->from('singer');
+		$this->dbHandle->where('SingerID', $singerId);
+		$this->dbHandle->where('Status',$status);
+		$singerName = $this->dbHandle->get();
+		if($singerName->num_rows() > 0){
+			$singerName = $singerName->row();
+			return $singerName->SingerName;
+		}
+		else{
+			return false;
+		}
+		
 	}
 }

@@ -21,10 +21,10 @@ class Listing_builder{
 	
 	public static function getListingRepository(){
 		self::initListingRepository();
-		$ListingModel = new listing_model();
-		$ListingLib   = new listing_lib($ListingModel);
-		$ListingCache = new listing_cache();
-		return new ListingRepository($ListingModel,$ListingLib,$ListingCache);
+		$listingModel = new listing_model();
+		$listingLib   = new listing_lib($listingModel);
+		$listingCache = new listing_cache();
+		return new ListingRepository($listingModel,$listingLib,$listingCache);
 	
 	}
 }

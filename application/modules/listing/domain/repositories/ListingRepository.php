@@ -14,24 +14,25 @@ class ListingRepository extends EntityRepository {
 			$this->listingLib   = $listingLib;
 			$this->listingCache = $listingCache;
 		}
-		$this->caching = true;
+		$this->caching = false;
 		$this->CI->load->config('listing/listingConfig');
 	}
 	
 	public function find($listingId = NULL,$sections=array('basic')){
-		$ListingObject 	= false;
+		$listingObject 	= false;
 		if(empty($listingId)){
-            return $ListingObject;
+            return $listingObject;
 		}
 		Contract::mustBeNumericValueGreaterThanZero($listingId,'Course ID'); //do not delete this
 		
 		$this->_validateSections($sections);
 		if($this->caching && $dataFromCache = $this->listingCache->getListingObjectFromCache($listingId,$sections)){
 			$listingObject = $this->_populateListingObject($dataFromCache,$sections);
+			//_p($listingObject);
 			return $listingObject;
 		}
 		$listingData = $this->listingLib->getSectionWiseListingData($listingId);
-		
+
 		if(!empty($listingData)){
 			$listingObject = $this->_populateListingObject($listingData,$sections);
 			if($this->caching){
@@ -56,7 +57,7 @@ class ListingRepository extends EntityRepository {
 		$listingIdsFromCache 	= array_keys($dataFromCache);
 		$listingIdsFromDb 		= array_diff($listingIds,$listingIdsFromCache);
 		$listingsDataFromDb 	= $this->listingLib->getSectionWiseMultipleListingsData($listingIdsFromDb,$sections);
-		
+
 		if(!empty($dataFromCache)){
 			$listingObjectsFromCache  = $this->_populateMultipleListingsObjects($dataFromCache, $listingIdsFromCache,$sections);
 		}
@@ -67,38 +68,31 @@ class ListingRepository extends EntityRepository {
 				$this->listingCache->storeMultipleListingObject($listingIdsFromDb,$listingsDataFromDb);
 			}
 		}
+
 		$listingObjects  = (array)$listingObjectsFromCache + (array)$listingObjectsFromDB;
+
 		//echo '<pre>'.print_r($listingsData,TRUE).'</pre>';
         return $listingObjects;
 	}
 	private function _populateListingObject($listingData,$sections){
 		$listingObject = new Listing();
 		foreach ($listingData as $section => $sectionData) {
-			switch ($section) {
-				case 'basic':
-					$this->fillListingBasicdata($listingObject,$sectionData);
-					break;
-				case 'listingLeads':
-					$this->fillListingLeads($listingObject,$sectionData);
-					break;
-				case 'artists':
-					$this->fillListingArtists($listingObject,$sectionData);
-					break;
-				default:
-					break;
+			if(in_array($section, $sections)){
+				switch ($section) {
+					case 'basic':
+						$this->fillListingBasicdata($listingObject,$sectionData);
+						break;
+					case 'listingLeads':
+						$this->fillListingLeads($listingObject,$sectionData);
+						break;
+					case 'artists':
+						$this->fillListingArtists($listingObject,$sectionData);
+						break;
+					default:
+						break;
+				}
 			}
 		}
-		// // $listingObjectData 				   	= array();
-		// // $listingObjectData['ListingID'] 	= $listingData['listingData']['ListingID'];
-		// // $listingObjectData['ListingTitle'] 	= $listingData['listingData']['ListingTitle'];
-		// // $listingObjectData['ListingViews'] 	= $listingData['listingData']['ListingViews'];
-		// // $listingObjectData['ListingLikes'] 	= $listingData['listingData']['ListingLikes'];
-		// // $listingObjectData['ListingDislikes']= $listingData['listingData']['ListingDislikes'];
-		// // $listingObjectData['ListingSourceLink']= $listingData['listingData']['ListingSourceLink'];
-		// // $listingObjectData['ArtistObject'] 	= $listingData['artistsObject'];
-		// // $listingObjectData['UserObject'] 	= $listingData['userObject'];
-  // //       $listingObject = new Listing();
-  //       $this->fillObjectWithData($listingObject,$listingObjectData);
          //echo '<pre>'.print_r($listingData,TRUE).'</pre>';
         return $listingObject;
 	}
@@ -138,7 +132,24 @@ class ListingRepository extends EntityRepository {
 		$this->fillObjectWithData($listingObject,$sectionData);
 	}
 	private function fillListingLeads($listingObject,$sectionData){
-
+		$this->CI->load->builder('listing_leads/Leads_builder');
+		$this->LeadsBuilder = new Leads_builder();
+		$this->LeadsRepository = $this->LeadsBuilder->getLeadsRepository();
+		$singerObject = $this->LeadsRepository->findMultiple('singer',$sectionData['singerIds']);
+		unset($sectionData['singerIds']);
+		$writerObject = $this->LeadsRepository->findMultiple('writer',$sectionData['writerIds']);
+		unset($sectionData['writerIds']);
+		$composerObject = $this->LeadsRepository->findMultiple('composer',$sectionData['composerIds']);
+		unset($sectionData['composerIds']);
+		$producerObject = $this->LeadsRepository->findMultiple('producer',$sectionData['producerIds']);
+		unset($sectionData['producerIds']);
+		$sectionData['ListingLeads']['SingerObject'] = $singerObject;
+		$sectionData['ListingLeads']['WriterObject'] = $writerObject;
+		$sectionData['ListingLeads']['ComposerObject'] = $composerObject;
+		$sectionData['ListingLeads']['ProducerObject'] = $producerObject;
+		$this->fillObjectWithData($listingObject,$sectionData);
+		// _p($listingObject);
+		// die;
 	}
 	private function fillListingArtists($listingObject,$artistIds){
 		$this->CI->load->builder('artist/Artist_builder');

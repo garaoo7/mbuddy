@@ -52,29 +52,10 @@ class Listing_model extends MY_Model{
 				$returnArray[$listingData['ListingID']]['artists'] 		= $artistIds[$listingData['ListingID']];
 			}
 			if($listingLeads[$listingData['ListingID']]){
-				$returnArray[$listingData['ListingID']]['ListingLeads'] 	= $listingLeads[$listingData['ListingID']];
+				$returnArray[$listingData['ListingID']]['listingLeads'] 	= $listingLeads[$listingData['ListingID']];
 			}
 		}	
 		return $returnArray;
-		
-		// foreach ($listingResults as $listingResult){
-		// 	$listingsData[$listingResult['ListingID']]['ListingID'] 	= $listingResult['ListingID'];
-		// 	$listingsData[$listingResult['ListingID']]['ListingTitle'] 	= $listingResult['ListingTitle'];
-		// 	$listingsData[$listingResult['ListingID']]['ListingViews'] 	= $listingResult['ListingViews'];
-		// 	$listingsData[$listingResult['ListingID']]['ListingLikes'] 	= $listingResult['ListingLikes'];
-		// 	$listingsData[$listingResult['ListingID']]['ListingLikes'] 	= $listingResult['ListingLikes'];
-		// 	$listingsData[$listingResult['ListingID']]['ListingDislikes'] = $listingResult['ListingDislikes'];
-		// 	$listingsData[$listingResult['ListingID']]['ListingSourceLink'] = $listingResult['ListingSourceLink'];
-		// 	$listingsData[$listingResult['ListingID']]['UserID'] = $listingResult['UserID'];
-		// 	// $listingsData[$listingResult['ListingID']]['numRows'] = $listingss->num_rows();
-		// }
-
-		// echo $this->dbHandle->last_query();
-		// print_r($listingResults);
-		// return $listingData[0];
-		
-		//creating temp return data, data should be fetched according to above logic, query will be needed to get changed.
-		// return $listingsData;
 	}
 
 	public function getListingLeads($listingIds){
@@ -114,36 +95,6 @@ class Listing_model extends MY_Model{
 			$returnArray[$value['ListingID']][] = $value[ucwords($idKey).'ID'];
 		}
 		return $returnArray;
-		// if($key == 'artist'){
-		// 	$this->dbHandle->select('ListingID,ArtistID');
-
-		// 	$this->dbHandle->from('listing_artist_relation');
-
-		// 	$this->dbHandle->where_in('ListingID',$listingIds);
-
-		// 	$artistResults = $this->dbHandle->get()->result_array();
-		// 	foreach ($artistResults as $key=>$artistResult) {
-		// 		$artistResults[$artistResult['ListingID']][] = $artistResult['ArtistID'];
-		// 		unset($artistResults[$key]);
-		// 	}
-		// 	return $artistResults;
-		// }
-
-		// if($key == 'user'){
-		// 	$this->dbHandle->select('ListingID,UserID');
-
-		// 	$this->dbHandle->from('listing');
-
-		// 	$this->dbHandle->where_in('ListingID',$listingIds);
-
-		// 	$userResults = $this->dbHandle->get()->result_array();
-		// 	foreach ($userResults as $key=>$userResult) {
-		// 		$userResults[$userResult['ListingID']][] = $userResult['UserID'];
-		// 		unset($userResults[$key]);
-		// 	}
-		// 	return $userResults;
-		// }
-
 	}
 
 	public function getListingTitle($listingId,$status='live'){

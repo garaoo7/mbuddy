@@ -3,36 +3,35 @@
 class Singer_lib{
 
 	private $singerModel;
+	private $ci;
 // we might do call by reference for each input in each function below
 	public function __construct($singerModel){
 		if(!empty($singerModel)){
 			$this->singerModel = $singerModel;
 		}
+		$this->ci =& get_instance();
 	}
 
-	public function getSingerData($singerId, $status = array('live'),$sections=array('basic')){
+	public function getSectionWiseSingerData($singerId){
 		$singerData = false;
 		if(empty($singerId)){
 			return $singerData;
 		}
-		// $this->_validateSections($sections); //maybe
-		return $this->singerModel->getSingerData($singerId,$status);
+
+		return $this->singerModel->getSingerData($singerId);
 	}
 
-	public function getMultipleSingersData($singerIds, $status = array('live'),$sections='basic'){
+	public function getSectionWiseMultipleSingersData($singerIds,$sections){
 		$singersData = false;
-		if(empty($singerIds)){ //check for array also
+		if(empty($singerIds) || !is_array($singerIds) || count($singerIds)==0){ //
 			return $singersData;
 		}
-		// $this->_validateSections($sections); //maybe
-		// if($sections=='full' || $sections=='singer'){
-		// 	load user builder.
-		// 	get user repo.
-		// 	get singer data.
-		// }
-		// if($sections)
-		return $this->singerModel->getMultipleSingersData($singerIds,$status);
+
+		return $this->singerModel->getMultipleSingersData($singerIds);
 	}	
-	
+
+	public function getRelatedIds($singerIds, $key){
+		return $this->singerModel->getRelatedIds($singerIds, $key);
+	}
 }
 ?>

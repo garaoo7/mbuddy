@@ -15,6 +15,7 @@ class Singer_builder {
 		self::$_ci->load->repository('SingerRepository','singer');
 		self::$_ci->load->model('singer/singer_model');
 		self::$_ci->load->library('singer/singer_lib');
+		self::$_ci->load->library('singer/singer_cache');
 	}
 	
 	
@@ -22,6 +23,7 @@ class Singer_builder {
 		self::initSingerRepository();
 		$singerModel = new singer_model();
 		$singerLib   = new singer_lib($singerModel);
-		return new SingerRepository($singerModel,$singerLib);
+		$singerCache = new singer_cache();
+		return new SingerRepository($singerModel,$singerLib,$singerCache);
 	}
 }

@@ -49,15 +49,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'Mbuddy';
-$route['404_override'] = '';
-$route['translate_uri_dashes'] = FALSE;
+$route['default_controller'] 			= 'Mbuddy';
+$route['404_override'] 					= '';
+$route['translate_uri_dashes'] 			= FALSE;
 
 
-$route['nice'] = "listing/Listing_controller/index/$2";
+$route['nice'] 							= "listing/Listing_controller/index/$2";
 //put exceptions for profile and errorPage below
-$route['profile/([0-9]+)'] = "user_module/profile/index/$1";
-$route['([a-zA-Z-]+)/([0-9]+)'] = "listing/listing_controller/index/$2";
+$route['profile/([0-9]+)'] 				= "user_module/profile/index/$1";
+$route['singer/([a-zA-Z-]+)/([0-9]+)'] 	= "listing_leads/leads_controller/index/$0/$1/$2";
+$route['writer/([a-zA-Z-]+)/([0-9]+)'] 	= "listing_leads/leads_controller/index/$0/$1/$2";
+$route['composer/([a-zA-Z-]+)/([0-9]+)']= "listing_leads/leads_controller/index/$0/$1/$2";
+$route['producer/([a-zA-Z-]+)/([0-9]+)']= "listing_leads/leads_controller/index/$0/$1/$2";
+$route['([a-zA-Z-]+)/([0-9]+)'] 		= "listing/listing_controller/index/$2";
 
-$route['upload/post'] = "post_module/posting/index";
-$route['errorPage'] = "common/error_page/error";
+$route['upload/post'] 					= "post_module/posting/index";
+$route['errorPage'] 					= "common/error_page/error";

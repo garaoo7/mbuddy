@@ -178,7 +178,7 @@ function login(){
 function loadmore(){
 	var offset = $('#resultParameters').val();
 	 $.ajax({
-	 	url: "http://localhost/mbuddy/index.php/mbuddy/get_more_listings/",
+	 	url: MBUDDY_HOME + "listing/listing_controller/get_more_listings/",
 	 	data: {
 	 		'offset' : offset
 	 	 },

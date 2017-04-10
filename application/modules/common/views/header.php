@@ -243,3 +243,6 @@
 <div class='pageContent'>
 
 
+<script type="text/javascript">
+	var MBUDDY_HOME = '<?php echo MBUDDY_HOME?>';
+</script>

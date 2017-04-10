@@ -3,7 +3,7 @@
 class Mbuddy extends MX_Controller {
 	function __construct(){
 		parent::__construct();
-        	$this->load->library('recommendations/listing_recommendations');
+        $this->load->library('recommendations/listing_recommendations');
 		$this->load->builder('Listing_builder','listing');
 		$this->ListingBuilder = new Listing_builder();
 		$this->ListingRepository = $this->ListingBuilder->getListingRepository();
@@ -28,16 +28,6 @@ class Mbuddy extends MX_Controller {
 	   	return $this->listing_recommendations->get_recent_listings($this->userValidation);
     }
 
-    public function get_more_listings(){
-        $offset = $this->input->post('offset');
-        $listingIds = $this->listing_recommendations->get_more_listings($this->userValidation, $offset);
-        $listingsObject = $this->ListingRepository->findMultiple($listingIds, array('live'), array('basic'));
-        $displayData['listingsData'] = $listingsObject;
-        $data = $this->load->view('common/loadMoreTemp',$displayData, TRUE);
-        echo json_encode($data);
-        return;
-
-    }
 }
 
 ?>
