@@ -84,6 +84,7 @@ class UserRepository extends EntityRepository {
 		else if(in_array('fullInfo', $sections)){
 			$userObject = new UserFullInfo();
 		}
+
 		foreach ($userData as $section => $sectionData) {
 			if(in_array($section, $sections)){
 				switch ($section) {
@@ -96,8 +97,8 @@ class UserRepository extends EntityRepository {
 					case 'listings':
 						$this->fillUserListings($userObject,$sectionData);
 						break;
-					case 'tags':
-						//$this->fillUserTags($userObject,$sectionData);
+					case 'tagsFollowed':
+						$this->fillUserTagsFollowed($userObject,$sectionData);
 						break;
 					default:
 						break;
@@ -151,14 +152,14 @@ class UserRepository extends EntityRepository {
 		$this->fillObjectWithData($userObject,$sectionData);
 	}
 
-	// private function fillUserTags($userObject,$tagIds){
-	// 	$this->CI->load->builder('tag/tag_builder');
-	// 	$this->TagBuilder = new Tag_builder();
-	// 	$this->TagRepository = $this->TagBuilder->getTagRepository();
-	// 	$tagObject = $this->TagRepository->findMultiple($tagIds, array('basic'));
-	// 	$sectionData['TagObject'] = $tagObject;
-	// 	// _p($sectionData);
-	// 	// die;
-	// 	$this->fillObjectWithData($userObject,$sectionData);
-	// }
+	private function fillUserTagsFollowed($userObject,$tagIds){
+		$this->CI->load->builder('tag/Tag_builder');
+		$this->TagBuilder = new Tag_builder();
+		$this->TagRepository = $this->TagBuilder->getTagRepository();
+		$tagObject = $this->TagRepository->findMultiple($tagIds, array('basic'));
+		$sectionData['TagObject'] = $tagObject;
+		// _p($sectionData);
+		// die;
+		$this->fillObjectWithData($userObject,$sectionData);
+	}
 }

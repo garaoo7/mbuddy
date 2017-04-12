@@ -55,6 +55,7 @@ $route['translate_uri_dashes'] 			= FALSE;
 
 
 //put exceptions for profile and errorPage below
+$route['tag/([a-zA-Z-]+)/([0-9]+)'] 	= "tag/tag_controller/index/$2";
 $route['profile/([a-zA-Z-]+)/([0-9]+)'] = "user_module/profile/index/$2";
 $route['singer/([a-zA-Z-]+)/([0-9]+)'] 	= "listing_leads/leads_controller/index/$0/$1/$2";
 $route['writer/([a-zA-Z-]+)/([0-9]+)'] 	= "listing_leads/leads_controller/index/$0/$1/$2";

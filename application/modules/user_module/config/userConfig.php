@@ -2,5 +2,5 @@
 $config['test'] = 1;
 
 global $userSections;
-$userSections = array('basic','fullInfo','listings','tags');
+$userSections = array('basic','fullInfo','listings','tagsFollowed');
 ?>
