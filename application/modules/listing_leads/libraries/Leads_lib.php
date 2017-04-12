@@ -21,7 +21,7 @@ class Leads_lib{
 		return $this->leadsModel->getLeadData($lead,$leadId);
 	}
 
-	public function getSectionWiseMultipleLeadsData($lead,$leadIds,$sections){
+	public function getSectionWiseMultipleLeadsData($lead,$leadIds){
 		$leadsData = false;
 		if(empty($leadIds) || !is_array($leadIds) || count($leadIds)==0){ //
 			return $leadsData;

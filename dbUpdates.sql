@@ -14,3 +14,7 @@ ALTER TABLE listing_instrument_relation ADD FOREIGN KEY (ListingID) REFERENCES l
 
 ALTER TABLE `temporary_listing_data` ADD `TagName` VARCHAR(100) NULL DEFAULT NULL AFTER `ProducerName`;
 
+/* below queries are used on 12/04/17 */
+ALTER TABLE `tag` ADD FOREIGN KEY (`TagCreatedBy`) REFERENCES `user`(`UserID`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+ALTER TABLE `user` ADD FOREIGN KEY (`GroupID`) REFERENCES `user_groups`(`GroupID`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+

@@ -15,6 +15,7 @@ class Artist_builder {
 		self::$_ci->load->repository('ArtistRepository','artist');
 		self::$_ci->load->model('artist/artist_model');
 		self::$_ci->load->library('artist/artist_lib');
+		self::$_ci->load->library('artist/artist_cache');
 	}
 	
 	
@@ -22,6 +23,7 @@ class Artist_builder {
 		self::initArtistRepository();
 		$artistModel = new artist_model();
 		$artistLib   = new artist_lib($artistModel);
-		return new ArtistRepository($artistModel,$artistLib);
+		$artistCache = new artist_cache();
+		return new ArtistRepository($artistModel,$artistLib,$artistCache);
 	}
 }

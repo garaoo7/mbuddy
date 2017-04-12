@@ -14,25 +14,9 @@ class Artist_model extends MY_Model{
 
 	public function getArtistData($artistId,$status = array('live'),$sections=array('basic')){
 
-		/*$this->_init('read');
-		
-		$this->dbHandle->select('ListingTitle,ListingViews');
-
-		$this->dbHandle->from('listing');
-
-		$this->dbHandle->where('ListingID',$listingId);
-
-		$this->dbHandle->where_in('Status',$status);
-
-		$listingData = $this->dbHandle->get()->result_array();
-		echo $this->dbHandle->last_query();
-		print_r($listingData);
-		return $listingData[0];
-		*/
-		//creating temp return data, data should be fetched according to above logic
-		$artistData['artistName'] = 'Papa';
-		$artistData['artistID'] = '1000';
-		return $artistData;
+		$artistId = array($artistId);
+		$data = $this->getMultipleArtistsData($artistId);
+		return $data[current($artistId)];
 	}
 
 	public function getMultipleArtistsData($artistIds = array(),$status = array('live'),$sections = array('basic')){
@@ -40,7 +24,7 @@ class Artist_model extends MY_Model{
 		$this->_init('read');
 		$artistsData = array();
 
-		if(in_array('basic', $sections)){
+
 		 	$this->dbHandle->select('ArtistName, ArtistID');
 
 		 	$this->dbHandle->from('artist');
@@ -54,38 +38,9 @@ class Artist_model extends MY_Model{
 			$artistResults = $this->dbHandle->get()->result_array();
 
 		 	foreach ($artistResults as $artistResult){
-		 		$artistsData[$artistResult['ArtistID']]['ArtistID'] = $artistResult['ArtistID'];
-		 		$artistsData[$artistResult['ArtistID']]['ArtistName'] = $artistResult['ArtistName'];
+		 		$artistsData[$artistResult['ArtistID']]['basic'] = $artistResult;
 		 	}
-		}
 
-		// if($sections == 'full'){
-		//  	$this->dbHandle->select('ArtistName, artist.ArtistID, listing_artist_relation.listingID');
-
-		//  	$this->dbHandle->from('artist');
-
-		//  	$this->dbHandle->where_in('artist.ArtistID',$artistIds);
-
-		//  	$this->dbHandle->where_in('artist.Status',$status);
-
-		//  	$this->dbHandle->join('listing_artist_relation', 'listing_artist_relation.ArtistID = artist.ArtistID');
-
-		// 	$artistResults = $this->dbHandle->get()->result_array();
-
-		//  	foreach ($artistResults as $artistResult){
-		//  		$artistsData[$artistResult['ArtistID']]['ArtistID'] = $artistResult['ArtistID'];
-		//  		$artistsData[$artistResult['ArtistID']]['ArtistName'] = $artistResult['ArtistName'];
-		//  	}
-		// }
-
-		 //echo $this->dbHandle->last_query();
-		// print_r($artistResults);
-		// return $artistData[0];
-		// foreach ($artistIds as $artistId) {
-		// 	$artistsData[$artistId]['ArtistID'] = '1000';
-		// 	$artistsData[$artistId]['ArtistName'] = 'Papa';
-		// }
-		//creating temp return data, data should be fetched according to above logic, query will be needed to get changed.
 		return $artistsData;
 	}
 }

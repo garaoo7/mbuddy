@@ -21,7 +21,7 @@ class Listing_lib{
 		return $this->listingModel->getListingData($listingId);
 	}
 
-	public function getSectionWiseMultipleListingsData($listingIds,$sections){
+	public function getSectionWiseMultipleListingsData($listingIds){
 		$listingsData = array();
 		if(empty($listingIds) || !is_array($listingIds) || count($listingIds)==0){
 			return $listingData;

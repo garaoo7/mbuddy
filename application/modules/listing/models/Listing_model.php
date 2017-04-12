@@ -20,7 +20,6 @@ class Listing_model extends MY_Model{
 
 	public function getMultipleListingsData($listingIds = array(),$status = array('live')){
 		$this->_init('read');
-		$listingsData = array();
 
 		$this->dbHandle->select('	ListingID,
 								 	ListingTitle,
@@ -49,10 +48,10 @@ class Listing_model extends MY_Model{
 		foreach ($listingResults as $key=>$listingData) {
 			$returnArray[$listingData['ListingID']]['basic'] = $listingData;
 			if($artistIds[$listingData['ListingID']]){
-				$returnArray[$listingData['ListingID']]['artists'] 		= $artistIds[$listingData['ListingID']];
+				$returnArray[$listingData['ListingID']]['artists'] = $artistIds[$listingData['ListingID']];
 			}
 			if($listingLeads[$listingData['ListingID']]){
-				$returnArray[$listingData['ListingID']]['listingLeads'] 	= $listingLeads[$listingData['ListingID']];
+				$returnArray[$listingData['ListingID']]['listingLeads'] = $listingLeads[$listingData['ListingID']];
 			}
 		}	
 		return $returnArray;

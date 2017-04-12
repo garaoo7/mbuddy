@@ -38,7 +38,7 @@ class Leads_model extends MY_Model{
 		foreach ($leadResults as $key=>$leadData) {
 			$returnArray[$leadData[ucwords($lead).'ID']]['basic'] = $leadData;
 			if($listingIds[$leadData[ucwords($lead).'ID']]){
-				$returnArray[$leadData[ucwords($lead).'ID']]['listings'] 		= $listingIds[$leadData[ucwords($lead).'ID']];
+				$returnArray[$leadData[ucwords($lead).'ID']]['listings'] = $listingIds[$leadData[ucwords($lead).'ID']];
 			}
 		}	
 		return $returnArray;

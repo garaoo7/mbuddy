@@ -3,30 +3,32 @@
 class User_lib{
 
 	private $userModel;
-// we might do call by reference for each input in each function below
+	private $ci;
+// we might do all by reference for each input in each function below
 	public function __construct($userModel){
 		if(!empty($userModel)){
 			$this->userModel = $userModel;
 		}
+		$this->ci =& get_instance();
 	}
 
-	public function getUserData($userId, $status = array('live'),$sections=array('basic')){
+	public function getSectionWiseUserData($userId,$sections){
 		$userData = false;
 		if(empty($userId)){
 			return $userData;
 		}
-		// $this->_validateSections($sections); //maybe
-		return $this->userModel->getUserData($userId,$status,$sections);
+
+		return $this->userModel->getUserData($userId,$sections);
 	}
 
-	public function getMultipleUsersData($userIds, $status = array('live'),$sections=array('basic')){
-		$usersData = false;
-		if(empty($userIds)){ //check for array also
-			return $usersData;
+	public function getSectionWiseMultipleUsersData($userIds,$sections){
+		$usersData = array();
+		if(empty($userIds) || !is_array($userIds) || count($userIds)==0){
+			return $userData;
 		}
-
-		return $this->userModel->getMultipleUsersData($userIds,$status,$sections);
-	}	
+		
+		return $this->userModel->getMultipleUsersData($userIds,$sections);
+	}
 	
 }
 ?>

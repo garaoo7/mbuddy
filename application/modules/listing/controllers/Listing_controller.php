@@ -14,7 +14,7 @@ class Listing_controller extends MX_Controller{
 
 	}
 
-	public function index($listingId=142){
+	public function index($listingId=false){
 		
 		//place checks listingid validation
 		$url = $this->listingUrl->getListingUrl($listingId);
@@ -31,7 +31,7 @@ class Listing_controller extends MX_Controller{
 			// die;
 			$this->load->view('listingPage', $displayData);
 			
-			echo "<br><br><br><br>";
+			// echo "<br><br><br><br>";
 			//echo '<pre>'.print_r($listingObject,TRUE).'</pre>';
 		}
 

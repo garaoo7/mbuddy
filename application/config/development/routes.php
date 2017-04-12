@@ -54,9 +54,8 @@ $route['404_override'] 					= '';
 $route['translate_uri_dashes'] 			= FALSE;
 
 
-$route['nice'] 							= "listing/Listing_controller/index/$2";
 //put exceptions for profile and errorPage below
-$route['profile/([0-9]+)'] 				= "user_module/profile/index/$1";
+$route['profile/([a-zA-Z-]+)/([0-9]+)'] = "user_module/profile/index/$2";
 $route['singer/([a-zA-Z-]+)/([0-9]+)'] 	= "listing_leads/leads_controller/index/$0/$1/$2";
 $route['writer/([a-zA-Z-]+)/([0-9]+)'] 	= "listing_leads/leads_controller/index/$0/$1/$2";
 $route['composer/([a-zA-Z-]+)/([0-9]+)']= "listing_leads/leads_controller/index/$0/$1/$2";

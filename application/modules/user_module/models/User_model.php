@@ -132,53 +132,18 @@ class User_model extends MY_Model{
 // 		}
 // 		return;
 // 	}
-	public function getUserData($userId,$status = array('live'),$sections=array('basic')){
+	public function getUserData($userId,$sections=array('basic'),$status = array('live')){
 //used for domain
-		$this->_init('read');
-
-		if(in_array('basic', $sections)){
-			$this->dbHandle->select('UserID,Username,FirstName,LastName');
-
-			$this->dbHandle->from('user');
-
-			$this->dbHandle->where_in('UserID',$userId);
-
-			$this->dbHandle->where_in('Status',$status);
-
-			$userData = $this->dbHandle->get()->row_array();
-		}
-
-		else if(in_array('full', $sections)){
-			$this->dbHandle->select('UserID,Username,FirstName,LastName,DateOfBirth,Gender,Mobile,FollowersCount,FollowingCount,TagsCount,AboutMe,CityName,CountryName');
-
-			$this->dbHandle->from('user');
-
-			$this->dbHandle->where_in('UserID',$userId);
-
-			$this->dbHandle->where_in('user.Status',$status);
-
-			$this->dbHandle->join('city', 'city.CityID = user.CityID');
-
-			$this->dbHandle->join('country', 'country.CountryID = user.CountryID');
-
-			$userData = $this->dbHandle->get()->row_array();
-		}
-		//echo $this->dbHandle->last_query();
-		//print_r($userData);
-		return $userData;
-		
-		//creating temp return data, data should be fetched according to above logic
-		// $userData['Username'] = '1000';
-		// $userData['FirstName'] = 'Papa';
-		// $userData['LastName'] = '1000';
-		// return $userData;
+		$userId = array($userId);
+		$data = $this->getMultipleUsersData($userId,$sections);
+		return $data[current($userId)];
 	}
 
-	public function getMultipleUsersData($userIds = array(),$status = array('live'),$sections=array('basic')){
+	public function getMultipleUsersData($userIds = array(),$sections=array('basic'),$status = array('live')){
 //used for domain
 
 		$this->_init('read');
-		$usersData = array();
+		$returnArray    = array();
 
 		if(in_array('basic', $sections)){
 
@@ -192,19 +157,117 @@ class User_model extends MY_Model{
 
 			$userResults = $this->dbHandle->get()->result_array();
 
-			foreach ($userResults as $userResult){
-				$usersData[$userResult['UserID']]['UserID'] 	= $userResult['UserID'];
-				$usersData[$userResult['UserID']]['Username'] 	= $userResult['Username'];
-				$usersData[$userResult['UserID']]['FirstName'] 	= $userResult['FirstName'];
-				$usersData[$userResult['UserID']]['LastName'] 	= $userResult['LastName'];
-			}
+		 	foreach ($userResults as $userResult){
+		 		$returnArray[$userResult['UserID']]['basic'] = $userResult;
+		 	}
+		}
+
+		else if(in_array('fullInfo', $sections)){
+
+			$this->dbHandle->select('	UserID,
+										Username,
+										Email,
+										FirstName,
+										LastName,
+										DateOfBirth,
+										Gender,
+										Mobile,
+										FollowersCount,
+										FollowingCount,
+										TagsCount,
+										AboutMe,
+										Rating,
+										FacebookID,
+										GoogleID,
+										CityName,
+										CountryName,
+										ProfessionName,
+										GroupName
+									'
+									);
+
+			$this->dbHandle->from('user');
+
+			$this->dbHandle->where_in('UserID',$userIds);
+
+			$this->dbHandle->where_in('user.Status',$status);
+
+			$this->dbHandle->join('city', 'city.CityID = user.CityID');
+
+			$this->dbHandle->join('country', 'country.CountryID = user.CountryID');
+
+			$this->dbHandle->join('profession', 'profession.ProfessionID = user.ProfessionID');
+
+			$this->dbHandle->join('user_groups', 'user_groups.GroupID = user.GroupID');
+
+			$userResults	= $this->dbHandle->get()->result_array();
+			$listingIds 	= $this->getRelatedListingIds($userIds);
+			$tagsFollowedIds= $this->getRelatedTagsFollowedIds($userIds);
+
+	 	foreach ($userResults as $userResult){
+		 		$returnArray[$userResult['UserID']]['fullInfo'] = $userResult;
+		 		if($listingIds[$userResult['UserID']]){
+		 			$returnArray[$userResult['UserID']]['listings'] = $listingIds[$userResult['UserID']];
+		 		}
+		 		if($tagsFollowedIds[$userResult['UserID']]){
+		 			$returnArray[$userResult['UserID']]['tagsFollowed'] = $tagsFollowedIds[$userResult['UserID']];
+		 		}
+		 	}
 		}
 		// echo $this->dbHandle->last_query();
 		// print_r($userResults);
 		// return $userData[0];
 		
 		//creating temp return data, data should be fetched according to above logic, query will be needed to get changed.
-		return $usersData;
+		return $returnArray;
+	}
+
+	public function getRelatedListingIds($userIds){
+		$this->_init('read');
+
+		$this->dbHandle->select('UserID, ListingID');
+		$this->dbHandle->from('listing');
+		$this->dbHandle->where_in('UserID',$userIds);
+		$result_array = $this->dbHandle->get()->result_array();
+		// _p($this->dbHandle->last_query());
+		$returnArray = array();
+		foreach ($result_array as $key => $value) {
+			$returnArray[$value['UserID']][] = $value['ListingID'];
+		}
+		return $returnArray;
+	}
+
+	public function getRelatedTagsFollowedIds($userIds){
+		$this->_init('read');
+
+		$this->dbHandle->select('UserID, TagID');
+		$this->dbHandle->from('user_tag_relation');
+		$this->dbHandle->where_in('UserID',$userIds);
+		$result_array = $this->dbHandle->get()->result_array();
+		// _p($this->dbHandle->last_query());
+		$returnArray = array();
+		foreach ($result_array as $key => $value) {
+			$returnArray[$value['UserID']][] = $value['TagID'];
+		}
+		return $returnArray;
+	}
+
+	public function getUserName($userId,$status='live'){
+		$this->_init('read');
+
+		$this->dbHandle->select('Username');
+		$this->dbHandle->from('user');
+		$this->dbHandle->where('UserID', $userId);
+		$this->dbHandle->where('Status',$status);
+		$userName = $this->dbHandle->get();
+		if($userName->num_rows() > 0){
+			$userName = $userName->row();
+			return $userName->Username;
+		}
+		else{
+			return false;
+		}
+		
 	}
 }
 ?>

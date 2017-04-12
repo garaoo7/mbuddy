@@ -3,19 +3,30 @@
 class Profile extends MX_Controller{
 
 	public function __construct(){
-		die("main hu yahan");
-		$this->load->model("user_model");
-	}
-
-	public function index($userID = false){
-		//check the default value of userID
+		$this->load->library('user_module/user_url');
 		$this->load->builder('user_module/User_builder');
 		$this->UserBuilder = new User_builder();
 		$this->UserRepository = $this->UserBuilder->getUserRepository();
-		$userObject = $this->UserRepository->find($userId, array('live'), array('full'));
-		$displayData['userData'] = $userObject;
-		$this->load->view("profilePage", $displayData);
-		echo '<pre>'.print_r($userObject,TRUE).'</pre>';
+		$this->load->helper('url');
+		$this->userUrl = new user_url();
+	}
+
+	public function index($userId = false){
+		$url = $this->userUrl->getUserUrl($userId);
+		if($url == false){
+			show_error_page();
+		}
+		else if(getRelativeUrl() != $url){
+			redirect(MBUDDY_HOME.$url);
+		}
+		else{
+			$userObject = $this->UserRepository->find($userId,array('full'));
+			$displayData['userData'] = $userObject;
+			_p($userObject);
+			die;
+			$this->load->view('profilePage', $displayData);
+
+		}
 	}
 	
 }

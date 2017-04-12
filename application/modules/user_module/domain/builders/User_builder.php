@@ -11,10 +11,12 @@ class User_builder {
 	
 	public static function initUserRepository(){
 		self::init();
-		self::$_ci->load->entities(array('User'),'user_module');
+		$userArray = array('UserBasic','UserFullInfo');
+		self::$_ci->load->entities($userArray,'user_module');
 		self::$_ci->load->repository('UserRepository','user_module');
 		self::$_ci->load->model('user_module/user_model');
 		self::$_ci->load->library('user_module/user_lib');
+		self::$_ci->load->library('user_module/user_cache');
 	}
 	
 	
@@ -22,6 +24,7 @@ class User_builder {
 		self::initUserRepository();
 		$UserModel = new user_model();
 		$UserLib   = new user_lib($UserModel);
-		return new UserRepository($UserModel,$UserLib);
+		$userCache = new user_cache();
+		return new UserRepository($UserModel,$UserLib,$userCache);
 	}
 }

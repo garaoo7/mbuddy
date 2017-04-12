@@ -14,7 +14,7 @@ class LeadsRepository extends EntityRepository {
 			$this->leadsLib   = $leadsLib;
 			$this->leadsCache = $leadsCache;
 		}
-		$this->caching = false;
+		$this->caching = true;
 		$this->CI->load->config('listing_leads/leadsConfig');
 	}
 	
@@ -60,7 +60,7 @@ class LeadsRepository extends EntityRepository {
 			}
 			$leadIdsFromCache 	= array_keys($dataFromCache);
 			$leadIdsFromDb 		= array_diff($leadIds,$leadIdsFromCache);
-			$leadsDataFromDb 	= $this->leadsLib->getSectionWiseMultipleLeadsData($lead,$leadIdsFromDb,$sections);
+			$leadsDataFromDb 	= $this->leadsLib->getSectionWiseMultipleLeadsData($lead,$leadIdsFromDb);
 
 			if(!empty($dataFromCache)){
 				$leadObjectsFromCache  = $this->_populateMultipleLeadsObjects($lead,$dataFromCache, $leadIdsFromCache,$sections);
@@ -69,7 +69,7 @@ class LeadsRepository extends EntityRepository {
 			if(!empty($leadsDataFromDb)){
 				$leadObjectsFromDB = $this->_populateMultipleLeadsObjects($lead,$leadsDataFromDb, $leadIdsFromDb,$sections);
 				if($this->caching){
-					$this->leadCache->storeMultipleLeadObject($lead,$leadIdsFromDb,$leadsDataFromDb);
+					$this->leadsCache->storeMultipleLeadObject($lead,$leadIdsFromDb,$leadsDataFromDb);
 				}
 			}
 
@@ -151,7 +151,6 @@ class LeadsRepository extends EntityRepository {
 		// _p($sectionData);
 		// die;
 		$this->fillObjectWithData($leadObject,$sectionData);
-
 	}
 
 }

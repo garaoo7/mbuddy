@@ -1,13 +1,13 @@
 <?php
-class Singer_cache{
+class Artist_cache{
 	private $redisClient;
-	private $singerCacheKeyPrefix='singer';
+	private $artistCacheKeyPrefix='artist';
 	function __construct(){
 		$this->redisClient = PredisLibrary::getInstance();
 	}
 	
-	function getSingerObjectFromCache($singerId,$sections){
-		$key = $this->singerCacheKeyPrefix.$singerId;
+	function getArtistObjectFromCache($artistId,$sections){
+		$key = $this->artistCacheKeyPrefix.$artistId;
 		try{
 			$dataFromCache = $this->redisClient->getMembersOfHashByFieldNameWithValue($key,$sections);
 		}
@@ -24,30 +24,30 @@ class Singer_cache{
 		return $dataFromCache;	
 	}
 
-	function storeSingerObject($singerId,$singerData){
-		$key = $this->singerCacheKeyPrefix.$singerId;
-		foreach ($singerData as &$value) {
+	function storeArtistObject($artistId,$artistData){
+		$key = $this->artistCacheKeyPrefix.$artistId;
+		foreach ($artistData as &$value) {
 			$value = serialize($value);
 		}
 		try{
-			$this->redisClient->addMembersToHash($key,$singerData);
+			$this->redisClient->addMembersToHash($key,$artistData);
 		}
 		catch(Exception $e){
 
 		}
 	}
 
-	function storeMultipleSingerObject($singerIds,$singersData){
+	function storeMultipleArtistObject($artistIds,$artistsData){
 		try
 		{
-			foreach ($singerIds as $singerId) {
-				$key = $this->singerCacheKeyPrefix.$singerId;
-				if(!empty($singersData[$singerId])){
-					foreach ($singersData[$singerId] as &$value) {
+			foreach ($artistIds as $artistId) {
+				$key = $this->artistCacheKeyPrefix.$artistId;
+				if(!empty($artistsData[$artistId])){
+					foreach ($artistsData[$artistId] as &$value) {
 						$value = serialize($value);			
 					}
 
-					$this->redisClient->addMembersToHash($key,$singersData[$singerId],false,true);
+					$this->redisClient->addMembersToHash($key,$artistsData[$artistId],false,true);
 				}
 			}
 			$this->redisClient->executePipeLine();
@@ -56,11 +56,11 @@ class Singer_cache{
 
 		}
 	}
-	function getMultipleSingerObjectsFromCache($singerIds,$sections){
+	function getMultipleArtistObjectsFromCache($artistIds,$sections){
 		try
 		{
-			foreach ($singerIds as $singerId) {
-				$key = $this->singerCacheKeyPrefix.$singerId;
+			foreach ($artistIds as $artistId) {
+				$key = $this->artistCacheKeyPrefix.$artistId;
 				$dataFromCache = $this->redisClient->getMembersOfHashByFieldNameWithValue($key,$sections,TRUE);
 			}
 			$dataFromCache = $this->redisClient->executePipeLine();
@@ -81,7 +81,7 @@ class Singer_cache{
 		}
 		$returnArray = array();
 		foreach ($dataArray as $key => $value) {
-			$returnArray[$value['basic']['SingerID']] = $value;
+			$returnArray[$value['basic']['ArtistID']] = $value;
 		}
 		return $returnArray;
 		

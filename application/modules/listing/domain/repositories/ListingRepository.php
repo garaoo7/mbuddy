@@ -14,7 +14,7 @@ class ListingRepository extends EntityRepository {
 			$this->listingLib   = $listingLib;
 			$this->listingCache = $listingCache;
 		}
-		$this->caching = false;
+		$this->caching = true;
 		$this->CI->load->config('listing/listingConfig');
 	}
 	
@@ -56,7 +56,7 @@ class ListingRepository extends EntityRepository {
 		}
 		$listingIdsFromCache 	= array_keys($dataFromCache);
 		$listingIdsFromDb 		= array_diff($listingIds,$listingIdsFromCache);
-		$listingsDataFromDb 	= $this->listingLib->getSectionWiseMultipleListingsData($listingIdsFromDb,$sections);
+		$listingsDataFromDb 	= $this->listingLib->getSectionWiseMultipleListingsData($listingIdsFromDb);
 
 		if(!empty($dataFromCache)){
 			$listingObjectsFromCache  = $this->_populateMultipleListingsObjects($dataFromCache, $listingIdsFromCache,$sections);
@@ -131,6 +131,7 @@ class ListingRepository extends EntityRepository {
 		$sectionData['UserObject'] = $userObject;
 		$this->fillObjectWithData($listingObject,$sectionData);
 	}
+	
 	private function fillListingLeads($listingObject,$sectionData){
 		$this->CI->load->builder('listing_leads/Leads_builder');
 		$this->LeadsBuilder = new Leads_builder();

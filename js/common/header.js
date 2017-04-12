@@ -142,7 +142,7 @@ function login(){
 	 }
 
 		$.ajax({
-		  url: "http://localhost/mbuddy/index.php/user_module/login/login/",
+		  url: "http://localhost/iss/index.php/user_module/login/login/",
 		  data: {
 				'username' : username,
 				'password' : password

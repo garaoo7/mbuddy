@@ -3,36 +3,32 @@
 class Artist_lib{
 
 	private $artistModel;
-// we might do call by reference for each input in each function below
+	private $ci;
+// we might do all by reference for each input in each function below
 	public function __construct($artistModel){
 		if(!empty($artistModel)){
 			$this->artistModel = $artistModel;
 		}
+		$this->ci =& get_instance();
 	}
 
-	public function getArtistData($artistId, $status = array('live'),$sections=array('basic')){
+	public function getSectionWiseArtistData($artistId){
 		$artistData = false;
 		if(empty($artistId)){
 			return $artistData;
 		}
-		// $this->_validateSections($sections); //maybe
-		return $this->artistModel->getArtistData($artistId,$status);
+
+		return $this->artistModel->getArtistData($artistId);
 	}
 
-	public function getMultipleArtistsData($artistIds, $status = array('live'),$sections = array('basic')){
-		$artistsData = false;
-		if(empty($artistIds)){ //check for array also
-			return $artistsData;
+	public function getSectionWiseMultipleArtistsData($artistIds){
+		$artistsData = array();
+		if(empty($artistIds) || !is_array($artistIds) || count($artistIds)==0){
+			return $artistData;
 		}
-		// $this->_validateSections($sections); //maybe
-		// if($sections=='full' || $sections=='artist'){
-		// 	load user builder.
-		// 	get user repo.
-		// 	get artist data.
-		// }
-		// if($sections)
-		return $this->artistModel->getMultipleArtistsData($artistIds,$status,$sections);
-	}	
+		
+		return $this->artistModel->getMultipleArtistsData($artistIds);
+	}
 	
 }
 ?>
